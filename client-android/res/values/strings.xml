@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">Push Talk</string>
+    
+    <string name="btn_back">Back</string>
+    <string name="btn_close">Close</string>
+    
+    <string name="is_loading_please_wait">Loading</string>
+    
+</resources>

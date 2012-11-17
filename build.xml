@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project pushtalk-server with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="/Users/apple/Downloads/pushtalk-with-dependencies.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="org.pushtalk.server.JettyServer"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ commons-cli-1.2.jar commons-configuration-1.6.jar commons-lang-2.5.jar commons-logging-1.1.1.jar freemarker-2.3.19.jar gson-2.1.jar h2-1.3.167.jar jetty-all-8.1.4.jar log4j-1.2.16.jar servlet-api-3.0.jar slf4j-api-1.6.1.jar slf4j-log4j12-1.6.1.jar bonecp-0.7.1.RELEASE.jar jpush-api.jar junit.jar org.hamcrest.core_1.1.0.v20090501071000.jar guava-11.0.2.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="/Users/apple/kkgit/PushTalk/server-java/bin"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="commons-cli-1.2.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="commons-configuration-1.6.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="commons-lang-2.5.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="commons-logging-1.1.1.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="freemarker-2.3.19.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="gson-2.1.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="h2-1.3.167.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="jetty-all-8.1.4.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="log4j-1.2.16.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="servlet-api-3.0.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="slf4j-api-1.6.1.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="slf4j-log4j12-1.6.1.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="bonecp-0.7.1.RELEASE.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="jpush-api.jar"/>
+            <zipfileset dir="/Volumes/BOOTCAMP/Tools_more/indigo-jee/plugins/org.junit_4.8.2.v4_8_2_v20110321-1705" includes="junit.jar"/>
+            <zipfileset dir="/Volumes/BOOTCAMP/Tools_more/indigo-jee/plugins" includes="org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+            <zipfileset dir="/Users/apple/kkgit/PushTalk/server-java/libs" includes="guava-11.0.2.jar"/>
+        </jar>
+    </target>
+</project>

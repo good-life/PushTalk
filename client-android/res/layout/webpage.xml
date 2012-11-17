@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar" />
+    <WebView
+        android:id="@+id/webpage"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/title_bar" />
+    <Button
+        android:id="@+id/back_web_but"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignBottom="@id/webpage"
+        android:layout_marginBottom="30dip"
+        android:layout_marginLeft="15dip"
+        android:background="@drawable/web_back_but_selector" />
+    <LinearLayout 
+        android:id="@+id/web_wait_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+        <ProgressBar 
+	        android:id="@+id/web_wait_progress"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:textSize="16.5sp"
+            android:textColor="@color/global_default_color"
+            android:text="@string/is_loading_please_wait"/>
+    </LinearLayout>
+    
+</RelativeLayout>

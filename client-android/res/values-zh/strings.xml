@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">推聊</string>
+    
+    <string name="btn_back">返回</string>
+    <string name="btn_close">关闭</string>
+    
+    <string name="is_loading_please_wait">正在加载</string>
+    
+    
+</resources>

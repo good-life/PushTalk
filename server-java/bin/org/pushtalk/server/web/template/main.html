@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>推聊</title>
+<script type="text/javascript">
+var UDID;
+var CLIENT_OS;
+
+function urlParam(name) {
+    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (null == results) return "";
+    return results[1];
+}
+
+function init(){
+	CLIENT_OS = urlParam('os');
+	UDID = urlParam('udid');
+	
+	var debug = document.getElementById("debug");
+	debug.innerHTML = debug.innerHTML + "Your UDID/IMEI: " + UDID;
+}
+
+</script>
+</head>
+
+
+<body onload="init();">
+<script type="text/javascript">
+<#if channelCreated ?? || channelDeleted ??>
+pushtalk.channelUpdated();
+</#if>
+<#if usernameUpdated ??>
+pushtalk.usernameUpdated();
+</#if>
+</script>
+
+<#if info ??>
+<span style="color:blue;">${info}</span> <br/>
+</#if>
+<#if error ??>
+<span style="color:red;">${error}</span><br />
+</#if>
+
+<p>
+欢迎你：${user.name}！ 
+<a href="/user/changeName?udid=${udid}">改名</a>
+| <a href="/channel">全部频道</a>
+| <a href="/channel/new">新频道</a>
+</p>
+
+
+<h3>最近聊天</h3>
+<ul>
+<#list recentChats as chat>
+<#assign friend = chat.getChatFriend(user.name) >
+<#assign channelName = chat.getChatChannel() >
+<li>
+<a href="/chatting?channel_name=${channelName}&friend=${friend}">${chat.getChatTarget(channelName, friend)}</a>
+(${chat.unReadNumber})
+<#if chat.isToday() >
+${chat.lastUpdated?time?string.short}
+<#else>
+${chat.lastUpdated?date?string.short}
+</#if>
+</li>
+</#list>
+</ul>
+
+
+<h3>我的频道</h3>
+<ul>
+<#list myChannelList as channel>
+<li><a href="/chatting?channel_name=${channel.name}">${channel.name}</a></li>
+</#list>
+</ul>
+
+<hr />
+<div id="debug"></div>
+
+</body>
+</html>

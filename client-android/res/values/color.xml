@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="titleBright">#ff6600</color>
+	<color name="summary">#666666</color>
+	<color name="white">#ffffff</color>
+	<color name="black">#000000</color>
+	<color name="defult_bg_color_2">#FAFAFA</color>
+
+	<color name="textHint">#9095aa</color>
+	<color name="editText">#000000</color>
+	<color name="list_title_textColor">#53645e</color>
+
+	<color name="gray">#888888</color>
+	<color name="light_gray">#787878</color>
+	<color name="common_gray">#777777</color>
+	<color name="common_blue">#29A6E9</color>
+	<color name="red">#B22222</color>
+	<color name="standard_red">#FF0000</color>
+	
+	<color name="SlateGray">#708090</color>
+	<color name="main_tab_unselect">#919191</color>
+	<color name="main_tab_select">#ffffff</color>
+
+	<color name="transparent">#00ffffff</color>
+	
+	<color name="face_tab3_grid">#c3c3c3</color>
+	<color name="face_tab3_item_text">#646060</color>
+	<color name="list_background">#fafafa</color>
+	<color name="sex_male">#03a1eb</color>
+	<color name="sex_female">#e5007f</color>
+	<color name="updates_txt_color">#616161</color>
+	<color name="deep_gray">#778899</color>
+	<color name="filed_value_tx">#395587</color>
+	<color name="user_profile_filed_value">#676767</color>
+	<color name="profile_filed_title">#121212</color>
+	<color name="around_filter_condition_text">#3F3F3F</color>
+	
+	<color name="TextColorBlack">#FF000000</color>
+	<color name="TextColorWhite">#FFFFFFFF</color>
+	<color name="TextColorGray">#FF505050</color>
+	<color name="TextColorRed">#FFE26926</color>
+	<color name="define_dialog_but_color">#757575</color>
+	<color name="listview_head_bg">#d0d1d2</color>
+	
+	<color name="vip_expire_color">#9D9D9D</color>
+	<color name="global_default_color">#6B6B6B</color>
+	<color name="square_gray">#EBEBEB</color>
+	
+	<color name="media_menu_tx_color">#1E90FF</color>
+</resources>

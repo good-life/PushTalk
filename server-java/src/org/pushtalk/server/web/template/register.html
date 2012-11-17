@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<#if changeName ??>
+<#assign title = "修改用户名">
+<#assign btn = " 确认 ">
+<#else>
+<#assign title = "注册推聊">
+<#assign btn = " 注册 ">
+</#if>
+<title>${title}</title>
+</head>
+
+
+
+<body>
+<#if !changeName ??>
+<p>
+您还未注册用户！<br/>
+</p>
+</#if>
+
+输入您想要的用户名：
+<form action="/user/register" method="POST">
+<input type="text" name="username" />
+<input type="hidden" name="udid" value="${udid}" />
+<input type="submit" value="${btn}"></input>
+</form>
+
+
+</body>
+</html>

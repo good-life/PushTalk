@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:layout_width="wrap_content"
+   	android:layout_height="43dip"
+   	android:background="@drawable/title_bar_bg">
+   	<LinearLayout 
+   	    android:layout_width="wrap_content"
+    	android:layout_height="43dip"
+    	android:id="@+id/add_leftView"
+    	android:layout_alignParentLeft="true"
+    	android:layout_centerVertical="true"
+    	android:gravity="center">
+    </LinearLayout>
+    
+    <LinearLayout 
+    	android:layout_width="wrap_content"
+    	android:layout_height="43dip"
+    	android:id="@+id/add_rightView"
+    	android:layout_alignParentRight="true"
+    	android:layout_centerVertical="true"
+    	android:gravity="center">
+    </LinearLayout>
+    
+    <LinearLayout 
+    	android:layout_width="wrap_content"
+    	android:layout_height="fill_parent"
+    	android:id="@+id/add_centerView"
+    	android:layout_centerInParent="true"
+    	android:gravity="center">
+    	<LinearLayout 
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:gravity="center"
+    	    android:orientation="vertical">
+    	    <TextView
+	    		android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:textColor="#fff"
+			    android:singleLine="true"
+			    android:paddingLeft="10dip"
+			    android:ellipsize="end" 
+			    android:maxEms="8"
+			    android:id="@+id/view_title"
+			    android:textSize="19sp"/>
+    	    <TextView 
+    	        android:layout_width="wrap_content"
+    	        android:layout_height="wrap_content"
+    	        android:paddingLeft="10dip"
+    	        android:visibility="gone"
+    	        android:maxEms="13"
+    	        android:singleLine="true"
+    	        android:textColor="#fff"
+    	        android:id="@+id/city_details_dist"
+    	        android:textSize="12sp"/>
+    	</LinearLayout>
+    	<ImageView 
+    	    android:layout_width="wrap_content"
+    	    android:layout_marginLeft="5dp"
+    	    android:paddingRight="10dip"
+    	    android:layout_height="wrap_content"
+    	    android:src="@drawable/small_triangle"
+    	    android:id="@+id/small_triangle_imageview"
+    	    android:visibility="gone"/>
+   	</LinearLayout>
+</RelativeLayout>

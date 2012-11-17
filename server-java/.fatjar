@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Mon Nov 12 10:17:11 CST 2012
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=pushtalk-server_fat.jar
+manifest.mergeall=true
+manifest.mainclass=org.pushtalk.server.JettyServer
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
