@@ -48,8 +48,8 @@ pushtalk.usernameUpdated();
 <p>
 欢迎你：${user.name}！ 
 <a href="/user/changeName?udid=${udid}">改名</a>
-| <a href="/channel">全部频道</a>
 | <a href="/channel/new">新频道</a>
+| <a href="/channel">全部频道</a>
 </p>
 
 
@@ -58,7 +58,12 @@ pushtalk.usernameUpdated();
 <#list recentChats as chat>
 <li>
 <#assign chatting = chat.getChatTarget(user.name)>
-<a href="/chatting?chatting=${chatting}&isChannel=${chat.getIsChannel()}">${chatting}</a>
+<#if chat.isChannel()>
+<#assign chattingShow = '#' + chatting>
+<#else>
+<#assign chattingShow = '@' + chatting>
+</#if>
+<a href="/chatting?chatting=${chatting}&isChannel=${chat.getIsChannel()}">${chattingShow}</a>
 (${chat.unReadNumber})
 <#if chat.isToday() >
 ${chat.lastUpdated?time?string.short}
@@ -73,7 +78,7 @@ ${chat.lastUpdated?date?string.short}
 <h3>我的频道</h3>
 <ul>
 <#list myChannelList as channel>
-<li><a href="/chatting?chatting=${channel.name}&isChannel=true">${channel.name}</a></li>
+<li><a href="/chatting?chatting=${channel.name}&isChannel=true">#${channel.name}</a></li>
 </#list>
 </ul>
 
