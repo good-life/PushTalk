@@ -2,10 +2,10 @@ package org.pushtalk.android.service;
 
 import org.json.JSONObject;
 import org.pushtalk.android.Config;
+import org.pushtalk.android.Constants;
 import org.pushtalk.android.activity.WebPageActivity;
 import org.pushtalk.android.utils.AndroidUtil;
 import org.pushtalk.android.utils.Logger;
-import org.pushtalk.android.utils.StringUtils;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -38,27 +38,24 @@ public class TalkReceiver extends BroadcastReceiver {
             String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
             try {
                 JSONObject json = new JSONObject(extras);
-                channel = json.optString("channel");
+                channel = json.optString(Constants.KEY_CHANNEL);
             } catch (Exception e) {
                 Logger.w(TAG, "");
-            }
-            if (!StringUtils.isEmpty(channel)) {
-                title = title + " (" + channel + ")";
             }
             
             if (!Config.isBackground) {
                 Intent msgIntent = new Intent(WebPageActivity.MESSAGE_RECEIVED_ACTION);
-                msgIntent.putExtra("message", message);
-                msgIntent.putExtra("title", title);
+                msgIntent.putExtra(Constants.KEY_MESSAGE, message);
+                msgIntent.putExtra(Constants.KEY_TITLE, title);
                 if (null != channel) {
-                    msgIntent.putExtra("channel", channel);
+                    msgIntent.putExtra(Constants.KEY_CHANNEL, channel);
                 }
                 context.sendBroadcast(msgIntent);
                 Logger.v(TAG, "sending msg to ui ");
             }
             
             if (Config.IS_TEST_MODE) {
-                NotificationHelper.showMessageNotification(context, nm, title, message);
+                NotificationHelper.showMessageNotification(context, nm, title, message, channel);
             }
         
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {

@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.pushtalk.android.Config;
+import org.pushtalk.android.Constants;
+import org.pushtalk.android.Global;
 import org.pushtalk.android.R;
 import org.pushtalk.android.utils.HttpHelper;
 import org.pushtalk.android.utils.Logger;
@@ -25,6 +27,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
@@ -36,12 +39,9 @@ import cn.jpush.android.api.JPushInterface;
 public class WebPageActivity extends WebBaseActivity {
 	private static final String TAG = "WebPageActivity";
 	
-    public static final String MAIN = "/main";
-    
-	
     private TextView mTitleView;
     private Button backButton;
-    
+    private boolean isMainPage;
     
     public void setTitle(String pageTitle) {
     	mTitleView.setText(pageTitle);
@@ -51,11 +51,24 @@ public class WebPageActivity extends WebBaseActivity {
         backButton.setText(backButtonName);
     }
 
+    @Override
+    public void onPageFinished(String url) {
+        if (null != url) {
+            if (Global.isAccessMainPage(url)) {
+                isMainPage = true;
+            } else {
+                isMainPage = false;
+            }
+        }
+    }
+    
+
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        Logger.d(TAG, "onCreate");
+
         setContentView(R.layout.webpage);
         
         //设置返回键
@@ -70,7 +83,7 @@ public class WebPageActivity extends WebBaseActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
         	@Override
             public void onClick(View v) {
-        		if (mWebView.canGoBack()) {
+        		if (mWebView.canGoBack() && !isMainPage) {
         			mWebView.goBack();
         		} else {
         			finish();
@@ -95,15 +108,48 @@ public class WebPageActivity extends WebBaseActivity {
         
         mTitleView = ((TextView)findViewById(R.id.view_title));
         
-        String url = Config.HOST + MAIN;        
-        url = WebHelper.buildDefaultWebpageUrl(getApplicationContext(), url);
+        registerMessageReceiver();
+        
+        resetAliasAndTags();
+        
+        loadUrlWithWebView(getIntent(), true);
+    }
+    
+    private void loadUrlWithWebView(Intent intent, boolean newCreated) {
+        String url = null;
+        Bundle bundle = intent.getExtras();
+        if (null != bundle) {
+            String chatting = bundle.getString(Constants.KEY_CHATTING);
+            if (null != chatting) {
+                String path = null;
+                if (newCreated) {
+                    path = Constants.PATH_CHATTING;
+                } else {
+                    path = Constants.PATH_CHATTING;
+                }
+                
+                url = Global.getPathUrl(getApplicationContext(), path);
+                boolean isChannel = bundle.getBoolean(Constants.KEY_IS_CHANNEL);
+                url = WebHelper.attachParamsToUrl(url, 
+                        new String[] { Constants.KEY_CHATTING, chatting}, 
+                        new String[] { Constants.KEY_IS_CHANNEL, String.valueOf(isChannel)} );
+                
+            } else {
+                url = Global.getPathUrl(getApplicationContext(), null);
+            }
+        } else {
+            url = Global.getPathUrl(getApplicationContext(), null);
+        }
         
         Logger.i(TAG, "load url: " + url);
         mWebView.loadUrl(url);
-        
-        registerMessageReceiver();
     }
     
+    @Override
+    public void onNewIntent(Intent intent) {
+        Logger.d(TAG, "onNewIntent");
+        loadUrlWithWebView(intent, false);
+    }
     
     @Override
     public void onResume() {
@@ -139,6 +185,15 @@ public class WebPageActivity extends WebBaseActivity {
         super.onDestroy();
     }
     
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && (mWebView.canGoBack() && !isMainPage)) {
+            mWebView.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    
 	private MessageReceiver mMessageReceiver;
 	public void registerMessageReceiver() {
 	    mMessageReceiver = new MessageReceiver();
@@ -156,9 +211,9 @@ public class WebPageActivity extends WebBaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-                String title = intent.getStringExtra("title");
-                String message = intent.getStringExtra("message");
-                String channel = intent.getStringExtra("channel");
+                String title = intent.getStringExtra(Constants.KEY_TITLE);
+                String message = intent.getStringExtra(Constants.KEY_MESSAGE);
+                String channel = intent.getStringExtra(Constants.KEY_CHANNEL);
                 
                 String receivedMessage = "javascript:receivedMessage('"
                         + title + "', '" + message + "', '" + channel + "');";
@@ -236,6 +291,6 @@ public class WebPageActivity extends WebBaseActivity {
             }
         }
     };
-	
+
 
 }

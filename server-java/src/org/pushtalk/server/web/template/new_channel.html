@@ -7,14 +7,18 @@
 
 
 <body>
-
+频道名称：
 <form action="/channel/enter" method="POST">
 <input type="text" name="channel_name" />
 <input type="hidden" name="udid" value="${udid}" />
 <input type="submit" value="新建或者加入频道" />
 </form>
 
-<span>如果频道不存在，则新建频道；如果已经存在，则加入这个频道，并进入</span>
+<ul>
+<li>支持字母、数字、下划线、中文，长度限制为 20。</li>
+<li>如果频道不存在，则新建频道。</li>
+<li>如果已经存在，则加入这个频道，并进入。</li>
+</ul>
 
 </body>
 </html>

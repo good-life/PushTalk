@@ -3,8 +3,10 @@ package org.pushtalk.android.service;
 import java.util.zip.Adler32;
 
 import org.pushtalk.android.Config;
+import org.pushtalk.android.Constants;
 import org.pushtalk.android.R;
 import org.pushtalk.android.activity.WebPageActivity;
+import org.pushtalk.android.utils.StringUtils;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -18,19 +20,30 @@ public class NotificationHelper {
     @SuppressWarnings("deprecation")
     public static void showMessageNotification(
     		Context context, NotificationManager nm, 
-    		String friend, String msgContent) {
-    	
-        Notification notification = new Notification(R.drawable.ic_launcher, msgContent, System.currentTimeMillis());
-        
+    		String title, String msgContent, String channel) {
+
+        boolean isChannel = !StringUtils.isEmpty(channel);
+        String chatting = null;
+        if (isChannel) {
+            chatting = channel;
+        } else {
+            chatting = title;
+        }
+
         Intent select = new Intent();
         select.setClass(context, WebPageActivity.class);
-        select.putExtra("isFromNotification", true);
-        select.putExtra("friend", friend);
-        select.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        select.putExtra(Constants.KEY_CHATTING, chatting);
+        select.putExtra(Constants.KEY_IS_CHANNEL, isChannel);
+        select.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         
-        int notificationId = getNofiticationID(friend);
+        Notification notification = new Notification(R.drawable.ic_launcher, msgContent, System.currentTimeMillis());
+        if (!StringUtils.isEmpty(channel)) {
+            title = title + " (" + channel + ")";
+        }
+        
+        int notificationId = getNofiticationID(title);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, select, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.setLatestEventInfo(context, friend, msgContent, contentIntent);
+        notification.setLatestEventInfo(context, title, msgContent, contentIntent);
         
         showMessageNotificationLocal(context, nm, notification, notificationId);
     }

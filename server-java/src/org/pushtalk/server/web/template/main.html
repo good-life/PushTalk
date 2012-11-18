@@ -6,6 +6,8 @@
 <script type="text/javascript">
 var UDID;
 var CLIENT_OS;
+var HOST;
+var PATH_CHATTING = "/chatting";
 
 function urlParam(name) {
     var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -16,6 +18,7 @@ function urlParam(name) {
 function init(){
 	CLIENT_OS = urlParam('os');
 	UDID = urlParam('udid');
+	HOST = urlParam('host');
 	
 	var debug = document.getElementById("debug");
 	debug.innerHTML = debug.innerHTML + "Your UDID/IMEI: " + UDID;
@@ -53,10 +56,9 @@ pushtalk.usernameUpdated();
 <h3>最近聊天</h3>
 <ul>
 <#list recentChats as chat>
-<#assign friend = chat.getChatFriend(user.name) >
-<#assign channelName = chat.getChatChannel() >
 <li>
-<a href="/chatting?channel_name=${channelName}&friend=${friend}">${chat.getChatTarget(channelName, friend)}</a>
+<#assign chatting = chat.getChatTarget(user.name)>
+<a href="/chatting?chatting=${chatting}&isChannel=${chat.getIsChannel()}">${chatting}</a>
 (${chat.unReadNumber})
 <#if chat.isToday() >
 ${chat.lastUpdated?time?string.short}
@@ -71,7 +73,7 @@ ${chat.lastUpdated?date?string.short}
 <h3>我的频道</h3>
 <ul>
 <#list myChannelList as channel>
-<li><a href="/chatting?channel_name=${channel.name}">${channel.name}</a></li>
+<li><a href="/chatting?chatting=${channel.name}&isChannel=true">${channel.name}</a></li>
 </#list>
 </ul>
 

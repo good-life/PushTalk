@@ -1,20 +1,26 @@
 package org.pushtalk.android;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.pushtalk.android.web.WebHelper;
 
 import android.content.Context;
 
 public class Global {
-    private static Map<String, String> cachedMessages = new HashMap<String, String>();
-    
-    public static void newMessageWhenBackground(String friend, String channel, String message) {
-        cachedMessages.put(friend, message);
-    }
     
     
     public static String getLanguage(Context context){
         return context.getResources().getConfiguration().locale.toString();
     }
 
+    public static String getPathUrl(Context context, String path) {
+        if (null == path) path = Constants.PATH_MAIN;
+        String url = Config.HOST + path;
+        url = WebHelper.buildDefaultWebpageUrl(context.getApplicationContext(), url);
+        url = WebHelper.attachParamsToUrl(url, new String[] { Constants.KEY_HOST, Config.HOST });
+        return url;
+    }
+    
+    public static boolean isAccessMainPage(String url) {
+        if (null == url) return false;
+        return url.startsWith(Config.HOST + Constants.PATH_MAIN);
+    }
 }

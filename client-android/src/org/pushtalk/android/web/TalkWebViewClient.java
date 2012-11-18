@@ -2,6 +2,7 @@ package org.pushtalk.android.web;
 
 import java.lang.ref.WeakReference;
 
+import org.pushtalk.android.Global;
 import org.pushtalk.android.R;
 import org.pushtalk.android.activity.WebBaseActivity;
 import org.pushtalk.android.utils.DialogUtil;
@@ -63,12 +64,14 @@ public class TalkWebViewClient extends WebViewClient {
             if (!StringUtils.isEmpty(title)) {
         		mActivity.get().setTitle(title);
         	}
-            if (view.canGoBack()) {
+            if (view.canGoBack() && !Global.isAccessMainPage(url)) {
                 mActivity.get().setBackButtonName(mActivity.get().getString(R.string.btn_back));
             } else {
                 mActivity.get().setBackButtonName(mActivity.get().getString(R.string.btn_close));
             }
         }
+        
+        mActivity.get().onPageFinished(url);
         
         super.onPageFinished(view, url);
     }

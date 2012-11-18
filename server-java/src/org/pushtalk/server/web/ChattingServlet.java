@@ -33,15 +33,18 @@ public class ChattingServlet extends FreemarkerBaseServlet {
             return;
         }
         data.put("udid", udid);
-        
-        String channelName = request.getParameter("channel_name");
-        String friend = request.getParameter("friend");
-        if (StringUtils.isTrimedEmpty(channelName) && StringUtils.isTrimedEmpty(friend)) {
-            responseError(response, "channel_name/friend is required!");
+
+        String chatting = request.getParameter("chatting");
+        if (StringUtils.isTrimedEmpty(chatting)) {
+            responseError(response, "chatting (target) is required!");
             return;
         }
         
-        if (!StringUtils.isTrimedEmpty(channelName)) {
+        String isChannelStr = request.getParameter("isChannel");
+        boolean isChannel = Boolean.valueOf(isChannelStr);
+        
+        if (isChannel) {
+            String channelName = chatting;
             if (channelName.startsWith(ServiceUtils.CHANNEL_PREFIX)) {
                 channelName = channelName.substring(1, channelName.length() + 1);
             }
@@ -54,6 +57,10 @@ public class ChattingServlet extends FreemarkerBaseServlet {
     		data.put("channel", channel);
     		
         } else {
+            String friend = chatting;
+            if (friend.startsWith(ServiceUtils.USER_PREFIX)) {
+                friend = friend.substring(1, friend.length() + 1);
+            }
             User user = talkService.getUserByName(friend);
             if (null == user) {
                 responseError(response, "Unexpected: the friend does not exist - " + friend);

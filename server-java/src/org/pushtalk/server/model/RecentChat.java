@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.pushtalk.server.utils.ServiceUtils;
-import org.pushtalk.server.utils.StringUtils;
 
 public class RecentChat implements Comparable<RecentChat> {
 
@@ -40,33 +39,23 @@ public class RecentChat implements Comparable<RecentChat> {
         return (now.get(Calendar.DAY_OF_YEAR) == updated.get(Calendar.DAY_OF_YEAR));
     }
     
-    public String getChatChannel() {
-        if (chatting != null && isChannel) {
+    public String getChatTarget(String myName) {
+        if (isChannel) {
             return chatting.substring(1, chatting.length());
         }
-        return "";
-    }
-    
-    public String getChatFriend(final String myName) {
-        if (chatting != null && !isChannel) {
-            String friend = chatting.substring(1, chatting.length());
-            String[] array = friend.split(ServiceUtils.USER_PREFIX);
-            if (array[0].equals(myName)) {
-                friend = array[1];
-            } else {
-                friend = array[0];
-            }
-            return friend;
-        }
-        return "";
-    }
-    
-    public String getChatTarget(String channelName, String friend) {
-        if (!StringUtils.isTrimedEmpty(channelName)) {
-            return ServiceUtils.CHANNEL_PREFIX + channelName;
+        
+        String friend = chatting.substring(1, chatting.length());
+        String[] array = friend.split(ServiceUtils.USER_PREFIX);
+        if (array[0].equals(myName)) {
+            friend = array[1];
         } else {
-            return ServiceUtils.USER_PREFIX + friend;
+            friend = array[0];
         }
+        return friend;
+    }
+    
+    public String getIsChannel() {
+        return String.valueOf(isChannel);
     }
     
     @Override

@@ -11,6 +11,7 @@ public abstract class WebBaseActivity extends InstrumentedActivity {
 	
 	public abstract void setBackButtonName(String backButtonName);
 	
+	public abstract void onPageFinished(String url);
 	
     @Override
     protected void onDestroy() {
