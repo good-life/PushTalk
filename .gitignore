@@ -1,3 +1,8 @@
+gen/
+bin/
+classes/
+.settings/
+
 *.class
 
 # Package Files #
