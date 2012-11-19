@@ -110,7 +110,7 @@ public class WebPageActivity extends WebBaseActivity {
         
         registerMessageReceiver();
         
-        resetAliasAndTags();
+        newThreadToReset();
         
         loadUrlWithWebView(getIntent(), true);
     }
