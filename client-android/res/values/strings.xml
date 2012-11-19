@@ -1,10 +1,15 @@
 <resources>
 
     <string name="app_name">Push Talk</string>
-    
     <string name="btn_back">Back</string>
     <string name="btn_close">Close</string>
-    
     <string name="is_loading_please_wait">Loading</string>
-    
+    <string name="title_activity_server_conf">ServerConfigure</string>
+    <string name="btn_conf">Server</string>
+    <string name="server_name">服务器名称:</string>
+    <string name="server_host">主机/IP名:</string>
+    <string name="server_port">端口号:</string>
+    <string name="btn_add">增加</string>
+    <string name="prompt_server">请选择服务器</string>
+
 </resources>
