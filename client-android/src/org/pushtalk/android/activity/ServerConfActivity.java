@@ -132,6 +132,8 @@ public class ServerConfActivity extends Activity {
 		String serverKeyName = serverList.get(position);
 		if(position > 0 && data.containsKey(serverKeyName)){
 			 serverAddress = data.get(serverKeyName).toString();
+		}else{
+			serverAddress = Config.serverList.get(serverKeyName);
 		}
 		return serverAddress;
 	}
