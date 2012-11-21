@@ -269,7 +269,14 @@ public class WebPageActivity extends WebBaseActivity {
 		try {
 			JSONObject json = new JSONObject(userInfo);
 			String username = json.optString("username");
-			Config.myName = username;
+			if (null != username) {
+			    String[] s = username.split("_");
+			    if (s.length > 1) {
+			        Config.myName = s[0];
+			    } else {
+			        Logger.w(TAG, "Unexpected: failed to get myName.");
+			    }
+			}
 
 			JSONArray array = json.getJSONArray("channels");
 			int size = array.length();

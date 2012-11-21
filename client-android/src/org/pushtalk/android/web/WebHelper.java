@@ -22,7 +22,7 @@ public class WebHelper {
         return attachParamsToUrl(originalWebappUrl, 
             new String[]{"lang", Global.getLanguage(context) }, 
             new String[]{"clientVersion", "" + Config.VERSION }, 
-            new String[]{"udid", "" + AndroidUtil.getImei(context) }, 
+            new String[]{"udid", "" + AndroidUtil.getUdid(context) }, 
             new String[]{"osVersion", Build.VERSION.SDK_INT + ""},
             new String[]{"os", "android"});
 	}

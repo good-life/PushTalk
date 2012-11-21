@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
-public class BasePreferenceManager {
+public class MyPreferenceManager {
 
     private static SharedPreferences mSharedPreferences = null;
     private static Editor mEditor = null;
