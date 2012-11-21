@@ -1,5 +1,6 @@
 package org.pushtalk.android.service;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.pushtalk.android.Config;
 import org.pushtalk.android.Constants;
@@ -50,6 +51,16 @@ public class TalkReceiver extends BroadcastReceiver {
                 if (null != channel) {
                     msgIntent.putExtra(Constants.KEY_CHANNEL, channel);
                 }
+                
+                JSONObject all = new JSONObject();
+                try {
+                    all.put(Constants.KEY_TITLE, title);
+                    all.put(Constants.KEY_MESSAGE, message);
+                    all.put(Constants.KEY_EXTRAS, extras);
+                } catch (JSONException e) {
+                }
+                msgIntent.putExtra("all", all.toString());
+                
                 context.sendBroadcast(msgIntent);
                 Logger.v(TAG, "sending msg to ui ");
             }

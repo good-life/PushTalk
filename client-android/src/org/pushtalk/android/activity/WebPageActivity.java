@@ -236,12 +236,14 @@ public class WebPageActivity extends WebBaseActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-				String title = intent.getStringExtra(Constants.KEY_TITLE);
-				String message = intent.getStringExtra(Constants.KEY_MESSAGE);
-				String channel = intent.getStringExtra(Constants.KEY_CHANNEL);
-
-				String receivedMessage = "javascript:receivedMessage('" + title
-						+ "', '" + message + "', '" + channel + "');";
+//                String title = intent.getStringExtra(Constants.KEY_TITLE);
+//                String message = intent.getStringExtra(Constants.KEY_MESSAGE);
+//                String channel = intent.getStringExtra(Constants.KEY_CHANNEL);
+//				String receivedMessage = "javascript:receivedMessage('" + title
+//						+ "', '" + message + "', '" + channel + "');";
+			    
+                String all = intent.getStringExtra(Constants.KEY_ALL);
+				String receivedMessage = "javascript:receivedMessage('" + all + "')";
 				mWebView.loadUrl(receivedMessage);
 			}
 		}
