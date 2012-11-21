@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Spinner
+        android:id="@+id/server_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/server_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/server_list"
+        android:layout_marginTop="150dp"
+        android:text="@string/server_name" />
+
+    <EditText
+        android:id="@+id/server_name_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/server_name_label"
+        android:layout_alignBottom="@+id/server_name_label"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/server_name_label"
+        android:inputType="text"
+        android:ems="10"  />
+    
+    <TextView
+        android:id="@+id/server_host_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/server_name_field"
+        android:layout_marginTop="30dp"
+        android:text="@string/server_host" />
+
+    <EditText
+        android:id="@+id/server_host_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/server_host_label"
+        android:layout_alignBottom="@+id/server_host_label"
+        android:layout_marginLeft="19dp"
+        android:layout_toRightOf="@+id/server_host_label"
+        android:inputType="text"
+        android:ems="10"  />
+    
+    <TextView
+        android:id="@+id/server_port_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/server_host_field"
+        android:layout_marginTop="30dp"
+        android:text="@string/server_port" />
+
+    <EditText
+        android:id="@+id/server_port_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/server_port_label"
+        android:layout_alignBottom="@+id/server_port_label"
+        android:layout_marginLeft="37dp"
+        android:layout_toRightOf="@+id/server_port_label"
+        android:inputType="number"
+        android:ems="10"  />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/server_port_field"
+        android:layout_below="@+id/server_port_field"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="27dp"
+        android:text="@string/btn_add" />
+
+</RelativeLayout>

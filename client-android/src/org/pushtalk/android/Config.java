@@ -1,5 +1,6 @@
 package org.pushtalk.android;
 
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 public class Config {
@@ -21,6 +22,11 @@ public class Config {
     public static Set<String> myChannels;
     
     public static boolean isBackground = true;
+    
+    public static final LinkedHashMap<String, String> serverList = new LinkedHashMap<String, String>(){{
+        put("请选择...", "");
+        put("jpush free", HOST);
+    }};
 
 }
 

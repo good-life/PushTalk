@@ -11,9 +11,9 @@ public class Global {
         return context.getResources().getConfiguration().locale.toString();
     }
 
-    public static String getPathUrl(Context context, String path) {
+    public static String getPathUrl(Context context, String path, String host) {
         if (null == path) path = Constants.PATH_MAIN;
-        String url = Config.HOST + path;
+        String url = host + path;
         url = WebHelper.buildDefaultWebpageUrl(context.getApplicationContext(), url);
         url = WebHelper.attachParamsToUrl(url, new String[] { Constants.KEY_HOST, Config.HOST });
         return url;
