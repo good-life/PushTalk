@@ -6,6 +6,15 @@
     <string name="btn_close">关闭</string>
     
     <string name="is_loading_please_wait">正在加载</string>
-    
-    
+    <string name="title_activity_server_conf">ServerConfigure</string>
+    <string name="btn_conf">Server</string>
+    <string name="server_name">服务器名称:</string>
+    <string name="server_host">主机/IP名:</string>
+    <string name="server_port">端口号:</string>
+    <string name="btn_add">增加</string>
+    <string name="settings">设置</string>
+    <string name="prompt_server">请选择服务器</string>
+    <string name="server_settings">服务器设置</string>
+    <string name="comfirm">确定</string>
+    <string name="server_url_null_alert">对不起！服务器连接地址为空，请重新选择或添加</string>
 </resources>

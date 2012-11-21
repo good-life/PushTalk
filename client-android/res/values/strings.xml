@@ -6,10 +6,13 @@
     <string name="is_loading_please_wait">Loading</string>
     <string name="title_activity_server_conf">ServerConfigure</string>
     <string name="btn_conf">Server</string>
-    <string name="server_name">服务器名称:</string>
-    <string name="server_host">主机/IP名:</string>
-    <string name="server_port">端口号:</string>
-    <string name="btn_add">增加</string>
-    <string name="prompt_server">请选择服务器</string>
-
+    <string name="server_name">Server Name:</string>
+    <string name="server_host">Server Host:</string>
+    <string name="server_port">Server Port:</string>
+    <string name="btn_add">Add</string>
+    <string name="settings">Settings</string>
+    <string name="prompt_server">Select Server</string>
+    <string name="server_settings">Server Settings</string>
+    <string name="comfirm">Comfirm</string>
+    <string name="server_url_null_alert">对不起！服务器连接地址为空，请重新选择或添加</string>
 </resources>

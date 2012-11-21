@@ -115,7 +115,8 @@
         
         <activity
             android:name=".activity.ServerConfActivity"
-            android:label="@string/title_activity_server_conf" >
+            android:label="@string/title_activity_server_conf" 
+            android:launchMode="singleTask">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.pushtalk.android.activity.WebPageActivity" />

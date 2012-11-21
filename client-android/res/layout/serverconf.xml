@@ -3,81 +3,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar" />
+
     <Spinner
         android:id="@+id/server_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@id/title_bar"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="40dip" />
 
-    <TextView
-        android:id="@+id/server_name_label"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:id="@+id/server_setting_layout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/server_list"
-        android:layout_marginTop="150dp"
-        android:text="@string/server_name" />
+    	android:layout_marginTop="40dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_below="@+id/server_list">
+        <TableRow>
+            <TextView
+                android:id="@+id/server_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server_name"
+                android:layout_marginRight="3dip"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+            <EditText
+                android:id="@+id/server_name_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dip"
+                android:paddingBottom="5dip"
+                android:background="@drawable/define_edit_selector"
+                android:ems="10"
+                android:inputType="text" />
+        </TableRow>
 
-    <EditText
-        android:id="@+id/server_name_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/server_name_label"
-        android:layout_alignBottom="@+id/server_name_label"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/server_name_label"
-        android:inputType="text"
-        android:ems="10"  />
-    
-    <TextView
-        android:id="@+id/server_host_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/server_name_field"
-        android:layout_marginTop="30dp"
-        android:text="@string/server_host" />
+        <TableRow android:layout_marginTop="5dip">
+            <TextView
+                android:id="@+id/server_host_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server_host"
+                android:layout_marginRight="3dip"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+            <EditText
+                android:id="@+id/server_host_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dip"
+                android:paddingBottom="5dip"
+                android:background="@drawable/define_edit_selector"
+                android:ems="10"
+                android:inputType="text" />
+        </TableRow>
 
-    <EditText
-        android:id="@+id/server_host_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/server_host_label"
-        android:layout_alignBottom="@+id/server_host_label"
-        android:layout_marginLeft="19dp"
-        android:layout_toRightOf="@+id/server_host_label"
-        android:inputType="text"
-        android:ems="10"  />
-    
-    <TextView
-        android:id="@+id/server_port_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/server_host_field"
-        android:layout_marginTop="30dp"
-        android:text="@string/server_port" />
-
-    <EditText
-        android:id="@+id/server_port_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/server_port_label"
-        android:layout_alignBottom="@+id/server_port_label"
-        android:layout_marginLeft="37dp"
-        android:layout_toRightOf="@+id/server_port_label"
-        android:inputType="number"
-        android:ems="10"  />
+        <TableRow android:layout_marginTop="5dip">
+            <TextView
+                android:id="@+id/server_port_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/server_port"
+                android:layout_marginRight="3dip"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"/>
+            <EditText
+                android:id="@+id/server_port_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dip"
+                android:paddingBottom="5dip"
+                android:background="@drawable/define_edit_selector"
+                android:ems="10"
+                android:inputType="number" />
+        </TableRow>
+    </TableLayout>
 
     <Button
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/server_port_field"
-        android:layout_below="@+id/server_port_field"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="27dp"
+        android:background="@drawable/execute_but_click_selector"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/server_setting_layout"
+        android:layout_marginTop="40dp"
         android:text="@string/btn_add" />
 
 </RelativeLayout>

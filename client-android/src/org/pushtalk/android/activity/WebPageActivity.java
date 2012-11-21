@@ -74,6 +74,7 @@ public class WebPageActivity extends WebBaseActivity {
 		LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT);
+		
 		backButton = new Button(getApplicationContext());
 		backButton.setPadding(-1, 0, -1, 0);
 		backButton.setText(R.string.btn_back);
@@ -92,24 +93,20 @@ public class WebPageActivity extends WebBaseActivity {
 		});
 
 		Button confButton = new Button(getApplicationContext());
-
-		// confButton.setText(R.string.btn_conf);
+		confButton.setText(R.string.settings);
 		confButton.setGravity(Gravity.CENTER);
 		confButton.setTextColor(Color.WHITE);
-		confButton.setBackgroundResource(R.drawable.server_conf);
+		confButton.setBackgroundResource(R.drawable.function_button_selector);
 		confButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(WebPageActivity.this,
-						ServerConfActivity.class);
+				Intent intent = new Intent(WebPageActivity.this,ServerConfActivity.class);
 				startActivity(intent);
 			}
 		});
 
-		((LinearLayout) findViewById(R.id.add_leftView)).addView(backButton,
-				lParams);
-		((LinearLayout) findViewById(R.id.add_rightView)).addView(confButton,
-				lParams);
+		((LinearLayout) findViewById(R.id.add_leftView)).addView(backButton,lParams);
+		((LinearLayout) findViewById(R.id.add_rightView)).addView(confButton,lParams);
 
 		CookieSyncManager.createInstance(this);
 		CookieSyncManager.getInstance().startSync();
