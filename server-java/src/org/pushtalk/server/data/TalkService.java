@@ -17,8 +17,6 @@ public interface TalkService {
     Set<Message> getRecentMessages(String chatting);
     
     Set<RecentChat> getRecentChats(String udid);
-    
-    
 
 	List<Channel> getChannelListAll();
 	
@@ -29,7 +27,6 @@ public interface TalkService {
 	boolean enterChannel(String channelName, String udid);
 	
 	boolean exitChannel(String channelName, String udid);
-	
 	
 	User getUserByUdid(String udid);
 	

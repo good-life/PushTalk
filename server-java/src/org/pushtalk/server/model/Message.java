@@ -2,25 +2,31 @@ package org.pushtalk.server.model;
 
 import java.util.Date;
 
-public class Message implements Comparable<Message> {
+import com.google.gson.Gson;
 
+public class Message implements Comparable<Message> {
+	int id;
     String title;
     String content;
     String channel;
-    Date time;
+    long time;
+    //是否已读
+    //boolean readable;
     
-    public Message(String title, String content, String channel) {
+    public Message(int id, String title, String content, String channel) {
+    	this.id = id;
         this.title = title;
         this.content = content;
         this.channel = channel;
-        this.time = new Date();
+        this.time = new Date().getTime();
     }
-
+    
     @Override
     public int compareTo(Message o) {
         if (null == o) return -1;
-        Message message = o;
-        return this.time.compareTo(message.time);
+        if (o.id == this.id) return 0;
+        if (o.id > this.id) return 1;
+        else return -1;
     }
     
     @Override
@@ -30,22 +36,25 @@ public class Message implements Comparable<Message> {
             return false;
         }
         Message message = (Message) o;
-        return this.toString().equals(message.toString());
+        return this.id == message.id;
     }
     
     @Override
     public int hashCode() {
-        return (int) time.getTime();
+        return this.id;
     }
 
     @Override
     public String toString() {
-        return "Message - title:" + title + ", content=" + content
-                + ", channel=" + channel + ", time=" + time;
+        return new Gson().toJson(this);
     }
     
-    
-    
+    public int getId() {
+    	return id;
+    }
+    public void setId(int id) {
+    	this.id = id;
+    }
     public String getTitle() {
         return title;
     }
@@ -64,13 +73,10 @@ public class Message implements Comparable<Message> {
     public void setChannel(String channel) {
         this.channel = channel;
     }
-    public Date getTime() {
+    public long getTime() {
         return time;
     }
-    public void setTime(Date time) {
+    public void setTime(long time) {
         this.time = time;
     }
-    
-    
-    
 }

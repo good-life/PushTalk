@@ -3,11 +3,9 @@ package org.pushtalk.server.web;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.User;
@@ -18,7 +16,6 @@ import org.pushtalk.server.web.common.FreemarkerBaseServlet;
 public class ChattingServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
     private static Logger LOG = Logger.getLogger(ChattingServlet.class);
-
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
@@ -69,7 +66,8 @@ public class ChattingServlet extends FreemarkerBaseServlet {
             
             data.put("friend", user.getName());
         }
-        
+        User user = talkService.getUserByUdid(udid);
+        data.put("user", user);
         processTemplate(response, "chatting.html", data);
         
 	}

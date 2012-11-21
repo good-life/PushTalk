@@ -43,6 +43,7 @@ public abstract class FreemarkerBaseServlet extends NormalBaseServlet {
 		Template template = configuration.getTemplate(templateFile);
 		
 		response.setContentType("text/html; charset=" + template.getEncoding());
+		response.setCharacterEncoding("utf-8");
 		
 		Writer out = response.getWriter();  
 		try {
