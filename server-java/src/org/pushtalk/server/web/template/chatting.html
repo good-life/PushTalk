@@ -61,6 +61,9 @@ color: orange;
 .chatPanel #chatView .userOther {
 color: #0A7FFF;
 }
+.chatPanel #chatView .emotion{
+max-width: 45px;
+}
 </style>
 </head>
 <body>
@@ -86,7 +89,7 @@ Condition:  received message but it is not with current chatting channel -->
 <div class="chatPanel">
 	<div id="chatView"></div>
 	<div class="chatActions">
-		<input type="text" name="message" class="chatInput" id="chatInput"/>
+		<input type="text" name="message" class="chatInput" id="chatInput" maxlength="500"/>
 		<a class="chatSend" href="javascript:void(0);">
 			<b>发送</b>
 		</a>
@@ -148,6 +151,8 @@ $(function() {
 		clientW = $(window).width();
 		chatView.height(clientH - toolbarH);
 		chatInput.width(clientW - 130);
+		
+		focusMessage();
 	}
 	//保存消息
 	function saveChat(chat, chatNo) {
@@ -178,9 +183,6 @@ $(function() {
 			dataType: 'json',
 			success: function(data) {
 				if (data) {
-					data.sort(function(a, b) {
-						return a.id > b.id;
-					});
 					var chat;
 					for (var i=0, len=data.length; i<len; i++) {
 						chat = data[i];
@@ -190,33 +192,37 @@ $(function() {
 				}
 			}
 		});
-		focusMessage();
 	}
 	//滚动消息置底
 	function focusMessage() {
 		var scrollHeight = chatView[0].scrollHeight;
 		//滚动过的情况下不置底
 		//if (scrollHeight - (clientH - toolbarH) == chatView[0].scrollTop) {
-			chatView[0].scrollTop = scrollHeight + 30;
+			chatView[0].scrollTop = scrollHeight;
 		//}
 	}
 	//接受消息
-	function receivedMessage(title, message, channel) {
-		var chat = {
-			id: 0,
-			title: title,
-			content: message,
-			channel: channel,
-			status: chatMsgStatus.success
+	function receivedMessage(msg) {
+		if (msg) {
+			msg = JSON.parse(msg);
+			if (msg.title!=user.name) {
+				var chat = {
+					id: msg.extras.sendNo,
+					title: msg.title,
+					content: msg.message,
+					channel: msg.extras.channel,
+					status: chatMsgStatus.success
+				}
+				saveChat(chat);
+				
+				//反馈服务器客户端收到了推送消息
+				$.ajax({
+					url: '/api/receivedMessage',
+					method: 'post',
+					data: config
+				});
+			}
 		}
-		saveChat(chat);
-		
-		//反馈服务器客户端收到了推送消息
-		$.ajax({
-			url: '/api/receivedMessage',
-			method: 'post',
-			data: config
-		});
 	}
 	exports.receivedMessage = receivedMessage;
 	//发送消息
@@ -266,16 +272,33 @@ $(function() {
 			}
 		});
 	}
+	//表情列表，目前只是测试方便，简单的标示表情
+	var emotions = {
+		'..a': 'http://www.eoeandroid.com/static/image/smiley/tutu/1.gif',
+		'..b': 'http://www.eoeandroid.com/static/image/smiley/tutu/2.gif',
+		'..c': 'http://www.eoeandroid.com/static/image/smiley/tutu/3.gif',
+		'..d': 'http://www.eoeandroid.com/static/image/smiley/tutu/4.gif',
+		'..e': 'http://www.eoeandroid.com/static/image/smiley/tutu/5.gif',
+		'..f': 'http://www.eoeandroid.com/static/image/smiley/tutu/6.gif',
+		'..g': 'http://www.eoeandroid.com/static/image/smiley/tutu/7.gif',
+		'..h': 'http://www.eoeandroid.com/static/image/smiley/tutu/8.gif',
+		'..i': 'http://www.eoeandroid.com/static/image/smiley/tutu/10.gif',
+		'..j': 'http://www.eoeandroid.com/static/image/smiley/tutu/11.gif',
+	}
 	//渲染数据到view
 	function renderChatView() {
 		var htmls = [];
-		var chat, style, color;
+		var chat, style, color, htmlContent;
 		for (var i=0, len=chats.length; i<len; i++) {
 			chat = chats[i];
 			style = chat.title==user.name?"userSelf":"userOther";
 			color = chatMsgColors[chat.status];
 			if (!chat.rendered) {
-				htmls.push('<div style="color:'+color+'" id="'+chat.id+'"><label class="'+style+'">'+chat.title+'</label> : '+chat.content+'</div>');
+				htmlContent = chat.content;
+				for (var em in emotions) {
+					htmlContent = htmlContent.replace(em, '<img class="emotion" src="'+emotions[em]+'"/>');
+				}
+				htmls.push('<div style="color:'+color+'" id="'+chat.id+'"><label class="'+style+'">'+chat.title+'</label> : '+htmlContent+'</div>');
 			} else if (chat.rendered.length) {
 				var nodeId = chat.rendered;
 				var node = $("#"+nodeId);
@@ -285,6 +308,7 @@ $(function() {
 		}
 		if (htmls.length) {
 			chatView.append(htmls.join(''));
+			
 			focusMessage();
 		}
 	}

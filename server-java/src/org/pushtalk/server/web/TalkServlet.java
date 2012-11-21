@@ -29,7 +29,7 @@ public class TalkServlet extends FreemarkerBaseServlet {
 	private static final String JPUSH_PASSWORD = "654321";
 	private static final String JPUSH_APPKEY = "7d431e42dfa6a6d693ac2d04";
 	
-	private static int sendId = 1;
+	private static int sendId = 0;
 	private static final JPushClient jpushClient = new JPushClient(JPUSH_USERNAME, JPUSH_PASSWORD, JPUSH_APPKEY);
 
 	@Override
@@ -62,17 +62,19 @@ public class TalkServlet extends FreemarkerBaseServlet {
             if (null == channel) {
                 data.put("error", "the channel does not exist - " + channelName);
             } else {
+            	sendId ++;
 	            Map<String, Object> extra = new HashMap<String, Object>();
 	            extra.put("channel", channelName);
-	            extra.put("chatNo", chatNo);
-	            msgResult = jpushClient.sendCustomMessageWithTag(sendId++, ServiceUtils.postfixAliasAndTag(channelName),
+	            extra.put("sendNo", sendId);
+	            msgResult = jpushClient.sendCustomMessageWithTag(sendId, ServiceUtils.postfixAliasAndTag(channelName),
 	                    myName, content, null, extra);
 	            chatting = ServiceUtils.getChattingChannel(channelName);
             }
         } else {
+        	sendId ++;
             Map<String, Object> extra = new HashMap<String, Object>();
-            extra.put("chatNo", chatNo);
-            msgResult = jpushClient.sendCustomMessageWithAlias(sendId++, ServiceUtils.postfixAliasAndTag(friend), 
+            extra.put("sendNo", sendId);
+            msgResult = jpushClient.sendCustomMessageWithAlias(sendId, ServiceUtils.postfixAliasAndTag(friend), 
                     myName, content, null, extra);
             chatting = ServiceUtils.getChattingChannel(myName, friend);
         }

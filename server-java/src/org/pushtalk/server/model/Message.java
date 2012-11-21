@@ -25,8 +25,8 @@ public class Message implements Comparable<Message> {
     public int compareTo(Message o) {
         if (null == o) return -1;
         if (o.id == this.id) return 0;
-        if (o.id > this.id) return 1;
-        else return -1;
+        if (o.id > this.id) return -1;
+        else return 1;
     }
     
     @Override
