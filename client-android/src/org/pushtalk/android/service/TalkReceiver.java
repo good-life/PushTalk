@@ -38,8 +38,8 @@ public class TalkReceiver extends BroadcastReceiver {
             String channel = null;
             String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
             try {
-                JSONObject json = new JSONObject(extras);
-                channel = json.optString(Constants.KEY_CHANNEL);
+                JSONObject extrasJson = new JSONObject(extras);
+                channel = extrasJson.optString(Constants.KEY_CHANNEL);
             } catch (Exception e) {
                 Logger.w(TAG, "");
             }
@@ -56,7 +56,7 @@ public class TalkReceiver extends BroadcastReceiver {
                 try {
                     all.put(Constants.KEY_TITLE, title);
                     all.put(Constants.KEY_MESSAGE, message);
-                    all.put(Constants.KEY_EXTRAS, extras);
+                    all.put(Constants.KEY_EXTRAS, new JSONObject(extras));
                 } catch (JSONException e) {
                 }
                 msgIntent.putExtra("all", all.toString());
