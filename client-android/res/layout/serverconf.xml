@@ -16,7 +16,8 @@
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="40dip" />
-
+    
+    
     <TableLayout
         android:id="@+id/server_setting_layout"
         android:layout_width="fill_parent"
@@ -24,21 +25,53 @@
     	android:layout_marginTop="40dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:layout_below="@+id/server_list">
-        <TableRow>
+        android:shrinkColumns="0"
+        android:layout_below="@id/server_list">
+                <TableRow android:layout_marginBottom="30dip" android:gravity="center_vertical">
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:gravity="left"
+                 android:text="@string/current_addrees"
+                 android:layout_marginRight="3dip"
+                 android:textColor="@color/common_blue"
+                 android:textSize="14sp" />
+             <TextView
+                 android:id="@+id/current_address_text"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:paddingTop="5dip"
+                 android:paddingBottom="5dip"
+                 android:textSize="18sp"
+                 android:background="@drawable/define_edit_selector"
+                 android:maxLines="3"
+                 android:ems="10"
+                 android:textColor="@color/black" />
+        </TableRow>
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:textSize="14sp"
+            android:textColor="@color/common_blue"
+            android:text="@string/add_server_alert"/>
+        
+        <TableRow android:gravity="center_vertical">
             <TextView
                 android:id="@+id/server_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/server_name"
                 android:layout_marginRight="3dip"
-                android:gravity="center"
-                android:textColor="@color/black"
+                android:gravity="left"
+                android:textColor="@color/common_blue"
                 android:textSize="14sp" />
             <EditText
                 android:id="@+id/server_name_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:paddingTop="5dip"
                 android:paddingBottom="5dip"
                 android:background="@drawable/define_edit_selector"
@@ -46,20 +79,21 @@
                 android:inputType="text" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="5dip">
+        <TableRow android:layout_marginTop="5dip" android:gravity="center_vertical">
             <TextView
                 android:id="@+id/server_host_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/server_host"
                 android:layout_marginRight="3dip"
-                android:gravity="center"
-                android:textColor="@color/black"
+                android:gravity="left"
+                android:textColor="@color/common_blue"
                 android:textSize="14sp" />
             <EditText
                 android:id="@+id/server_host_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:paddingTop="5dip"
                 android:paddingBottom="5dip"
                 android:background="@drawable/define_edit_selector"
@@ -67,20 +101,21 @@
                 android:inputType="text" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="5dip">
+        <TableRow android:layout_marginTop="5dip" android:gravity="center_vertical">
             <TextView
                 android:id="@+id/server_port_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/server_port"
                 android:layout_marginRight="3dip"
-                android:gravity="center"
-                android:textColor="@color/black"
+                android:gravity="left"
+                android:textColor="@color/common_blue"
                 android:textSize="14sp"/>
             <EditText
                 android:id="@+id/server_port_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:paddingTop="5dip"
                 android:paddingBottom="5dip"
                 android:background="@drawable/define_edit_selector"
@@ -98,7 +133,7 @@
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/server_setting_layout"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="@string/btn_add" />
 
 </RelativeLayout>

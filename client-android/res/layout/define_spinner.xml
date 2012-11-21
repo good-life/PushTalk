@@ -7,6 +7,6 @@
     android:gravity="left"
     android:paddingLeft="8dip"
     android:singleLine="true"
-    android:textColor="@color/black"
+    android:textColor="@color/common_blue"
     android:textSize="18sp"
     android:textStyle="bold" />
