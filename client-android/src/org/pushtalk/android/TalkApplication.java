@@ -13,8 +13,9 @@ public class TalkApplication extends Application {
     public void onCreate() {
         Logger.d(TAG, "onCreate");
         super.onCreate();
+        Global.init(getApplicationContext());
 
-        Config.udid = AndroidUtil.getImei(getApplicationContext());
+        Config.udid = AndroidUtil.getUdid(getApplicationContext());
         Logger.d(TAG, "My udid: " + Config.udid);
 
         JPushInterface.setDebugMode(true); // 设置开启日志

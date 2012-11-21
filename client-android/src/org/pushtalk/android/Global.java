@@ -1,10 +1,16 @@
 package org.pushtalk.android;
 
+import org.pushtalk.android.utils.MyPreferenceManager;
 import org.pushtalk.android.web.WebHelper;
 
 import android.content.Context;
 
 public class Global {
+    
+    
+    public static void init(Context context) {
+        MyPreferenceManager.init(context);
+    }
     
     
     public static String getLanguage(Context context){
