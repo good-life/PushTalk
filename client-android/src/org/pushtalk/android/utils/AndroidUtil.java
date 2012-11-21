@@ -18,6 +18,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 
 public class AndroidUtil {
@@ -50,25 +51,25 @@ public class AndroidUtil {
 	 * @return
 	 */
     public static String getUdid(Context context) {
-//        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//        String imei = telephonyManager.getDeviceId();
-//
-//        if (AndroidUtil.isValidImei(imei)) {
-//            return imei;
-//        }
-//        
-//        String androidId = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
-//        if (!StringUtils.isEmpty(androidId) && !INVALID_ANDROIDID.equals(androidId.toLowerCase())) {
-//            return androidId;
-//        }
-//        
-//        String macAddress = AndroidUtil.getWifiMacAddress(context);
-//        if (!StringUtils.isEmpty(macAddress)) {
-//            String udid = StringUtils.emptyStringIfNull(macAddress
-//                    + Build.MODEL + Build.MANUFACTURER
-//                    + Build.ID + Build.DEVICE);
-//            return udid;
-//        }
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String imei = telephonyManager.getDeviceId();
+
+        if (AndroidUtil.isValidImei(imei)) {
+            return imei;
+        }
+        
+        String androidId = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
+        if (!StringUtils.isEmpty(androidId) && !INVALID_ANDROIDID.equals(androidId.toLowerCase())) {
+            return androidId;
+        }
+        
+        String macAddress = AndroidUtil.getWifiMacAddress(context);
+        if (!StringUtils.isEmpty(macAddress)) {
+            String udid = StringUtils.emptyStringIfNull(macAddress
+                    + Build.MODEL + Build.MANUFACTURER
+                    + Build.ID + Build.DEVICE);
+            return udid;
+        }
         
         return getSavedUuid();
     }
