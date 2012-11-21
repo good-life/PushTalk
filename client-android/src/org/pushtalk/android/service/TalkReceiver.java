@@ -7,6 +7,7 @@ import org.pushtalk.android.Constants;
 import org.pushtalk.android.activity.WebPageActivity;
 import org.pushtalk.android.utils.AndroidUtil;
 import org.pushtalk.android.utils.Logger;
+import org.pushtalk.android.utils.StringUtils;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -34,6 +35,16 @@ public class TalkReceiver extends BroadcastReceiver {
             String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
             Logger.d(TAG, "接受到推送下来的自定义消息: " + message);
             String title = bundle.getString(JPushInterface.EXTRA_TITLE);
+            
+            if (StringUtils.isEmpty(title)) {
+                Logger.w(TAG, "Empty title");
+                return;
+            }
+            
+            if (title.equalsIgnoreCase(Config.myName)) {
+                Logger.d(TAG, "Message from myself.");
+                return;
+            }
             
             String channel = null;
             String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
