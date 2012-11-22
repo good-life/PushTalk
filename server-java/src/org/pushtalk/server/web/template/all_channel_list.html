@@ -3,19 +3,62 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>全部频道 (${allChannelList?size})</title>
+<style>
+body{
+color: #333;
+font-family: arial;
+font-size: 12px;
+background: #EEE;
+margin:0;
+}
+.item-list {
+border-top: 1px solid #DDD;
+border-bottom: 1px solid white;
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.item-list li {
+height: 44px;
+overflow: hidden;
+border-top: 1px solid white;
+border-bottom: 1px solid #DDD;
+line-height: 44px;
+text-indent: 10px;
+font-size: 14px;
+}
+.comm-tag a.tag-red {
+background-color: #FF8D81;
+color: white;
+}
+.comm-tag a {
+display: inline-block;
+border: 1px #DDD solid;
+border-radius: 4px;
+-webkit-border-radius: 4px;
+font-size: 12px;
+color: #666;
+background-color: white;
+height: 24px;
+line-height: 24px;
+padding: 0 5px;
+margin: 6px 6px 0 0;
+text-decoration: none;
+font-family: verdana;
+}
+</style>
 </head>
-
-
-
 <body>
-<a href="/main?udid=${udid}">首页</a>
-| <a href="/channel/new">新频道</a>
-<hr />
-
+<div style="margin: 5px 10px;">
+	<div class="comm-tag">
+		<a href="/main?udid=${udid}">首页</a>
+		<a class="tag-red" href="/channel/new">新频道</a>
+	</div>
+</div>
+<ul class="item-list">
 <#list allChannelList as channel>
-<p><a href="/channel/enter?channel_name=${channel.name}&udid=${udid}">
-        #${channel.name} (${channel.userCount})</a></p>
+	<li><a href="/channel/enter?channel_name=${channel.name}&udid=${udid}">#${channel.name} (${channel.userCount})</a></li>
 </#list>
-
+</ul>
 </body>
 </html>

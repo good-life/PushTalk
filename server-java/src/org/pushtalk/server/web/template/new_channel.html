@@ -2,23 +2,156 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新频道</title>
+<title>新建／加入频道</title>
+<style>
+* {margin:0;padding:0;}
+body{
+color: #333;
+font-family: arial;
+font-size: 12px;
+background: #EEE;
+margin:0;
+}
+.fullscreen {
+width: 320px!important;
+margin: auto;
+}
+.header {
+background: -webkit-gradient(linear,0 0,0 100%,from(#F8F8F8),to(#E6E6E6));
+height: 50px;
+position: relative;
+-webkit-box-shadow: 0 1px 1px 0 #C4C4C4;
+display:-webkit-box;
+-webkit-box-align: center;
+-webkit-box-pack: center;
+}
+.header .title{
+	font-size:16px;
+	text-shadow: 0 1px 0 white;
+}
+section.innercontent {
+margin: 17px 20px 15px 20px;
+}
+
+input[type="text"]{
+height: 33px;
+width: 289px;
+border: solid 1px #DDD;
+border-top-color: #BBB;
+padding-left: 9px;
+color: #333;
+font-size: 16px;
+-webkit-border-radius: 0;
+-webkit-appearance: none;
+background: -webkit-gradient(linear,0 0,0 100%,from(whiteSmoke),to(#FDFDFD));
+}
+input[type="text"]:focus{outline:0;background:#FFF;}
+a.squareBtn {
+width: 100px;
+height: 40px;
+line-height: 40px;
+margin: 0 20px 0 0;
+border: 1px solid #DDD;
+border-bottom-color: #BBB;
+border-radius: 2px;
+display: inline-block;
+color: #333;
+font-weight: bold;
+font-size: 16px;
+background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAoCAIAAABINPzXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0RkM0RUJFN0Y4QjYxMUUxQjZDMkYyQTBENDY2M0NCMiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0RkM0RUJFOEY4QjYxMUUxQjZDMkYyQTBENDY2M0NCMiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjRGQzRFQkU1RjhCNjExRTFCNkMyRjJBMEQ0NjYzQ0IyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjRGQzRFQkU2RjhCNjExRTFCNkMyRjJBMEQ0NjYzQ0IyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Q4qZZQAAAGRJREFUeNrklDsOwDAIQ4OV+5+XBWg4AKZiidSyhmeZX0RVVx1YNCAiEVE9bzMDUGWkOKEb8aRPxtD5Jsov6r4o/tfCOmvuPl8HEPTT29KcYGONdy3p+QGnNTLT7Nr5Wyr6EWAAuB45MGqbAGgAAAAASUVORK5CYII=) 0 0 repeat-x;
+}
+.btn-oran-big {
+display: inline-block;
+min-width: 60px;
+height: 40px;
+padding: 0 15px;
+border: 0;
+background: #F40;
+text-align: center;
+text-decoration: none;
+line-height: 40px;
+color: white;
+font-size: 14px;
+font-weight: 700;
+-webkit-border-radius: 2px;
+background: -webkit-gradient(linear,0 0,0 100%,color-stop(0,#F50),color-stop(1,#F40));
+text-shadow: 0 -1px 1px #CA3511;
+-webkit-box-shadow: 0 -1px 0 #BF3210 inset;
+min-width: 100%;
+height: 44px;
+line-height: 44px;
+padding: 0;
+font-size: 24px;
+text-shadow: 0 -1px 0 #441307;
+vertical-align: middle;
+}
+.regform{
+width: 280px;
+}
+.regform .channel_name {
+width:269px;
+}
+.regform fieldset {
+border: none;
+}
+.regform .submit-btn {
+margin-top:20px;
+}
+.regform .channel_name_tip {
+margin-top: 5px;
+text-shadow: 0 1px 0 white;
+}
+.regform .channel_name_tip ul{
+padding-left: 16px;
+}
+</style>
 </head>
 
-
 <body>
-频道名称：
-<form action="/channel/enter" method="POST">
-<input type="text" name="channel_name" />
-<input type="hidden" name="udid" value="${udid}" />
-<input type="submit" value="新建或者加入频道" />
-</form>
+<header class="header">
+	<div class="title">新建／加入频道</div>
+</header>
 
-<ul>
-<li>支持字母、数字、下划线、中文，长度限制为 20。</li>
-<li>如果频道不存在，则新建频道。</li>
-<li>如果已经存在，则加入这个频道，并进入。</li>
-</ul>
+<div class="fullscreen">
+	<section class="innercontent">
+		<form action="/channel/enter" method="POST" class="regform" onsubmit="return check()">
+			<input type="hidden" name="udid" value="${udid}" />
+			<fieldset>
+				<div class="field username">
+					<input type="text" name="channel_name" class="channel_name" id="channel_name" placeholder="频道名称" maxlength="20"/>
+					<div class="channel_name_tip">
+							<ul>
+								<li>支持字母、数字、下划线、中文</li>
+								<li>2到20个字符长度</li>
+								<li>如果频道不存在，则新建频道</li>
+								<li>如果已经存在，则加入这个频道，并进入</li>
+							</ul>
+					</div>
+				</div>
+				<div class="field submit-btn">
+					<input type="submit" class="btn-oran-big" value="新建／加入频道"/>
+				</div>
+			</fieldset>
+		</form>
+	</section>
+</div>
 
+<script>
+var unameRegx = /^([\u4E00-\u9FA5]|[a-zA-Z]|[0-9]|[_]){2,20}$/;
+function check() {
+	var username = document.querySelector("#channel_name");
+	if (username.value == '') {
+		username.style.background = "#F3E545";
+		return false;
+	}
+	if (!unameRegx.test(username.value)) {
+		var ul = document.querySelector(".channel_name_tip ul");
+		ul.querySelector("li:nth-child(1)").style.color="red";
+		ul.querySelector("li:nth-child(2)").style.color="red";
+		return false;
+	}
+	return true;
+}
+</script>
 </body>
 </html>

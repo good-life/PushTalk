@@ -1,19 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Info / Error</title>
+<title>错误提示</title>
+<style>
+* {margin:0;padding:0;}
+body{
+color: #333;
+font-family: arial;
+font-size: 12px;
+background: #EEE;
+margin:0;
+}
+.item-list {
+border-top: 1px solid #DDD;
+border-bottom: 1px solid white;
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.item-list li {
+height: 44px;
+overflow: hidden;
+border-top: 1px solid white;
+border-bottom: 1px solid #DDD;
+line-height: 44px;
+text-indent: 10px;
+font-size: 14px;
+}
+</style>
 </head>
 
 <body>
-
-<#if info ??>
-<span style="color:blue;">${info}</span> <br/>
-</#if>
-<#if error ??>
-<span style="color:red;">${error}</span><br />
-</#if>
-
-
+<ul class="item-list">
+	<li>
+		<#if info ??>
+		<span style="color:blue;">${info}</span> <br/>
+		</#if>
+		<#if error ??>
+		<span style="color:red;">${error}</span><br />
+		</#if>
+	</li>
+</ul>
 </body>
 </html>
