@@ -45,6 +45,8 @@ public class Global {
             return null;
         }
         String query = uri.getQuery();
+        if (null == query) return null;
+        
         String[] params = query.split("&");
         if (params.length > 0) {
             for (String param : params) {
