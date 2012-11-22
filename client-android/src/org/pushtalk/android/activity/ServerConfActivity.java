@@ -10,6 +10,7 @@ import org.pushtalk.android.R;
 import org.pushtalk.android.utils.Logger;
 import org.pushtalk.android.utils.StringUtils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -154,6 +155,9 @@ public class ServerConfActivity extends Activity {
 				ImageView checkedView = (ImageView)view.findViewById(R.id.icon);
 				label.setText(getItem(position));
 				if (mSpinner.getSelectedItemPosition() == position) {
+					if(position == 0){
+						label.setText(getItem(position) + getString(R.string.default_value));
+					}
 					label.setTextColor(getResources().getColor(R.color.common_blue));
 					checkedView.setVisibility(View.VISIBLE);
 					view.setBackgroundColor(Color.rgb(255, 255, 203));

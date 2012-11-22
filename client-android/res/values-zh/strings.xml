@@ -16,7 +16,8 @@
     <string name="prompt_server">请选择服务器</string>
     <string name="server_settings">服务器设置</string>
     <string name="comfirm">前往</string>
-    <string name="server_url_null_alert">对不起！服务器连接地址为空，请重新选择或添加</string>
+    <string name="server_url_null_alert">对不起！服务器链接地址为空，请重新选择或添加</string>
     <string name="current_addrees">当前地址:</string>
     <string name="add_server_alert">新增服务器，请输入:</string>
+    <string name="default_value">（默认）</string>
 </resources>
