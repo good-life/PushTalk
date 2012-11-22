@@ -1,20 +1,68 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta charset="utf8">
 <title>用户在：${channel.name} (${channel.userCount})</title>
+<style>
+body{
+color: #333;
+font-family: arial;
+font-size: 14px;
+background: #EEE;
+margin:0;
+}
+.item-list {
+border-top: 1px solid #DDD;
+border-bottom: 1px solid white;
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.item-list li {
+height: 44px;
+overflow: hidden;
+border-top: 1px solid white;
+border-bottom: 1px solid #DDD;
+line-height: 44px;
+text-indent: 10px;
+font-size: 14px;
+}
+.comm-tag a.tag-red {
+background-color: #FF8D81;
+color: white;
+}
+.comm-tag a {
+display: inline-block;
+border: 1px #DDD solid;
+border-radius: 4px;
+-webkit-border-radius: 4px;
+font-size: 12px;
+color: #666;
+background-color: white;
+height: 24px;
+line-height: 24px;
+padding: 0 5px;
+margin: 6px 6px 0 0;
+text-decoration: none;
+font-family: verdana;
+}
+</style>
 </head>
-
-
 <body>
-<a href="/main">首页</a>
- | <a href="/channel">全部频道</a>
- | <a href="/channel/enter?channel_name=${channel.name}&udid=${udid}">频道 - ${channel.name}</a>
-<hr />
+<div style="margin:2px 10px">
+<div class="comm-tag">
+	<a href="/main">首页</a>
+	<a href="/channel">全部频道</a>
+	<a href="/channel/enter?channel_name=${channel.name}&udid=${udid}">频道 - ${channel.name}</a>
+</div>
 
+<h5>${channel.name} (${channel.userCount})－用户列表</h5>
+<ul class="item-list">
 <#list userList as user>
-<p><a href="/chatting?chatting=${user.name}&udid=${udid}">@${user.name}</a></p>
+<li><a href="/chatting?chatting=${user.name}&udid=${udid}">@${user.name}</a></li>
 </#list>
-
+</ul>
+</div>
 </body>
 </html>
