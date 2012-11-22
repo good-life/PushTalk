@@ -1,8 +1,103 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>推聊</title>
+<style>
+body{
+color: #333;
+font-family: arial;
+font-size: 12px;
+background: #EEE;
+margin:0;
+}
+.item-list {
+border-top: 1px solid #DDD;
+border-bottom: 1px solid white;
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.item-list li {
+height: 44px;
+overflow: hidden;
+border-top: 1px solid white;
+border-bottom: 1px solid #DDD;
+line-height: 44px;
+text-indent: 10px;
+font-size: 14px;
+}
+.comm-tag a.tag-red {
+background-color: #FF8D81;
+color: white;
+}
+.comm-tag a {
+display: inline-block;
+border: 1px #DDD solid;
+border-radius: 4px;
+-webkit-border-radius: 4px;
+font-size: 12px;
+color: #666;
+background-color: white;
+height: 24px;
+line-height: 24px;
+padding: 0 5px;
+margin: 6px 6px 0 0;
+text-decoration: none;
+font-family: verdana;
+}
+.innercontent{
+margin:10px;
+}
+</style>
+</head>
+
+<body onload="init();">
+<div class="innercontent">
+<#if info ??>
+<span style="color:blue;">${info}</span> <br/>
+</#if>
+<#if error ??>
+<span style="color:red;">${error}</span><br />
+</#if>
+<div>
+	<div>欢迎您：${user.name}！</div>
+	<div class="comm-tag">
+		<a href="/user/changeName?udid=${udid}">改名</a>
+		<a href="/channel/new">新频道</a>
+		<a href="/channel">全部频道</a>
+	</div>
+</div>
+
+<h3>最近聊天</h3>
+<ul class="item-list">
+<#list recentChats as chat>
+<li>
+<#assign chatting = chat.getChatTarget(user.name)>
+<#if chat.isChannel()>
+<#assign chattingShow = '#' + chatting>
+<#else>
+<#assign chattingShow = '@' + chatting>
+</#if>
+<a href="/chatting?chatting=${chatting}&isChannel=${chat.getIsChannel()}">${chattingShow}</a>
+(${chat.unReadNumber})
+<#if chat.isToday() >
+${chat.lastUpdated?time?string.short}
+<#else>
+${chat.lastUpdated?date?string.short}
+</#if>
+</li>
+</#list>
+</ul>
+
+<h3>我的频道</h3>
+<ul class="item-list">
+<#list myChannelList as channel>
+	<li><a href="/chatting?chatting=${channel.name}&isChannel=true">#${channel.name}</a></li>
+</#list>
+</ul>
+
+</div>
 <script type="text/javascript">
 var UDID;
 var CLIENT_OS;
@@ -23,13 +118,6 @@ function init(){
 	var debug = document.getElementById("debug");
 	debug.innerHTML = debug.innerHTML + "Your UDID/IMEI: " + UDID;
 }
-
-</script>
-</head>
-
-
-<body onload="init();">
-<script type="text/javascript">
 <#if channelCreated ?? || channelDeleted ??>
 pushtalk.channelUpdated();
 </#if>
@@ -37,53 +125,5 @@ pushtalk.channelUpdated();
 pushtalk.usernameUpdated();
 </#if>
 </script>
-
-<#if info ??>
-<span style="color:blue;">${info}</span> <br/>
-</#if>
-<#if error ??>
-<span style="color:red;">${error}</span><br />
-</#if>
-
-<p>
-欢迎你：${user.name}！ 
-<a href="/user/changeName?udid=${udid}">改名</a>
-| <a href="/channel/new">新频道</a>
-| <a href="/channel">全部频道</a>
-</p>
-
-
-<h3>最近聊天</h3>
-<ul>
-<#list recentChats as chat>
-<li>
-<#assign chatting = chat.getChatTarget(user.name)>
-<#if chat.isChannel()>
-<#assign chattingShow = '#' + chatting>
-<#else>
-<#assign chattingShow = '@' + chatting>
-</#if>
-<a href="/chatting?chatting=${chatting}&isChannel=${chat.getIsChannel()}">${chattingShow}</a>
-(${chat.unReadNumber})
-<#if chat.isToday() >
-${chat.lastUpdated?time?string.short}
-<#else>
-${chat.lastUpdated?date?string.short}
-</#if>
-</li>
-</#list>
-</ul>
-
-
-<h3>我的频道</h3>
-<ul>
-<#list myChannelList as channel>
-<li><a href="/chatting?chatting=${channel.name}&isChannel=true">#${channel.name}</a></li>
-</#list>
-</ul>
-
-<hr />
-<div id="debug"></div>
-
 </body>
 </html>
