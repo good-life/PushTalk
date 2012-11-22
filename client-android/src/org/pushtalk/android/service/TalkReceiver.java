@@ -62,8 +62,6 @@ public class TalkReceiver extends BroadcastReceiver {
                 Logger.w(TAG, "");
             }
             
-            unreadMessage(title, channel);
-            
             if (!Config.isBackground) {
                 Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
                 msgIntent.putExtra(Constants.KEY_MESSAGE, message);
@@ -100,6 +98,8 @@ public class TalkReceiver extends BroadcastReceiver {
                 Logger.d(TAG, "Is now chatting with - " + chatting + ". Dont show notificaiton.");
                 return;
             }
+            
+            unreadMessage(title, channel);
             
             if (Config.IS_TEST_MODE) {
                 NotificationHelper.showMessageNotification(context, nm, title, message, channel);

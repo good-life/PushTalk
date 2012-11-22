@@ -64,14 +64,14 @@ pushtalk.usernameUpdated();
 </#if>
 
 <#if (chat.unReadNumber > 0) >
-<b><a href="/chatting?chatting=${chatting}&isChannel=${chat.getIsChannel()}">${chattingShow}</a></b>
-(${chat.unReadNumber})
+<b><a href="/chatting?chatting=${chatting}&isChannel=${chat.getIsChannel()}">${chattingShow}</a>
+(${chat.unReadNumber})</b>
 <#else>
 <a href="/chatting?chatting=${chatting}&isChannel=${chat.getIsChannel()}">${chattingShow}</a>
 </#if>
 
 <#if chat.isToday() >
-${chat.lastUpdated?time?string.short}
+<font color="gray">${chat.lastUpdated?time?string.short}</font>
 <#else>
 ${chat.lastUpdated?date?string.short}
 </#if>

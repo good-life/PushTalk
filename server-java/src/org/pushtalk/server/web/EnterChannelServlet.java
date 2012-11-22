@@ -2,7 +2,6 @@ package org.pushtalk.server.web;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -51,9 +50,11 @@ public class EnterChannelServlet extends FreemarkerBaseServlet {
         Channel existedChannel = talkService.getChannelByName(channelName);
         if (existedChannel != null) {
             talkService.enterChannel(channelName, udid);
-            List<User> userList = talkService.getUserListByChannel(channelName);
+            
+            User user = talkService.getUserByUdid(udid);
+            data.put("user", user);
+            
             data.put("channel", existedChannel);
-            data.put("userList", userList);
             data.put("channelEntered", true);
             processTemplate(response, "chatting.html", data);
             
