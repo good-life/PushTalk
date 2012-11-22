@@ -28,43 +28,43 @@ public class MyPreferenceManager {
         mEditor.commit();
     }
 
-    protected static void commitString(String key, String value){
+    public static void commitString(String key, String value){
         mEditor = mSharedPreferences.edit();
         mEditor.putString(key, value);
         mEditor.commit();
     }
     
-    protected static String getString(String key, String faillValue){
+    public static String getString(String key, String faillValue){
         return mSharedPreferences.getString(key, faillValue);
     }
     
-    protected static void commitInt(String key, int value){
+    public static void commitInt(String key, int value){
         mEditor = mSharedPreferences.edit();
         mEditor.putInt(key, value);
         mEditor.commit();
     }
     
-    protected static int getInt(String key, int failValue){
+    public static int getInt(String key, int failValue){
         return mSharedPreferences.getInt(key, failValue);
     }
     
-    protected static void commitLong(String key, long value){
+    public static void commitLong(String key, long value){
         mEditor = mSharedPreferences.edit();
         mEditor.putLong(key, value);
         mEditor.commit();
     }
     
-	protected static long getLong(String key, long failValue) {
+    public static long getLong(String key, long failValue) {
         return mSharedPreferences.getLong(key, failValue);
     }
     
-    protected static void commitBoolean(String key, boolean value){
+    public static void commitBoolean(String key, boolean value){
         mEditor = mSharedPreferences.edit();
         mEditor.putBoolean(key, value);
         mEditor.commit();
     }
     
-    protected static Boolean getBoolean(String key, boolean failValue){
+    public static Boolean getBoolean(String key, boolean failValue){
         return mSharedPreferences.getBoolean(key, failValue);
     }
     

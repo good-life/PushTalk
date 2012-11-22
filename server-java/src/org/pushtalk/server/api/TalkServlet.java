@@ -1,4 +1,4 @@
-package org.pushtalk.server.web;
+package org.pushtalk.server.api;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,10 +15,10 @@ import org.pushtalk.server.model.Message;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
 
-import com.google.gson.Gson;
-
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.MessageResult;
+
+import com.google.gson.Gson;
 
 public class TalkServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
@@ -53,7 +53,8 @@ public class TalkServlet extends FreemarkerBaseServlet {
             return;
         }
         
-        LOG.debug("udid(" + udid +") talk:" + content);
+        LOG.debug("udid (" + udid +") talk:" + content);
+        
         String chatting = null;
         MessageResult msgResult = null;
         final String myName = talkService.getUserByUdid(udid).getName();
@@ -94,6 +95,9 @@ public class TalkServlet extends FreemarkerBaseServlet {
         } else {
             Message message = new Message(msgResult.getSendno(), myName, content, channelName);
             talkService.putMessage(udid, chatting, message);
+            
+            talkService.showedMessage(udid, chatting);
+            
             data.put("sent", true);
             data.put("message", message);
             data.put("chatNo", chatNo);

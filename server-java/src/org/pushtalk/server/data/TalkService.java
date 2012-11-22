@@ -10,14 +10,20 @@ import org.pushtalk.server.model.User;
 
 public interface TalkService {
     
+    // --------------- chatting
+    
     void putMessage(String udid, String chatting, Message message);
     
-    void receivedMessage(String udid, String chatting);
+    void showedMessage(String udid, String chatting);
+    
+    void unreadMessage(String udid, String chatting);
     
     Set<Message> getRecentMessages(String chatting);
     
     Set<RecentChat> getRecentChats(String udid);
 
+    // --------------- channel 
+    
 	List<Channel> getChannelListAll();
 	
 	Channel getChannelByName(String channelName);
@@ -27,6 +33,8 @@ public interface TalkService {
 	boolean enterChannel(String channelName, String udid);
 	
 	boolean exitChannel(String channelName, String udid);
+	
+	// ---------------- user
 	
 	User getUserByUdid(String udid);
 	

@@ -1,12 +1,17 @@
 package org.pushtalk.android.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.pushtalk.android.Config;
 import org.pushtalk.android.Constants;
-import org.pushtalk.android.activity.WebPageActivity;
+import org.pushtalk.android.activity.MainActivity;
 import org.pushtalk.android.utils.AndroidUtil;
+import org.pushtalk.android.utils.HttpHelper;
 import org.pushtalk.android.utils.Logger;
+import org.pushtalk.android.utils.MyPreferenceManager;
 import org.pushtalk.android.utils.StringUtils;
 
 import android.app.NotificationManager;
@@ -18,6 +23,8 @@ import cn.jpush.android.api.JPushInterface;
 
 public class TalkReceiver extends BroadcastReceiver {
     private static final String TAG = "TalkReceiver";
+    public static final String PREF_CURRENT_CHATTING = "pushtalk_chatting";
+    
     private NotificationManager nm;
 
     @Override
@@ -37,12 +44,12 @@ public class TalkReceiver extends BroadcastReceiver {
             String title = bundle.getString(JPushInterface.EXTRA_TITLE);
             
             if (StringUtils.isEmpty(title)) {
-                Logger.w(TAG, "Empty title");
+                Logger.w(TAG, "Empty title. Give up");
                 return;
             }
             
             if (title.equalsIgnoreCase(Config.myName)) {
-                Logger.d(TAG, "Message from myself.");
+                Logger.d(TAG, "Message from myself. Give up");
                 return;
             }
             
@@ -56,7 +63,7 @@ public class TalkReceiver extends BroadcastReceiver {
             }
             
             if (!Config.isBackground) {
-                Intent msgIntent = new Intent(WebPageActivity.MESSAGE_RECEIVED_ACTION);
+                Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
                 msgIntent.putExtra(Constants.KEY_MESSAGE, message);
                 msgIntent.putExtra(Constants.KEY_TITLE, title);
                 if (null != channel) {
@@ -76,6 +83,24 @@ public class TalkReceiver extends BroadcastReceiver {
                 Logger.v(TAG, "sending msg to ui ");
             }
             
+            String chatting = title;
+            if (!StringUtils.isEmpty(channel)) {
+                chatting = channel;
+            }
+            
+            if (StringUtils.isEmpty(chatting)) {
+                Logger.w(TAG, "Empty chatting. Give up");
+                return;
+            }
+            
+            String currentChatting = MyPreferenceManager.getString(PREF_CURRENT_CHATTING, null);
+            if (chatting.equalsIgnoreCase(currentChatting)) {
+                Logger.d(TAG, "Is now chatting with - " + chatting + ". Dont show notificaiton.");
+                return;
+            }
+            
+            unreadMessage(title, channel);
+            
             if (Config.IS_TEST_MODE) {
                 NotificationHelper.showMessageNotification(context, nm, title, message, channel);
             }
@@ -93,6 +118,27 @@ public class TalkReceiver extends BroadcastReceiver {
     }
 
 
+    private void unreadMessage(final String friend, final String channel) {
+        new Thread() {
+            public void run() {
+                String chattingFriend = null;
+                if (StringUtils.isEmpty(channel)) {
+                    chattingFriend = friend;
+                }
+                
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("udid", Config.udid);
+                params.put("friend", chattingFriend);
+                params.put("channel_name", channel);
+                
+                try {
+                    HttpHelper.post(Constants.PATH_UNREAD, params);
+                } catch (Exception e) {
+                    Logger.e(TAG, "Call pushtalk api to report unread error", e);
+                }
+            }
+        }.start();
+    }
     
 }
 

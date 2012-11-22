@@ -38,7 +38,19 @@ public class TalkServiceImpl implements TalkService {
 		mRecentChatMap = new HashMap<String, Cache<String, RecentChat>>();
 	}
 	
-	public void receivedMessage(String udid, String chatting) {
+	public void unreadMessage(String udid, String chatting) {
+        Cache<String, RecentChat> chatCache = getRecentChatCache(udid);
+        RecentChat existed = chatCache.getIfPresent(chatting);
+        if (existed != null) {
+            existed.increaseUnread();
+        } else {
+            RecentChat chat = new RecentChat(chatting);
+            chat.increaseUnread();
+            chatCache.put(chatting, chat);
+        }
+	}
+	
+    public void showedMessage(String udid, String chatting) {
         Cache<String, RecentChat> chatCache = getRecentChatCache(udid);
         RecentChat existed = chatCache.getIfPresent(chatting);
         if (existed != null) {
@@ -48,8 +60,8 @@ public class TalkServiceImpl implements TalkService {
             chat.clearUnread();
             chatCache.put(chatting, chat);
         }
-	}
-	
+    }
+    
 	public void putMessage(String udid, String chatting, Message message) {
 	    Cache<Message, String> messageCache = getMessageCache(chatting);
 	    messageCache.put(message, "");

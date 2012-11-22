@@ -12,8 +12,10 @@ import org.pushtalk.android.Config;
 import org.pushtalk.android.Constants;
 import org.pushtalk.android.Global;
 import org.pushtalk.android.R;
+import org.pushtalk.android.service.TalkReceiver;
 import org.pushtalk.android.utils.HttpHelper;
 import org.pushtalk.android.utils.Logger;
+import org.pushtalk.android.utils.MyPreferenceManager;
 import org.pushtalk.android.web.TalkWebChromeClient;
 import org.pushtalk.android.web.TalkWebViewCallback;
 import org.pushtalk.android.web.TalkWebViewClient;
@@ -36,12 +38,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 
-public class WebPageActivity extends WebBaseActivity {
-	private static final String TAG = "WebPageActivity";
+public class MainActivity extends WebBaseActivity {
+	private static final String TAG = "MainActivity";
 
 	private TextView mTitleView;
 	private Button backButton;
+	
 	private boolean isMainPage;
+	private String mCurrentChatting;
 
 	public void setTitle(String pageTitle) {
 		mTitleView.setText(pageTitle);
@@ -59,9 +63,13 @@ public class WebPageActivity extends WebBaseActivity {
 			} else {
 				isMainPage = false;
 			}
+			
+			String chatting = Global.getCurrentChatting(url);
+			Logger.d(TAG, "is now chatting with - " + chatting);
+			MyPreferenceManager.commitString(TalkReceiver.PREF_CURRENT_CHATTING, chatting);
 		}
 	}
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,7 +108,7 @@ public class WebPageActivity extends WebBaseActivity {
 		confButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(WebPageActivity.this,ServerConfActivity.class);
+				Intent intent = new Intent(MainActivity.this,ServerConfActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -234,10 +242,7 @@ public class WebPageActivity extends WebBaseActivity {
 		public void onReceive(Context context, Intent intent) {
 			if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
 //                String title = intent.getStringExtra(Constants.KEY_TITLE);
-//                String message = intent.getStringExtra(Constants.KEY_MESSAGE);
 //                String channel = intent.getStringExtra(Constants.KEY_CHANNEL);
-//				String receivedMessage = "javascript:receivedMessage('" + title
-//						+ "', '" + message + "', '" + channel + "');";
 			    
                 String all = intent.getStringExtra(Constants.KEY_ALL);
 				String receivedMessage = "javascript:receivedMessage('" + all + "')";
@@ -253,7 +258,7 @@ public class WebPageActivity extends WebBaseActivity {
 
 		String userInfo = null;
 		try {
-			userInfo = HttpHelper.post("/api/user", params);
+			userInfo = HttpHelper.post(Constants.PATH_USER, params);
 		} catch (Exception e) {
 			Logger.e(TAG, "Call pushtalk api to get user info error", e);
 			return;
@@ -266,10 +271,12 @@ public class WebPageActivity extends WebBaseActivity {
 		}
 
 		Set<String> myChannels = new HashSet<String>();
+		String myChattingName = null;
 		try {
 			JSONObject json = new JSONObject(userInfo);
 			String username = json.optString("username");
 			if (null != username) {
+			    myChattingName = username;
 			    String[] s = username.split("_");
 			    if (s.length > 1) {
 			        Config.myName = s[0];
@@ -294,8 +301,7 @@ public class WebPageActivity extends WebBaseActivity {
 		Config.myChannels = myChannels;
 
 		// reset to jpush
-		JPushInterface.setAliasAndTags(WebPageActivity.this, Config.myName,
-				myChannels);
+		JPushInterface.setAliasAndTags(MainActivity.this, myChattingName, myChannels);
 	}
 
 	private void newThreadToReset() {

@@ -1,6 +1,7 @@
 package org.pushtalk.android.activity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.pushtalk.android.Config;
 import org.pushtalk.android.R;
 import org.pushtalk.android.utils.Logger;
 import org.pushtalk.android.utils.StringUtils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,8 +36,10 @@ public class ServerConfActivity extends Activity {
 	private ArrayAdapter<String> spinnerAdapter;
 	private SharedPreferences sharedata;
 	private Map<String, ?> data;
+	
 	private Spinner mSpinner;
 	private TextView mTitleText;
+	private TextView mAddressText;
 	private EditText serverName;
 	private EditText serverHost;
 	private EditText serverPort;
@@ -62,6 +66,7 @@ public class ServerConfActivity extends Activity {
 		
 		mTitleText = (TextView)findViewById(R.id.view_title);
 		mTitleText.setText(R.string.server_settings);
+		mAddressText = (TextView)findViewById(R.id.current_address_text);
 		mSpinner = (Spinner) findViewById(R.id.server_list);
 		serverName = (EditText) findViewById(R.id.server_name_field);
 		serverHost = (EditText) findViewById(R.id.server_host_field);
@@ -93,18 +98,21 @@ public class ServerConfActivity extends Activity {
 		confButton.setGravity(Gravity.CENTER);
 		confButton.setTextColor(Color.WHITE);
 		confButton.setBackgroundResource(R.drawable.function_button_selector);
+		
 		confButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if(!isEmpty(serverUrl)){
-					Intent intent = new Intent(ServerConfActivity.this,WebPageActivity.class);
+					Intent intent = new Intent(ServerConfActivity.this,MainActivity.class);
 					intent.putExtra(EXTRA_MESSAGE, serverUrl);
 					startActivity(intent);
+					finish();
 				}else{
 					Toast.makeText(getApplicationContext(), getString(R.string.server_url_null_alert), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
+		
 		((LinearLayout) findViewById(R.id.add_leftView)).addView(backButton,lParams);
 		((LinearLayout) findViewById(R.id.add_rightView)).addView(confButton,lParams);
 	}
@@ -121,10 +129,23 @@ public class ServerConfActivity extends Activity {
 		getServerListData();
 		spinnerAdapter.notifyDataSetChanged();
 	}
+	
+	private String getAddressByPosition(int position){
+		String serverAddress = "";
+		String serverKeyName = serverList.get(position);
+		if(position > 0 && data.containsKey(serverKeyName)){
+			 serverAddress = data.get(serverKeyName).toString();
+		}else{
+			serverAddress = Config.serverList.get(serverKeyName);
+		}
+		return serverAddress;
+	}
 
 	// 配置Spinner，处理item选择事件
 	private void configSpinner() {
-		//adapter.setDropDownViewResource(R.layout.define_spinner_pop);
+		int spinnerPosition =  getSharedPreferences("ServerListPosition", 0).getInt("ServerPosition", 0);
+		mAddressText.setText(getAddressByPosition(spinnerPosition));
+		serverUrl = getAddressByPosition(spinnerPosition);
 		spinnerAdapter = new ArrayAdapter<String>(this, R.layout.define_spinner,serverList) {
 			@Override
 			public View getDropDownView(int position, View convertView,ViewGroup parent) {
@@ -133,7 +154,7 @@ public class ServerConfActivity extends Activity {
 				ImageView checkedView = (ImageView)view.findViewById(R.id.icon);
 				label.setText(getItem(position));
 				if (mSpinner.getSelectedItemPosition() == position) {
-					label.setTextColor(Color.GREEN);
+					label.setTextColor(getResources().getColor(R.color.common_blue));
 					checkedView.setVisibility(View.VISIBLE);
 					view.setBackgroundColor(Color.rgb(255, 255, 203));
 				}
@@ -143,7 +164,7 @@ public class ServerConfActivity extends Activity {
 		
 		mSpinner.setPromptId(R.string.prompt_server);
 		mSpinner.setAdapter(spinnerAdapter);
-		mSpinner.setSelection(0, false);
+		mSpinner.setSelection(spinnerPosition, false);
 		mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> arg0, View view,int arg2, long arg3) {
 				if (arg2 != 0) {
@@ -153,7 +174,14 @@ public class ServerConfActivity extends Activity {
 					} else if (Config.serverList.containsKey(selectedKey)) {
 						serverUrl = Config.serverList.get(selectedKey);
 					}
+					mAddressText.setText(serverUrl);
+					Editor sharedata = getSharedPreferences("ServerListPosition", 0).edit();
+					sharedata.putInt("ServerPosition", arg2);
+					sharedata.commit();
 					Logger.v(TAG, "Selected host: " + selectedKey + " " + serverUrl);
+				}else{
+					mAddressText.setText("");
+					serverUrl = "";
 				}
 			}
 
@@ -179,19 +207,34 @@ public class ServerConfActivity extends Activity {
 		} else {
 			Logger.v(TAG, "Add server start");
 			String HOST = "http://" + host + ":" + port;
-
 			Editor sharedata = getSharedPreferences("serverlist", 0).edit();
 			sharedata.putString(name, HOST);
 			sharedata.commit();
 			refreshAdpter();
+			mAddressText.setText(HOST);
+			int newServerPosition = getPositionFromMap(name);
+			mSpinner.setSelection(newServerPosition, false);
 			Logger.v(TAG, "Add server " + HOST);
-			Intent intent = new Intent(ServerConfActivity.this,	WebPageActivity.class);
+			Intent intent = new Intent(ServerConfActivity.this,	MainActivity.class);
 			intent.putExtra(EXTRA_MESSAGE, HOST);
 			startActivity(intent);
 		}
 	}
 	
 	
+	private int getPositionFromMap(String keyName){
+		Iterator iter = data.entrySet().iterator(); 
+		int position = 0;
+		while (iter.hasNext()) { 
+			position ++;
+		    Map.Entry entry = (Map.Entry) iter.next(); 
+		    Object key = entry.getKey(); 
+		    if(String.valueOf(key).equals(keyName)){
+		    	break;
+		    }
+		} 
+		return position + Config.serverList.size() - 1;
+	}
 	
 	
 	@Override

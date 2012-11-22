@@ -6,7 +6,9 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.pushtalk.server.api.GetRecentChatsServlet;
 import org.pushtalk.server.api.GetRecentMessagesServlet;
-import org.pushtalk.server.api.ReceivedMessageServlet;
+import org.pushtalk.server.api.ShowedMessageServlet;
+import org.pushtalk.server.api.TalkServlet;
+import org.pushtalk.server.api.UnreadMessageServlet;
 import org.pushtalk.server.api.UserInfoServlet;
 import org.pushtalk.server.web.AllChannelListServlet;
 import org.pushtalk.server.web.ChannelUserListServlet;
@@ -16,7 +18,6 @@ import org.pushtalk.server.web.ExitChannelServlet;
 import org.pushtalk.server.web.MainServlet;
 import org.pushtalk.server.web.NewChannelServlet;
 import org.pushtalk.server.web.RootServlet;
-import org.pushtalk.server.web.TalkServlet;
 import org.pushtalk.server.web.UserChangeNameServlet;
 import org.pushtalk.server.web.UserRegisterServlet;
 
@@ -54,14 +55,15 @@ public class JettyServer {
         context.addServlet(new ServletHolder(new UserChangeNameServlet()), "/user/changeName");
         
         // chatting
-        context.addServlet(new ServletHolder(new TalkServlet()), "/talk");
         context.addServlet(new ServletHolder(new ChattingServlet()), "/chatting");
         
         // ajax & api
         context.addServlet(new ServletHolder(new UserInfoServlet()), "/api/user");
-        context.addServlet(new ServletHolder(new ReceivedMessageServlet()), "/api/receivedMessage");
+        context.addServlet(new ServletHolder(new ShowedMessageServlet()), "/api/showedMessage");
         context.addServlet(new ServletHolder(new GetRecentMessagesServlet()), "/api/getRecentMessages");
         context.addServlet(new ServletHolder(new GetRecentChatsServlet()), "/api/getRecentChats");
+        context.addServlet(new ServletHolder(new TalkServlet()), "/api/talk");
+        context.addServlet(new ServletHolder(new UnreadMessageServlet()), "/api/unreadMessage");
         
         server.start();
 		server.join();

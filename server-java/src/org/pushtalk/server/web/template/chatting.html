@@ -170,6 +170,13 @@ $(function() {
 	
 	//消息发送状态的字体颜色，和状态对应
 	var chatMsgColors = ['black', 'red', '#ccc', '#ccc'];
+	
+	// ener the channel - then showed
+    $.ajax({
+        url: '/api/showedMessage',
+        method: 'post',
+        data: config
+    });
 
 	//viewport横屏竖屏重置数据
 	function onResize() {
@@ -243,7 +250,7 @@ $(function() {
 				
 				//反馈服务器客户端收到了推送消息
 				$.ajax({
-					url: '/api/receivedMessage',
+					url: '/api/showedMessage',
 					method: 'post',
 					data: config
 				});
@@ -273,7 +280,7 @@ $(function() {
 		};
 		saveChat(chat);
 		$.ajax({
-			url: "/talk",
+			url: "/api/talk",
 			method: "post",
 			data: chatData,
 			dataType: 'json',

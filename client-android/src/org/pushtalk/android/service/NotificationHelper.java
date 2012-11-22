@@ -5,7 +5,7 @@ import java.util.zip.Adler32;
 import org.pushtalk.android.Config;
 import org.pushtalk.android.Constants;
 import org.pushtalk.android.R;
-import org.pushtalk.android.activity.WebPageActivity;
+import org.pushtalk.android.activity.MainActivity;
 import org.pushtalk.android.utils.StringUtils;
 
 import android.app.Notification;
@@ -31,7 +31,7 @@ public class NotificationHelper {
         }
 
         Intent select = new Intent();
-        select.setClass(context, WebPageActivity.class);
+        select.setClass(context, MainActivity.class);
         select.putExtra(Constants.KEY_CHATTING, chatting);
         select.putExtra(Constants.KEY_IS_CHANNEL, isChannel);
         select.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

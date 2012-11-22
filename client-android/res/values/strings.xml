@@ -13,6 +13,8 @@
     <string name="settings">Settings</string>
     <string name="prompt_server">Select Server</string>
     <string name="server_settings">Server Settings</string>
-    <string name="comfirm">Comfirm</string>
+    <string name="comfirm">Next</string>
     <string name="server_url_null_alert">对不起！服务器连接地址为空，请重新选择或添加</string>
+    <string name="current_addrees">Current Address:</string>
+    <string name="add_server_alert">新增服务器，请输入:</string>
 </resources>
