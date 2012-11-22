@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.pushtalk.server.web.template.TemplateIndicator;
 
+import com.google.gson.Gson;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -21,6 +23,7 @@ public abstract class FreemarkerBaseServlet extends NormalBaseServlet {
 	private static final long serialVersionUID = 4074412299657955880L;
 
 	private Configuration configuration;
+	private Gson gson = new Gson();
 	
 	public abstract void process(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException;
@@ -35,6 +38,16 @@ public abstract class FreemarkerBaseServlet extends NormalBaseServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		process(request, response);
+	}
+	
+	public void processJSON(HttpServletResponse response, Map<String, Object> data) throws IOException {
+		if (null == data) data = new HashMap<String, Object>();
+		
+		response.setContentType("text/html; charset=utf-8");
+		response.setCharacterEncoding("utf-8");
+		
+		Writer out = response.getWriter();  
+		out.write(gson.toJson(data));
 	}
 	
 	public void processTemplate(HttpServletResponse response, String templateFile, 

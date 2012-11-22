@@ -3,27 +3,21 @@ package org.pushtalk.server.api;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.Message;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
-
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.MessageResult;
-
-import com.google.gson.Gson;
 
 public class TalkServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
     private static Logger LOG = Logger.getLogger(TalkServlet.class);
-    private static final Gson gson = new Gson();
 
 	private static final String JPUSH_USERNAME = "pushtalk";
 	private static final String JPUSH_PASSWORD = "654321";
@@ -102,7 +96,7 @@ public class TalkServlet extends FreemarkerBaseServlet {
             data.put("message", message);
             data.put("chatNo", chatNo);
         }
-        response.getWriter().write(gson.toJson(data));
+        processJSON(response, data);
 	}
 	
 }
