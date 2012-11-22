@@ -258,7 +258,7 @@ public class MainActivity extends WebBaseActivity {
 
 		String userInfo = null;
 		try {
-			userInfo = HttpHelper.post("/api/user", params);
+			userInfo = HttpHelper.post(Constants.PATH_USER, params);
 		} catch (Exception e) {
 			Logger.e(TAG, "Call pushtalk api to get user info error", e);
 			return;

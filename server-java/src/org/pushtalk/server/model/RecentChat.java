@@ -20,7 +20,6 @@ public class RecentChat implements Comparable<RecentChat> {
             this.isChannel = false;
         }
         this.lastUpdated = new Date();
-        this.unReadNumber = 1;
     }
     
     public void clearUnread() {

@@ -14,7 +14,8 @@ public class Constants {
     
     public static final String PATH_MAIN = "/main";
     public static final String PATH_CHATTING = "/chatting";
-    
+    public static final String PATH_UNREAD = "/api/unreadMessage";
+    public static final String PATH_USER = "/api/user";
 
 
 }

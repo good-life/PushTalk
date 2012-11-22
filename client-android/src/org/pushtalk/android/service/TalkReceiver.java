@@ -1,11 +1,15 @@
 package org.pushtalk.android.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.pushtalk.android.Config;
 import org.pushtalk.android.Constants;
 import org.pushtalk.android.activity.MainActivity;
 import org.pushtalk.android.utils.AndroidUtil;
+import org.pushtalk.android.utils.HttpHelper;
 import org.pushtalk.android.utils.Logger;
 import org.pushtalk.android.utils.MyPreferenceManager;
 import org.pushtalk.android.utils.StringUtils;
@@ -57,6 +61,8 @@ public class TalkReceiver extends BroadcastReceiver {
             } catch (Exception e) {
                 Logger.w(TAG, "");
             }
+            
+            unreadMessage(title, channel);
             
             if (!Config.isBackground) {
                 Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
@@ -112,6 +118,27 @@ public class TalkReceiver extends BroadcastReceiver {
     }
 
 
+    private void unreadMessage(final String friend, final String channel) {
+        new Thread() {
+            public void run() {
+                String chattingFriend = null;
+                if (StringUtils.isEmpty(channel)) {
+                    chattingFriend = friend;
+                }
+                
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("udid", Config.udid);
+                params.put("friend", chattingFriend);
+                params.put("channel_name", channel);
+                
+                try {
+                    HttpHelper.post(Constants.PATH_UNREAD, params);
+                } catch (Exception e) {
+                    Logger.e(TAG, "Call pushtalk api to report unread error", e);
+                }
+            }
+        }.start();
+    }
     
 }
 
