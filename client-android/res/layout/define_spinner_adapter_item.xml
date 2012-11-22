@@ -12,7 +12,7 @@
         android:paddingBottom="5dip"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18dip" />
     <ImageView
         android:id="@+id/icon"

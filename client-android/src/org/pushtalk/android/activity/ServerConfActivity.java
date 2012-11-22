@@ -97,6 +97,7 @@ public class ServerConfActivity extends Activity {
 		confButton.setGravity(Gravity.CENTER);
 		confButton.setTextColor(Color.WHITE);
 		confButton.setBackgroundResource(R.drawable.function_button_selector);
+		
 		confButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -104,12 +105,13 @@ public class ServerConfActivity extends Activity {
 					Intent intent = new Intent(ServerConfActivity.this,WebPageActivity.class);
 					intent.putExtra(EXTRA_MESSAGE, serverUrl);
 					startActivity(intent);
+					finish();
 				}else{
 					Toast.makeText(getApplicationContext(), getString(R.string.server_url_null_alert), Toast.LENGTH_SHORT).show();
 				}
-				finish();
 			}
 		});
+		
 		((LinearLayout) findViewById(R.id.add_leftView)).addView(backButton,lParams);
 		((LinearLayout) findViewById(R.id.add_rightView)).addView(confButton,lParams);
 	}
@@ -142,6 +144,7 @@ public class ServerConfActivity extends Activity {
 	private void configSpinner() {
 		int spinnerPosition =  getSharedPreferences("ServerListPosition", 0).getInt("ServerPosition", 0);
 		mAddressText.setText(getAddressByPosition(spinnerPosition));
+		serverUrl = getAddressByPosition(spinnerPosition);
 		spinnerAdapter = new ArrayAdapter<String>(this, R.layout.define_spinner,serverList) {
 			@Override
 			public View getDropDownView(int position, View convertView,ViewGroup parent) {
@@ -177,6 +180,7 @@ public class ServerConfActivity extends Activity {
 					Logger.v(TAG, "Selected host: " + selectedKey + " " + serverUrl);
 				}else{
 					mAddressText.setText("");
+					serverUrl = "";
 				}
 			}
 
