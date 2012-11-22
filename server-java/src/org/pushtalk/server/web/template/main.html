@@ -64,8 +64,8 @@ margin:10px;
 	<div>欢迎您：${user.name}！</div>
 	<div class="comm-tag">
 		<a href="/user/changeName?udid=${udid}">改名</a>
-		<a href="/channel/new">新频道</a>
-		<a href="/channel">全部频道</a>
+		<a href="/channel/new?udid=${udid}"">新频道</a>
+		<a href="/channel?udid=${udid}"">全部频道</a>
 	</div>
 </div>
 
@@ -102,8 +102,8 @@ ${chat.lastUpdated?date?string.short}
 	<li><a href="/chatting?chatting=${channel.name}&isChannel=true">#${channel.name}</a></li>
 </#list>
 </ul>
-
 </div>
+<div id="debug"></div>
 <script type="text/javascript">
 var UDID;
 var CLIENT_OS;
