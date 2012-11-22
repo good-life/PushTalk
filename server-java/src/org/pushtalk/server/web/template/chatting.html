@@ -234,11 +234,12 @@ $(function() {
 	function focusMessage() {
 		if (!userScrolled) {
 			var maxY = chatPanelH - chatViewH;
-			if (maxY < 0) {
-				_chatView.style.webkitTransitionTimingFunction = "ease-out";
-				_chatView.style.webkitTransitionDuration = "500ms";
-				_chatView.style.webkitTransform = "translate3d(0, "+maxY+"px, 0)";
+			if (maxY > 0) {
+				maxY = 0;
 			}
+			_chatView.style.webkitTransitionTimingFunction = "ease-out";
+			_chatView.style.webkitTransitionDuration = "500ms";
+			_chatView.style.webkitTransform = "translate3d(0, "+maxY+"px, 0)";
 		}
 	}
 	//接受消息
@@ -392,20 +393,23 @@ $(function() {
 		var onRelease = function(e) {
 			e = getFirstFinger(e);
 			transY = getTranslate3dVal(self, 1);
-			var y = transY, time = 0;
-			var maxY = chatViewH - chatPanelH;
-			if (transY > 0) {
-				y = 0;
-				time = 300;
-			} else if (maxY < Math.abs(transY)) {
-				time = 500;
-				y = -maxY;
-				
-				userScrolled = false;
+			if (transY != 0) {
+				var y = transY, time = 0;
+				var maxY = chatViewH - chatPanelH;
+				console.log(maxY + " " + transY);
+				if (transY > 0) {
+					y = 0;
+					time = 300;
+				} else if (maxY < Math.abs(transY)) {
+					time = 500;
+					y = -maxY;
+					
+					userScrolled = false;
+				}
+				self.style.webkitTransitionTimingFunction = "ease-out";
+				self.style.webkitTransitionDuration = time+"ms";
+				self.style.webkitTransform = "translate3d(0, "+y+"px, 0)";
 			}
-			self.style.webkitTransitionTimingFunction = "ease-out";
-			self.style.webkitTransitionDuration = time+"ms";
-			self.style.webkitTransform = "translate3d(0, "+y+"px, 0)";
 			
 			document.removeEventListener(touchmove, onMove);
 			document.removeEventListener(touchend, onRelease);
@@ -418,6 +422,7 @@ $(function() {
 		clientH = $(window).height();
 		clientW = $(window).width();
 		chatPanelH = clientH - toolbarH;
+		chatViewH = chatView.height();
 		chatPanel.height(chatPanelH);
 		chatInput.width(clientW - 130);
 		
