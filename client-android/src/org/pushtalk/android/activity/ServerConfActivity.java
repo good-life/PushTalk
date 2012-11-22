@@ -36,6 +36,7 @@ public class ServerConfActivity extends Activity {
 	private ArrayAdapter<String> spinnerAdapter;
 	private SharedPreferences sharedata;
 	private Map<String, ?> data;
+	
 	private Spinner mSpinner;
 	private TextView mTitleText;
 	private TextView mAddressText;
@@ -102,7 +103,7 @@ public class ServerConfActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if(!isEmpty(serverUrl)){
-					Intent intent = new Intent(ServerConfActivity.this,WebPageActivity.class);
+					Intent intent = new Intent(ServerConfActivity.this,MainActivity.class);
 					intent.putExtra(EXTRA_MESSAGE, serverUrl);
 					startActivity(intent);
 					finish();
@@ -214,7 +215,7 @@ public class ServerConfActivity extends Activity {
 			int newServerPosition = getPositionFromMap(name);
 			mSpinner.setSelection(newServerPosition, false);
 			Logger.v(TAG, "Add server " + HOST);
-			Intent intent = new Intent(ServerConfActivity.this,	WebPageActivity.class);
+			Intent intent = new Intent(ServerConfActivity.this,	MainActivity.class);
 			intent.putExtra(EXTRA_MESSAGE, HOST);
 			startActivity(intent);
 		}

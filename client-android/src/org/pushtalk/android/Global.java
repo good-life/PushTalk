@@ -1,12 +1,17 @@
 package org.pushtalk.android;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.pushtalk.android.utils.Logger;
 import org.pushtalk.android.utils.MyPreferenceManager;
+import org.pushtalk.android.utils.StringUtils;
 import org.pushtalk.android.web.WebHelper;
 
 import android.content.Context;
 
 public class Global {
-    
+    private static final String TAG = "Global";
     
     public static void init(Context context) {
         MyPreferenceManager.init(context);
@@ -29,4 +34,34 @@ public class Global {
         if (null == url) return false;
         return url.startsWith(Config.HOST + Constants.PATH_MAIN);
     }
+    
+    public static String getCurrentChatting(String url) {
+        if (StringUtils.isEmpty(url)) return url;
+        URI uri;
+        try {
+            uri = new URI(url);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+        String query = uri.getQuery();
+        String[] params = query.split("&");
+        if (params.length > 0) {
+            for (String param : params) {
+                if (param.contains(Constants.KEY_CHATTING)) {
+                    String[] s = param.split("=");
+                    if (s.length > 1) {
+                        return s[1];
+                    }
+                }
+            }
+        } else {
+            Logger.d(TAG, "No query param.");
+        }
+        
+        return null;
+    }
+    
 }
+
+

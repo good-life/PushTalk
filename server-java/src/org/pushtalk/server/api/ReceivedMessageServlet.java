@@ -26,11 +26,10 @@ public class ReceivedMessageServlet extends NormalBaseServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "udid is required!");
             return;
         }
-        LOG.debug("udid - " + udid);
         
         User user = talkService.getUserByUdid(udid);
         if (null == user) {
-            response.sendError(HttpServletResponse.SC_NO_CONTENT, "the udid is not registered!");
+            LOG.warn("the udid is not registered!");
             return;
         }
         
@@ -38,7 +37,7 @@ public class ReceivedMessageServlet extends NormalBaseServlet {
         String channelName = request.getParameter("channel_name");
         
         if (null == friend && null == channelName) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "friend/channel is required!");
+            LOG.warn("friend/channel is required!");
             return;
         }
         
@@ -51,6 +50,7 @@ public class ReceivedMessageServlet extends NormalBaseServlet {
         }
         
         talkService.receivedMessage(udid, chatting);
+        LOG.debug("API received chatting - " + chatting);
         
         response.getOutputStream().write("OK".getBytes());
     }
