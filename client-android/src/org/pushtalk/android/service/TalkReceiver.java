@@ -23,7 +23,6 @@ import cn.jpush.android.api.JPushInterface;
 
 public class TalkReceiver extends BroadcastReceiver {
     private static final String TAG = "TalkReceiver";
-    public static final String PREF_CURRENT_CHATTING = "pushtalk_chatting";
     
     private NotificationManager nm;
 
@@ -93,7 +92,7 @@ public class TalkReceiver extends BroadcastReceiver {
                 return;
             }
             
-            String currentChatting = MyPreferenceManager.getString(PREF_CURRENT_CHATTING, null);
+            String currentChatting = MyPreferenceManager.getString(Constants.PREF_CURRENT_CHATTING, null);
             if (chatting.equalsIgnoreCase(currentChatting)) {
                 Logger.d(TAG, "Is now chatting with - " + chatting + ". Dont show notificaiton.");
                 return;
