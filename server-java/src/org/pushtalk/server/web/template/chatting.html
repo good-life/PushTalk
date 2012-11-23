@@ -168,7 +168,7 @@ height:50px;
 		<b>发送</b>
 	</a>
 </div>
-<div id="emotionView">
+<div id="emotionView" style="display:none;">
 	<div class="wrap">
 		<ul class="list"></ul>
 	</div>
@@ -378,9 +378,6 @@ $(function() {
 			error: function(xhr, errorType, error) {
 				chat.status = chatMsgStatus.failure;
 				saveChat(chat, chatNo);
-			},
-			complete: function(xhr) {
-				chatInput.focus();
 			}
 		});
 	}
@@ -541,8 +538,13 @@ $(function() {
 			sendChat();
 		}
 	});
+	chatInput.focus(function() {
+		emotionView.hide();
+		emotionViewH = 0;
+	});
 	$(window).resize(onResize);
 	$(".shortcut").click(function() {
+		emotionView.toggle();
 		emotionViewH = emotionViewH == 0? emotionView.height() : 0;
 		onResize();
 	})
