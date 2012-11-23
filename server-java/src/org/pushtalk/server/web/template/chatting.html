@@ -314,6 +314,14 @@ $(function() {
 		}
 	}
 	exports.receivedMessage = receivedMessage;
+	//处理消息特殊字符,api发送消息内容不支持分号，要特殊处理
+	function encodeMessageSpecials(message) {
+		return message.replace(";", "%3B").replace(/</g, '&lt%3B').replace(/>/g, '&gt%3B');
+	}
+	//转换特殊字符
+	function decodeMessageSpecials(message) {
+		return decodeURIComponent(message);
+	}
 	//发送消息
 	function sendChat() {
 		var message = chatInput.val();
@@ -323,7 +331,7 @@ $(function() {
 		$("#ibox").hide();
 		var chatNo = 'u-' + ((+new Date)+'').substring(8);
 		var chatData = {
-			message: message,
+			message: encodeMessageSpecials(message),
 			chatNo: chatNo
 		};
 		$.extend(chatData, config);
@@ -385,7 +393,7 @@ $(function() {
 		for (var em in emotions) {
 			htmlContent = htmlContent.replace(new RegExp(em, 'g'), '<img class="emotion" src="'+emotions[em]+'"/>');
 		}
-		return htmlContent;
+		return decodeMessageSpecials(htmlContent);
 	}
 	//渲染数据到view
 	function renderChatView() {
@@ -432,6 +440,7 @@ $(function() {
 		var transY = getTranslate3dVal(this, 1);
 		var ctime = +new Date;
 		var cy = e.pageY;
+		var f = 1.8;//缓动系数
 		var onMove = function(e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -474,10 +483,11 @@ $(function() {
 					userScrolled = false;
 				} else {
 					var now = +new Date;
-					if (now - ctime <= 150) {
+					var diff = now - ctime;
+					if (diff <= 150) {
 						var moum = cy - startY;
-						y += moum*8;
-						time = 300 + Math.abs(0.5*y);
+						y += (moum + (Math.ceil(Math.floor(moum / diff) * f)));
+						time = 200*f + Math.abs(0.1*y);
 						if (y > 0) y = 0;
 						if (y < -maxY) y = -maxY;
 					}
@@ -493,6 +503,7 @@ $(function() {
 		document.addEventListener(touchmove, onMove, false);
 		document.addEventListener(touchend, onRelease, false);
 	});
+	
 	//viewport横屏竖屏重置数据
 	function onResize() {
 		clientH = $(window).height();
