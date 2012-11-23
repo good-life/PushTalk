@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.pushtalk.server.Config;
 
 public class ServiceUtils {
+    private static Logger LOG = Logger.getLogger(ServiceUtils.class);
 
     private static final String SERVICE_ID_PREFIX = "_";
     public static final String CHANNEL_PREFIX = "#";
@@ -31,6 +33,28 @@ public class ServiceUtils {
     public static String getChattingFriend(String friendName) {
         if (null == friendName) return null;
         return USER_PREFIX + friendName;
+    }
+    
+    public static String getChattingFriend(String friendChatting, String myName) {
+        if (StringUtils.isEmpty(friendChatting)) return null;
+        if (!friendChatting.startsWith(USER_PREFIX)) {
+            LOG.warn("Not valid friendChatting - " + friendChatting);
+            return null;
+        }
+        
+        String friend = friendChatting.substring(1, friendChatting.length());        
+        String[] array = friend.split(ServiceUtils.USER_PREFIX);
+        if (array.length < 2) {
+            LOG.warn("Not valid friendChatting - " + friendChatting);
+            return null;
+        }
+        
+        if (array[0].equals(myName)) {
+            friend = array[1];
+        } else {
+            friend = array[0];
+        }
+        return friend;
     }
     
     

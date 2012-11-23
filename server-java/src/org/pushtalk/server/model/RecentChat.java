@@ -3,9 +3,11 @@ package org.pushtalk.server.model;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.pushtalk.server.utils.ServiceUtils;
 
 public class RecentChat implements Comparable<RecentChat> {
+    static Logger LOG = Logger.getLogger(RecentChat.class);
 
     String chatting;
     boolean isChannel;
@@ -39,18 +41,8 @@ public class RecentChat implements Comparable<RecentChat> {
     }
     
     public String getChatTarget(String myName) {
-        if (isChannel) {
-            return chatting.substring(1, chatting.length());
-        }
-        
-        String friend = chatting.substring(1, chatting.length());
-        String[] array = friend.split(ServiceUtils.USER_PREFIX);
-        if (array[0].equals(myName)) {
-            friend = array[1];
-        } else {
-            friend = array[0];
-        }
-        return friend;
+        LOG.debug("chatting: " + chatting);
+        return chatting.substring(1, chatting.length());
     }
     
     public String getIsChannel() {
