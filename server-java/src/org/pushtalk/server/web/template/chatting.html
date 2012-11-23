@@ -309,7 +309,7 @@ $(function() {
 			msg = JSON.parse(msg);
 			if (config.channel_name && config.channel_name != msg.extras.channel) {
 				return;
-			} else if (config.friend && config.friend != msg.extras.channel) {
+			} else if (config.friend && config.friend != msg.extras.title) {
 				return;
 			}
 			
