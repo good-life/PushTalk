@@ -307,6 +307,12 @@ $(function() {
 	function receivedMessage(msg) {
 		if (msg) {
 			msg = JSON.parse(msg);
+			if (config.channel_name && config.channel_name != msg.extras.channel) {
+				return;
+			} else if (config.friend && config.friend != msg.extras.channel) {
+				return;
+			}
+			
 			if (msg.title!=user.name) {
 				var chat = {
 					id: msg.extras.sendNo,
@@ -381,7 +387,7 @@ $(function() {
 			}
 		});
 	}
-	//表情列表，目前只是测试方便，简单的标示表情
+	//表情列表，
 	var emotions = {};
 	(function() {
 		var url;
