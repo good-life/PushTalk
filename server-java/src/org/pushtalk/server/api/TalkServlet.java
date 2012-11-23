@@ -3,15 +3,18 @@ package org.pushtalk.server.api;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.Message;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
+
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.MessageResult;
 
@@ -90,6 +93,10 @@ public class TalkServlet extends FreemarkerBaseServlet {
             Message message = new Message(msgResult.getSendno(), myName, content, channelName);
             talkService.putMessage(udid, chatting, message);
             
+            if (null != friend) {
+                chatting = ServiceUtils.getChattingFriend(friend);
+            }
+            talkService.newRecentChat(udid, chatting);
             talkService.showedMessage(udid, chatting);
             
             data.put("sent", true);
