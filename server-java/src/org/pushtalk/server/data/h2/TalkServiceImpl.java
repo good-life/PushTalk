@@ -65,16 +65,19 @@ public class TalkServiceImpl implements TalkService {
 	public void putMessage(String udid, String chatting, Message message) {
 	    Cache<Message, String> messageCache = getMessageCache(chatting);
 	    messageCache.put(message, "");
-	    
-	    Cache<String, RecentChat> chatCache = getRecentChatCache(udid);
-	    RecentChat existed = chatCache.getIfPresent(chatting);
-	    if (existed != null) {
-	        existed.increaseUnread();
-	    } else {
-	        RecentChat chat = new RecentChat(chatting);
-	        chatCache.put(chatting, chat);
-	    }
 	}
+	
+    public void newRecentChat(String udid, String chatting) {
+        Cache<String, RecentChat> chatCache = getRecentChatCache(udid);
+        RecentChat existed = chatCache.getIfPresent(chatting);
+        if (existed != null) {
+            existed.increaseUnread();
+        } else {
+            RecentChat chat = new RecentChat(chatting);
+            chatCache.put(chatting, chat);
+        }
+    }
+
 	
     public Set<Message> getRecentMessages(String channel) {
         Cache<Message, String> cache = getMessageCache(channel);

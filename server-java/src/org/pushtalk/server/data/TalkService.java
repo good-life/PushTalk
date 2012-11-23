@@ -14,6 +14,8 @@ public interface TalkService {
     
     void putMessage(String udid, String chatting, Message message);
     
+    void newRecentChat(String udid, String chatting);
+    
     void showedMessage(String udid, String chatting);
     
     void unreadMessage(String udid, String chatting);

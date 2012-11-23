@@ -54,6 +54,7 @@ public class ServiceUtils {
         } else {
             friend = array[0];
         }
+        friend = USER_PREFIX + friend;
         return friend;
     }
     
