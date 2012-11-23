@@ -68,6 +68,7 @@ public class TalkServiceImpl implements TalkService {
 	}
 	
     public void newRecentChat(String udid, String chatting) {
+        LOG.debug("newRecentChat chatting - " + chatting);
         Cache<String, RecentChat> chatCache = getRecentChatCache(udid);
         RecentChat existed = chatCache.getIfPresent(chatting);
         if (existed != null) {

@@ -93,7 +93,9 @@ public class TalkServlet extends FreemarkerBaseServlet {
             Message message = new Message(msgResult.getSendno(), myName, content, channelName);
             talkService.putMessage(udid, chatting, message);
             
-            chatting = ServiceUtils.getChattingFriend(friend);
+            if (null != friend) {
+                chatting = ServiceUtils.getChattingFriend(friend);
+            }
             talkService.newRecentChat(udid, chatting);
             talkService.showedMessage(udid, chatting);
             
