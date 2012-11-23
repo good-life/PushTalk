@@ -555,27 +555,21 @@ $(function() {
 $(function() {
 //webkit桌面通知支持
 function initNotification() {
-	if (window.webkitNotifications) {
-		window.webkitNotifications.requestPermission();
-	}
+	window.webkitNotifications.requestPermission();
 }
 function createNotification(title, content) {
-	if (window.webkitNotifications) {
-		if (window.webkitNotifications.checkPermission() == 0) {
-			var pop = window.webkitNotifications.createNotification('img.icon', title, content);
-			pop.ondisplay = function(e) {
-				setTimeout(function() {
-					e.currentTarget.cancel();
-				}, 5000);
-			}
-			pop.show();
-		} else {
-			initNotification();
+	if (window.webkitNotifications.checkPermission() == 0) {
+		var pop = window.webkitNotifications.createNotification('img.icon', title, content);
+		pop.ondisplay = function(e) {
+			setTimeout(function() {
+				e.currentTarget.cancel();
+			}, 5000);
 		}
+		pop.show();
+	} else {
+		initNotification();
 	}
 }
-initNotification();
-createNotification('您好，${user.name}', '测试下桌面通知(5秒后自动关闭)。');
 
 //geo地理位置
 var FINAL = 6378137.0;
@@ -613,7 +607,11 @@ function success(position) {
 }
 
 if (navigator.geolocation) {
-	navigator.geolocation.getCurrentPosition(success, null);
+	//navigator.geolocation.getCurrentPosition(success, null);
+}
+if (window.webkitNotifications) {
+	//initNotification();
+	//createNotification('您好，${user.name}', '测试下桌面通知(5秒后自动关闭)。');
 }
 });
 </script>
