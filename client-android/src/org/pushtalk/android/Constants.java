@@ -17,5 +17,7 @@ public class Constants {
     public static final String PATH_UNREAD = "/api/unreadMessage";
     public static final String PATH_USER = "/api/user";
 
-
+    public static final String PREF_CURRENT_CHATTING = "pushtalk_chatting";
+    public static final String PREF_CURRENT_SERVER = "pushtalk_server";
+    
 }

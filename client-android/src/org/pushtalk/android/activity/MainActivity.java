@@ -12,7 +12,6 @@ import org.pushtalk.android.Config;
 import org.pushtalk.android.Constants;
 import org.pushtalk.android.Global;
 import org.pushtalk.android.R;
-import org.pushtalk.android.service.TalkReceiver;
 import org.pushtalk.android.utils.HttpHelper;
 import org.pushtalk.android.utils.Logger;
 import org.pushtalk.android.utils.MyPreferenceManager;
@@ -66,7 +65,7 @@ public class MainActivity extends WebBaseActivity {
 			
 			String chatting = Global.getCurrentChatting(url);
 			Logger.d(TAG, "is now chatting with - " + chatting);
-			MyPreferenceManager.commitString(TalkReceiver.PREF_CURRENT_CHATTING, chatting);
+			MyPreferenceManager.commitString(Constants.PREF_CURRENT_CHATTING, chatting);
 		}
 	}
 	
@@ -108,7 +107,8 @@ public class MainActivity extends WebBaseActivity {
 		confButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this,ServerConfActivity.class);
+				Intent intent = new Intent(MainActivity.this, ServerConfActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				startActivity(intent);
 			}
 		});
@@ -142,7 +142,7 @@ public class MainActivity extends WebBaseActivity {
 		String url = null;
 		String host = intent.getStringExtra(ServerConfActivity.EXTRA_MESSAGE);
         if(host == null){
-        	host = Config.HOST;
+        	host = Config.SERVER;
         }
         
 		Bundle bundle = intent.getExtras();

@@ -1,16 +1,17 @@
 package org.pushtalk.android.activity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.pushtalk.android.Config;
+import org.pushtalk.android.Constants;
 import org.pushtalk.android.R;
 import org.pushtalk.android.utils.Logger;
+import org.pushtalk.android.utils.MyPreferenceManager;
 import org.pushtalk.android.utils.StringUtils;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,15 +29,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ServerConfActivity extends Activity {
 	private static final String TAG = "ServerConfActivity";
-
-	private List<String> serverList = new ArrayList<String>();
+	private static final String PREF_SERVER_LIST = "pushtalk_server_list";
+	
+	private List<String> mServerNameList = new ArrayList<String>();
 	private ArrayAdapter<String> spinnerAdapter;
-	private SharedPreferences sharedata;
-	private Map<String, ?> data;
+	private SharedPreferences sharedPreference;
+	private Map<String, String> mAllServerMap;
 	
 	private Spinner mSpinner;
 	private TextView mTitleText;
@@ -46,17 +47,22 @@ public class ServerConfActivity extends Activity {
 	private EditText serverPort;
 	private Button backButton;
 	private Button addButton;
-	private Button confButton;
-	private String serverUrl = "";
+	
+	private String serverUrl = null;
 	private String selectedKey = null;
+	
 	public static final String EXTRA_MESSAGE = "ServerConfActivity.MESSAGE";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.serverconf);
+		mAllServerMap = new LinkedHashMap<String, String>();
+		
 		initView();
-		getServerListData();
+		
+		resetServerListData();
+		
 		configSpinner();
 	}
 
@@ -93,61 +99,41 @@ public class ServerConfActivity extends Activity {
 				finish();
 			}
 		});
-		
-		confButton = new Button(getApplicationContext());
-		confButton.setText(R.string.comfirm);
-		confButton.setGravity(Gravity.CENTER);
-		confButton.setTextColor(Color.WHITE);
-		confButton.setBackgroundResource(R.drawable.function_button_selector);
-		
-		confButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(!isEmpty(serverUrl)){
-					Intent intent = new Intent(ServerConfActivity.this,MainActivity.class);
-					intent.putExtra(EXTRA_MESSAGE, serverUrl);
-					startActivity(intent);
-					finish();
-				}else{
-					Toast.makeText(getApplicationContext(), getString(R.string.server_url_null_alert), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-		
+				
 		((LinearLayout) findViewById(R.id.add_leftView)).addView(backButton,lParams);
-		((LinearLayout) findViewById(R.id.add_rightView)).addView(confButton,lParams);
 	}
 	
-	private void getServerListData(){
-		sharedata = getSharedPreferences("serverlist", 0);
-		data = sharedata.getAll();
-		serverList.addAll(Config.serverList.keySet());
-		serverList.addAll(data.keySet());
+    private void resetServerListData() {
+		sharedPreference = getSharedPreferences(PREF_SERVER_LIST, 0);
+		
+		// dump fixed servers into prefs
+        Editor editor = sharedPreference.edit();
+		for (String builtinName : Config.serverList.keySet()) {
+		    editor.putString(builtinName, Config.serverList.get(builtinName));
+		}
+		editor.commit();
+		
+		// dump all into local params
+        dumpPreferencesIntoMap();
+		mServerNameList.addAll(mAllServerMap.keySet());
 	}
+    
+    private void dumpPreferencesIntoMap() {
+        for (String key : sharedPreference.getAll().keySet()) {
+            String url = sharedPreference.getString(key, "");
+            Logger.d(TAG, "dump server - name:" + key + ", url:" + url);
+            mAllServerMap.put(key, url);
+        }
+    }
 	
 	private void refreshAdpter(){
-		serverList.clear();
-		getServerListData();
+		mServerNameList.clear();
+		resetServerListData();
 		spinnerAdapter.notifyDataSetChanged();
 	}
 	
-	private String getAddressByPosition(int position){
-		String serverAddress = "";
-		String serverKeyName = serverList.get(position);
-		if(position > 0 && data.containsKey(serverKeyName)){
-			 serverAddress = data.get(serverKeyName).toString();
-		}else{
-			serverAddress = Config.serverList.get(serverKeyName);
-		}
-		return serverAddress;
-	}
-
-	// 配置Spinner，处理item选择事件
 	private void configSpinner() {
-		int spinnerPosition =  getSharedPreferences("ServerListPosition", 0).getInt("ServerPosition", 0);
-		mAddressText.setText(getAddressByPosition(spinnerPosition));
-		serverUrl = getAddressByPosition(spinnerPosition);
-		spinnerAdapter = new ArrayAdapter<String>(this, R.layout.define_spinner,serverList) {
+		spinnerAdapter = new ArrayAdapter<String>(this, R.layout.define_spinner, mServerNameList) {
 			@Override
 			public View getDropDownView(int position, View convertView,ViewGroup parent) {
 				View view = getLayoutInflater().inflate(R.layout.define_spinner_adapter_item, parent, false);
@@ -165,30 +151,47 @@ public class ServerConfActivity extends Activity {
 				return view;
 			}
 		};
+        mSpinner.setAdapter(spinnerAdapter);
 		
+		String currentUrl = MyPreferenceManager.getString(Constants.PREF_CURRENT_SERVER, null);
+		Logger.d(TAG, "Current server url: " + currentUrl);
+        mAddressText.setText(currentUrl);
+        
+	    int spinnerPosition = getPositionFromMap(currentUrl);
+	    Logger.d(TAG, "Current spinner position: " + spinnerPosition);
+        mSpinner.setSelection(spinnerPosition, false);
+        
 		mSpinner.setPromptId(R.string.prompt_server);
-		mSpinner.setAdapter(spinnerAdapter);
-		mSpinner.setSelection(spinnerPosition, false);
 		mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> arg0, View view,int arg2, long arg3) {
-				if (arg2 != 0) {
+			public void onItemSelected(AdapterView<?> arg0, View view, int arg2, long arg3) {
+				if (arg2 >= 0) {
 					selectedKey = spinnerAdapter.getItem(arg2).toString();
-					if (data.containsKey(selectedKey)) {
-						serverUrl = data.get(selectedKey).toString();
-					} else if (Config.serverList.containsKey(selectedKey)) {
-						serverUrl = Config.serverList.get(selectedKey);
+					if (mAllServerMap.containsKey(selectedKey)) {
+						serverUrl = mAllServerMap.get(selectedKey);
 					}
+					if (StringUtils.isEmpty(serverUrl)) {
+					    Logger.w(TAG, "No serverUrl for the selectedKey - " + selectedKey);
+					    return;
+					}
+					
 					mAddressText.setText(serverUrl);
-					Editor sharedata = getSharedPreferences("ServerListPosition", 0).edit();
-					sharedata.putInt("ServerPosition", arg2);
-					sharedata.commit();
+					
 					Logger.v(TAG, "Selected host: " + selectedKey + " " + serverUrl);
+                    Config.SERVER = serverUrl;
+                    MyPreferenceManager.commitString(Constants.PREF_CURRENT_SERVER, serverUrl);
+					
+                    Intent intent = new Intent(ServerConfActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    finish();
+                    
 				}else{
+				    Logger.d(TAG, "Unvalid select position");
 					mAddressText.setText("");
 					serverUrl = "";
 				}
 			}
-
+			
 			public void onNothingSelected(AdapterView<?> arg0) {
 				arg0.setVisibility(View.INVISIBLE);
 			}
@@ -210,34 +213,42 @@ public class ServerConfActivity extends Activity {
 			serverPort.requestFocus();
 		} else {
 			Logger.v(TAG, "Add server start");
-			String HOST = "http://" + host + ":" + port;
-			Editor sharedata = getSharedPreferences("serverlist", 0).edit();
-			sharedata.putString(name, HOST);
+			String serverUrl = "http://" + host + ":" + port;
+			
+			Editor sharedata = getSharedPreferences(PREF_SERVER_LIST, 0).edit();
+			sharedata.putString(name, serverUrl);
 			sharedata.commit();
+			
 			refreshAdpter();
-			mAddressText.setText(HOST);
-			int newServerPosition = getPositionFromMap(name);
+			
+			mAddressText.setText(serverUrl);
+			int newServerPosition = getPositionFromMap(serverUrl);
 			mSpinner.setSelection(newServerPosition, false);
-			Logger.v(TAG, "Add server " + HOST);
-			Intent intent = new Intent(ServerConfActivity.this,	MainActivity.class);
-			intent.putExtra(EXTRA_MESSAGE, HOST);
-			startActivity(intent);
+			
+			Logger.v(TAG, "Added new server - name:" + name + ", url:" + serverUrl);
 		}
 	}
 	
+	private int getPositionFromServerList(String serverName) {
+	    int i = 0;
+	    for (String s : mServerNameList) {
+	        if (s.equalsIgnoreCase(serverName)) {
+	            return i;
+	        }
+	        i ++;
+	    }
+	    return -1;
+	}
 	
-	private int getPositionFromMap(String keyName){
-		Iterator iter = data.entrySet().iterator(); 
-		int position = 0;
-		while (iter.hasNext()) { 
-			position ++;
-		    Map.Entry entry = (Map.Entry) iter.next(); 
-		    Object key = entry.getKey(); 
-		    if(String.valueOf(key).equals(keyName)){
-		    	break;
-		    }
-		} 
-		return position + Config.serverList.size() - 1;
+	private int getPositionFromMap(String keyName) {
+	    int pos = 0;
+	    for (String server : mAllServerMap.values()) {
+	        if (server.equalsIgnoreCase(keyName)) {
+	            return pos;
+	        }
+	        pos ++;
+	    }
+	    return -1;
 	}
 	
 	

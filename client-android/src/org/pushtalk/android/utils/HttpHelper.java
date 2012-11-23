@@ -20,7 +20,7 @@ public class HttpHelper {
         HttpURLConnection conn = null;
         DataOutputStream outStream = null;
         try {
-            URL url = new URL(Config.HOST + path);
+            URL url = new URL(Config.SERVER + path);
             byte[] data = parseParams(params).getBytes(CHARSET);
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT);

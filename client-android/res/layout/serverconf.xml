@@ -15,19 +15,20 @@
         android:layout_below="@id/title_bar"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:layout_marginTop="40dip" />
+        android:layout_marginTop="10dip" />
     
     
     <TableLayout
         android:id="@+id/server_setting_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-    	android:layout_marginTop="40dip"
+    	android:layout_marginTop="10dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:shrinkColumns="0"
         android:layout_below="@id/server_list">
-                <TableRow android:layout_marginBottom="30dip" android:gravity="center_vertical">
+                <TableRow android:layout_marginBottom="30dip" 
+                  android:gravity="center_vertical">
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
@@ -42,10 +43,10 @@
                  android:layout_height="wrap_content"
                  android:paddingTop="5dip"
                  android:paddingBottom="5dip"
-                 android:textSize="18sp"
+                 android:textSize="14sp"
                  android:background="@drawable/define_edit_selector"
                  android:maxLines="3"
-                 android:ems="10"
+                 android:ems="16"
                  android:textColor="@color/black" />
         </TableRow>
         
@@ -71,7 +72,7 @@
                 android:id="@+id/server_name_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:paddingTop="5dip"
                 android:paddingBottom="5dip"
                 android:background="@drawable/define_edit_selector"
@@ -93,7 +94,7 @@
                 android:id="@+id/server_host_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:paddingTop="5dip"
                 android:paddingBottom="5dip"
                 android:background="@drawable/define_edit_selector"
@@ -115,7 +116,7 @@
                 android:id="@+id/server_port_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:paddingTop="5dip"
                 android:paddingBottom="5dip"
                 android:background="@drawable/define_edit_selector"
@@ -129,11 +130,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/execute_but_click_selector"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/server_setting_layout"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="@string/btn_add" />
 
 </RelativeLayout>
