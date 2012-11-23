@@ -18,8 +18,8 @@ background: #EEE;
 margin:0;
 }
 #chatPanel{width:100%;height:100%;overflow: hidden;}
-.chatActions{position:fixed;bottom:0;left:0;width:100%;margin-bottom: 5px;}
-.chatActions .chatInput {
+#chatActions{position:fixed;bottom:0;left:0;width:100%;margin-bottom: 5px;}
+#chatActions .chatInput {
 width: 185px;
 height: 20px;
 margin: 0 10px 0 43px;
@@ -33,7 +33,7 @@ line-height: 1.2em;
 resize: none;
 font: 14px/1.5 Helvetica,"微软雅黑","黑体",Arial,Tahoma;
 }
-.chatActions a.chatSend {
+#chatActions a.chatSend {
 position: absolute;
 right: 5px;
 bottom: 0;
@@ -51,7 +51,7 @@ text-shadow: 0 1px 1px #444;
 background: #486CB4;
 outline: none;
 }
-.chatActions a.chatSend b {
+#chatActions a.chatSend b {
 display: block;
 border-radius: 3px;
 font-size: 14px;
@@ -107,32 +107,35 @@ display: -webkit-box;
 -webkit-box-align: center;
 -webkit-box-pack: center;
 }
-#ibox{
-position: absolute;
-bottom: 50px;
-left: 0;
-width: 100%;
+#emotionView{
+margin-top: 40px;
+height: 165px;
+overflow: auto;
 }
-#ibox .wrap{
+#emotionView::after {
+clear:fix
+}
+#emotionView .wrap{
 margin: 0 auto;
-width: 257px;
+width: 310px!important;
 }
-#ibox .list{
+#emotionView .list{
 list-style: none;
 padding: 0;
 margin: 0;
 border: 1px #DDD solid;
 }
-#ibox .list li {
+#emotionView .list li {
 float:left;
 border: 1px #DDD solid;
 background:white;
 border-right:0;
 border-bottom:0;
 }
-#ibox .list li img {
+#emotionView .list li img {
 width:50px;
-height:50px;}
+height:50px;
+}
 </style>
 </head>
 <body>
@@ -150,22 +153,19 @@ height:50px;}
 <#if error ??>
 <span style="color:red;">${error}</span><br />
 </#if>
-
-<!-- Here ajax to get Recent Chats.  
-Condition:  received message but it is not with current chatting channel -->
-
 <hr />
+
 <div id="chatPanel">
 	<div id="chatView"></div>
 </div>
-<div class="chatActions">
+<div id="chatActions">
 	<a class="shortcut">^_^</a>
 	<input type="text" name="message" class="chatInput" id="chatInput" maxlength="500"/>
 	<a class="chatSend" href="javascript:void(0);">
 		<b>发送</b>
 	</a>
 </div>
-<div id="ibox" style="display:none;">
+<div id="emotionView">
 	<div class="wrap">
 		<ul class="list"></ul>
 	</div>
@@ -194,6 +194,8 @@ $(function() {
 	//可视化节点
 	var chatPanel = $("#chatPanel");
 	var chatView = $("#chatView");
+	var chatAction = $("#chatActions");
+	var emotionView = $("#emotionView");
 	
 	//消息输入框
 	var chatInput = $("#chatInput");
@@ -226,6 +228,8 @@ $(function() {
 	var chatPanelH = 0;
 	//消息的总高度
 	var chatViewH = 0;
+	//表情操作区域高度
+	var emotionViewH = 0;
 	//用户在滚动查看历史消息
 	var userScrolled = false;
 	
@@ -328,7 +332,6 @@ $(function() {
 		if (message == '') {
 			return;
 		}
-		$("#ibox").hide();
 		var chatNo = 'u-' + ((+new Date)+'').substring(8);
 		var chatData = {
 			message: encodeMessageSpecials(message),
@@ -376,7 +379,7 @@ $(function() {
 	var emotions = {};
 	(function() {
 		var url;
-		for (var i=1; i<=20; i++) {
+		for (var i=10; i<=27; i++) {
 			url = 'http://www.eoeandroid.com/static/image/smiley/tutu/'+i+'.gif';
 			emotions['_t'+i+'_'] = url;
 			//预加载
@@ -386,7 +389,7 @@ $(function() {
 		for (var emo in emotions) {
 			ems.push('<li><img src="'+emotions[emo]+'"/></li>');
 		}
-		$("#ibox .list").html(ems.join(''));
+		emotionView.find(".list").html(ems.join(''));
 	})();
 	//处理消息内容
 	function replaceSpecials(htmlContent) {
@@ -508,10 +511,11 @@ $(function() {
 	function onResize() {
 		clientH = $(window).height();
 		clientW = $(window).width();
-		chatPanelH = clientH - toolbarH;
+		chatPanelH = clientH - toolbarH - emotionViewH;
 		chatViewH = chatView.height();
 		chatPanel.height(chatPanelH);
 		chatInput.width(clientW - 160);
+		chatAction.css("bottom", emotionViewH);
 		
 		focusMessage();
 	}
@@ -530,7 +534,8 @@ $(function() {
 	});
 	$(window).resize(onResize);
 	$(".shortcut").click(function() {
-		$("#ibox").toggle();
+		emotionViewH = emotionViewH == 0? emotionView.height() : 0;
+		onResize();
 	})
 	function findEmotion(idx) {
 		var i = 0;
@@ -541,7 +546,7 @@ $(function() {
 			i ++;
 		}
 	}
-	$("#ibox .list img").each(function(i) {
+	emotionView.find(".list img").each(function(i) {
 		$(this).click(function() {
 			var pre = chatInput.val();
 			pre += findEmotion(i);
