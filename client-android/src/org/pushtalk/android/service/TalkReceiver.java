@@ -36,73 +36,13 @@ public class TalkReceiver extends BroadcastReceiver {
         Logger.d(TAG, "onReceive - " + intent.getAction() + ", extras: " + AndroidUtil.printBundle(bundle));
         
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
+            Logger.d(TAG, "JPush用户注册成功");
             
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-            String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-            Logger.d(TAG, "接受到推送下来的自定义消息: " + message);
-            String title = bundle.getString(JPushInterface.EXTRA_TITLE);
+            Logger.d(TAG, "接受到推送下来的自定义消息");
             
-            if (StringUtils.isEmpty(title)) {
-                Logger.w(TAG, "Empty title. Give up");
-                return;
-            }
-            
-            if (title.equalsIgnoreCase(Config.myName)) {
-                Logger.d(TAG, "Message from myself. Give up");
-                return;
-            }
-            
-            String channel = null;
-            String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-            try {
-                JSONObject extrasJson = new JSONObject(extras);
-                channel = extrasJson.optString(Constants.KEY_CHANNEL);
-            } catch (Exception e) {
-                Logger.w(TAG, "");
-            }
-            
-            if (!Config.isBackground) {
-                Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-                msgIntent.putExtra(Constants.KEY_MESSAGE, message);
-                msgIntent.putExtra(Constants.KEY_TITLE, title);
-                if (null != channel) {
-                    msgIntent.putExtra(Constants.KEY_CHANNEL, channel);
-                }
-                
-                JSONObject all = new JSONObject();
-                try {
-                    all.put(Constants.KEY_TITLE, title);
-                    all.put(Constants.KEY_MESSAGE, message);
-                    all.put(Constants.KEY_EXTRAS, new JSONObject(extras));
-                } catch (JSONException e) {
-                }
-                msgIntent.putExtra("all", all.toString());
-                
-                context.sendBroadcast(msgIntent);
-                Logger.v(TAG, "sending msg to ui ");
-            }
-            
-            String chatting = title;
-            if (!StringUtils.isEmpty(channel)) {
-                chatting = channel;
-            }
-            
-            if (StringUtils.isEmpty(chatting)) {
-                Logger.w(TAG, "Empty chatting. Give up");
-                return;
-            }
-            
-            String currentChatting = MyPreferenceManager.getString(Constants.PREF_CURRENT_CHATTING, null);
-            if (chatting.equalsIgnoreCase(currentChatting)) {
-                Logger.d(TAG, "Is now chatting with - " + chatting + ". Dont show notificaiton.");
-                return;
-            }
-            
-            unreadMessage(title, channel);
-            
-            if (Config.IS_TEST_MODE) {
-                NotificationHelper.showMessageNotification(context, nm, title, message, channel);
-            }
+            // Push Talk messages are push down by custom message format
+            processCustomMessage(context, bundle);
         
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             Logger.d(TAG, "接受到推送下来的通知");
@@ -116,7 +56,68 @@ public class TalkReceiver extends BroadcastReceiver {
 
     }
 
+    
+    private void processCustomMessage(Context context, Bundle bundle) {
+        String title = bundle.getString(JPushInterface.EXTRA_TITLE);
+        String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 
+        if (StringUtils.isEmpty(title)) {
+            Logger.w(TAG, "Unexpected: empty title (friend). Give up");
+            return;
+        }
+        
+        if (title.equalsIgnoreCase(Config.myName) && !Config.IS_TEST_MODE) {
+            Logger.d(TAG, "Message from myself. Give up");
+            return;
+        }
+        
+        String channel = null;
+        String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+        try {
+            JSONObject extrasJson = new JSONObject(extras);
+            channel = extrasJson.optString(Constants.KEY_CHANNEL);
+        } catch (Exception e) {
+            Logger.w(TAG, "Unexpected: extras is not a valid json", e);
+        }
+        
+        // Send message to UI (Webview) only when UI is up 
+        if (!Config.isBackground) {
+            Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
+            msgIntent.putExtra(Constants.KEY_MESSAGE, message);
+            msgIntent.putExtra(Constants.KEY_TITLE, title);
+            if (null != channel) {
+                msgIntent.putExtra(Constants.KEY_CHANNEL, channel);
+            }
+            
+            JSONObject all = new JSONObject();
+            try {
+                all.put(Constants.KEY_TITLE, title);
+                all.put(Constants.KEY_MESSAGE, message);
+                all.put(Constants.KEY_EXTRAS, new JSONObject(extras));
+            } catch (JSONException e) {
+            }
+            msgIntent.putExtra("all", all.toString());
+            
+            context.sendBroadcast(msgIntent);
+        }
+        
+        String chatting = title;
+        if (!StringUtils.isEmpty(channel)) {
+            chatting = channel;
+        }
+        
+        String currentChatting = MyPreferenceManager.getString(Constants.PREF_CURRENT_CHATTING, null);
+        if (chatting.equalsIgnoreCase(currentChatting)) {
+            Logger.d(TAG, "Is now chatting with - " + chatting + ". Dont show notificaiton.");
+            return;
+        }
+        
+        unreadMessage(title, channel);
+        
+        NotificationHelper.showMessageNotification(context, nm, title, message, channel);
+    }
+
+    // When received message, increase unread number for Recent Chat
     private void unreadMessage(final String friend, final String channel) {
         new Thread() {
             public void run() {

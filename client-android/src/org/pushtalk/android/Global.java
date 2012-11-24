@@ -60,6 +60,11 @@ public class Global {
         return url.startsWith(Config.SERVER + Constants.PATH_MAIN);
     }
     
+    public static boolean isAccessChattingPage(String url) {
+        if (null == url) return false;
+        return url.startsWith(Config.SERVER + Constants.PATH_CHATTING);
+    }
+    
     public static String getCurrentChatting(String url) {
         if (StringUtils.isEmpty(url)) return url;
         URI uri;

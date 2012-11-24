@@ -44,7 +44,6 @@ public class MainActivity extends WebBaseActivity {
 	private Button backButton;
 	
 	private boolean isMainPage;
-	private String mCurrentChatting;
 
 	public void setTitle(String pageTitle) {
 		mTitleView.setText(pageTitle);
@@ -63,9 +62,11 @@ public class MainActivity extends WebBaseActivity {
 				isMainPage = false;
 			}
 			
-			String chatting = Global.getCurrentChatting(url);
-			Logger.d(TAG, "is now chatting with - " + chatting);
-			MyPreferenceManager.commitString(Constants.PREF_CURRENT_CHATTING, chatting);
+			if (Global.isAccessChattingPage(url)) {
+			    String chatting = Global.getCurrentChatting(url);
+			    Logger.d(TAG, "is now chatting with - " + chatting);
+			    MyPreferenceManager.commitString(Constants.PREF_CURRENT_CHATTING, chatting);
+			}
 		}
 	}
 	
