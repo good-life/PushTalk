@@ -87,7 +87,6 @@ public class TalkServiceImpl implements TalkService {
     }
     
     private Set<Message> getOrderedMessages(Set<Message> originalSet) {
-        // TODO: to be implemented order
         TreeSet<Message> ordered = Sets.newTreeSet(originalSet);
         
         return ordered;

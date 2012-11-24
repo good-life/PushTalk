@@ -273,6 +273,7 @@ $(function() {
 			chatsIdx[chat.id||chatNo] = chats.length - 1;
 		}
 	}
+	
 	//获取最近的历史消息
 	function getRecentMessages() {
 		$.ajax({
@@ -309,7 +310,7 @@ $(function() {
 			msg = JSON.parse(msg);
 			if (config.channel_name && config.channel_name != msg.extras.channel) {
 				return;
-			} else if (config.friend && config.friend != msg.extras.title) {
+			} else if (config.friend && config.friend != msg.title) {
 				return;
 			}
 			
@@ -387,6 +388,7 @@ $(function() {
 			}
 		});
 	}
+	
 	//表情列表，
 	var emotions = {};
 	(function() {
@@ -403,6 +405,7 @@ $(function() {
 		}
 		emotionView.find(".list").html(ems.join(''));
 	})();
+	
 	//处理消息内容
 	function replaceSpecials(htmlContent) {
 		for (var em in emotions) {
@@ -410,6 +413,7 @@ $(function() {
 		}
 		return decodeMessageSpecials(htmlContent);
 	}
+	
 	//渲染数据到view
 	function renderChatView() {
 		var htmls = [];
@@ -435,6 +439,7 @@ $(function() {
 			focusMessage();
 		}
 	}
+	
 	//获取css3 translate3d的值
 	function getTranslate3dVal(el, i) {
 		var transform = el.style.webkitTransform;
@@ -531,6 +536,7 @@ $(function() {
 		
 		focusMessage();
 	}
+	
 	//每300ms一次渲染
 	setInterval(renderChatView, 300);
 	

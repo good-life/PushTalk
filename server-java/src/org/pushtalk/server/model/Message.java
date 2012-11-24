@@ -5,11 +5,13 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 public class Message implements Comparable<Message> {
+    
 	int id;
     String title;
     String content;
     String channel;
     long time;
+    
     //是否已读
     //boolean readable;
     
@@ -80,3 +82,4 @@ public class Message implements Comparable<Message> {
         this.time = time;
     }
 }
+
