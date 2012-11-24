@@ -66,7 +66,7 @@ public class TalkReceiver extends BroadcastReceiver {
             return;
         }
         
-        if (title.equalsIgnoreCase(Config.myName) && !Config.IS_TEST_MODE) {
+        if (!Config.IS_TEST_MODE && title.equalsIgnoreCase(Config.myName)) {
             Logger.d(TAG, "Message from myself. Give up");
             return;
         }
@@ -107,7 +107,7 @@ public class TalkReceiver extends BroadcastReceiver {
         }
         
         String currentChatting = MyPreferenceManager.getString(Constants.PREF_CURRENT_CHATTING, null);
-        if (chatting.equalsIgnoreCase(currentChatting)) {
+        if (!Config.IS_TEST_MODE && chatting.equalsIgnoreCase(currentChatting)) {
             Logger.d(TAG, "Is now chatting with - " + chatting + ". Dont show notificaiton.");
             return;
         }
