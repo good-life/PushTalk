@@ -8,7 +8,8 @@ public class Config {
 
     public static boolean IS_TEST_MODE = true;
     
-    public static String VERSION = "0.1.0";
+    public static String VERSION = "0.2.0";
+    
     public static String WEB_JS_MODULE = "pushtalk";
     
     public static final boolean NOTIFICATION_NEED_SOUND = true;

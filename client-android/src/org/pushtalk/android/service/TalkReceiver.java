@@ -66,9 +66,14 @@ public class TalkReceiver extends BroadcastReceiver {
             return;
         }
         
-        if (!Config.IS_TEST_MODE && title.equalsIgnoreCase(Config.myName)) {
+        boolean needIncreaseUnread = true;
+        
+        if (title.equalsIgnoreCase(Config.myName)) {
             Logger.d(TAG, "Message from myself. Give up");
-            return;
+            needIncreaseUnread = false;
+            if (!Config.IS_TEST_MODE) {
+                return;
+            }
         }
         
         String channel = null;
@@ -107,12 +112,17 @@ public class TalkReceiver extends BroadcastReceiver {
         }
         
         String currentChatting = MyPreferenceManager.getString(Constants.PREF_CURRENT_CHATTING, null);
-        if (!Config.IS_TEST_MODE && chatting.equalsIgnoreCase(currentChatting)) {
+        if (chatting.equalsIgnoreCase(currentChatting)) {
             Logger.d(TAG, "Is now chatting with - " + chatting + ". Dont show notificaiton.");
-            return;
+            needIncreaseUnread = false;
+            if (!Config.IS_TEST_MODE) {
+                return;
+            }
         }
         
-        unreadMessage(title, channel);
+        if (needIncreaseUnread) {
+            unreadMessage(title, channel);
+        }
         
         NotificationHelper.showMessageNotification(context, nm, title, message, channel);
     }

@@ -13,6 +13,8 @@ public class TalkApplication extends Application {
     public void onCreate() {
         Logger.d(TAG, "onCreate");
         super.onCreate();
+        
+        Logger.i(TAG, "Push Talk client version: " + Config.VERSION);
         Global.init(getApplicationContext());
 
         Config.udid = AndroidUtil.getUdid(getApplicationContext());

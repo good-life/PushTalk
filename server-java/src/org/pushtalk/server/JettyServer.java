@@ -67,8 +67,8 @@ public class JettyServer {
         
         server.start();
 		server.join();
-		LOG.info("Jetty Server started with " + port);
-		
+		LOG.info("Jetty Server started with port:" + port);
+		LOG.info("Push Talk Server is started. Version:" + Config.VERSION);
 		
 	}
 }

@@ -17,7 +17,7 @@ public class Global {
     public static void init(Context context) {
         MyPreferenceManager.init(context);
         Config.SERVER = getCurrentServer();
-        Logger.i(TAG, "Current server: " + Config.SERVER);
+        Logger.i(TAG, "Current pushtalk server: " + Config.SERVER);
     }
     
     
