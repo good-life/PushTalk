@@ -4,6 +4,7 @@
 ### 项目官方网站
 http://github.com/good-life/pushtalk  
 
+
 ### 功能与特点
   
 ##### 功能列表
@@ -23,6 +24,7 @@ http://github.com/good-life/pushtalk
 * 简单到极致的 http 聊天服务器：一个 jar 包跑起来
 * 轻量级客户端：聊天界面使用 Webview 的方式
 * 下行消息推送基于 [JPush][]，上行消息采用 http 实现
+
 
 ### 聊天服务器
 
