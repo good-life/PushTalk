@@ -68,6 +68,7 @@ public class ChattingServlet extends FreemarkerBaseServlet {
         }
         User user = talkService.getUserByUdid(udid);
         data.put("user", user);
+        data.put("serverTime", System.currentTimeMillis());
         processTemplate(response, "chatting.html", data);
         
 	}

@@ -38,7 +38,7 @@ public class TalkServlet extends FreemarkerBaseServlet {
         String udid = request.getParameter("udid");
         String channelName = request.getParameter("channel_name");
         String friend = request.getParameter("friend");
-        final String content = request.getParameter("message");
+        String content = request.getParameter("message");
         String chatNo = request.getParameter("chatNo");
         if (null == udid) {
             return;
@@ -54,7 +54,12 @@ public class TalkServlet extends FreemarkerBaseServlet {
         
         String chatting = null;
         MessageResult msgResult = null;
-        final String myName = talkService.getUserByUdid(udid).getName();
+        String myName = talkService.getUserByUdid(udid).getName();
+        
+    	//注:bug发现在11月20日，api发送消息标题或者内容包含分号会返回1003，所以要特殊处理，不知道官方何时处理好这个bug。
+    	myName = myName.replaceAll(";", "%3B");
+    	content = content.replaceAll(";", "%3B");
+    	
         if (null != channelName) {
             Channel channel = talkService.getChannelByName(channelName);
             if (null == channel) {
