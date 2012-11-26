@@ -2,7 +2,7 @@
 推聊是一个基于[极光推送](http://jpush.cn/)的简易Android手机聊天系统。支持群聊与点对点聊天。
 
 ### 项目官方网站
-http://github.com/good-life/pushtalk  
+<http://github.com/good-life/pushtalk>
 
 
 ### 功能与特点
