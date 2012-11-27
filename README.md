@@ -1,5 +1,5 @@
 # 推聊概述 PushTalk Overview
-推聊是一个基于[极光推送](http://jpush.cn/)的简易Android手机聊天系统。支持群聊与点对点聊天。
+推聊是一个基于极光推送的Android手机聊天系统。支持群聊与点对点聊天。当前包括Android客户端与Java服务器端。3分钟就可以整套系统跑起来。
 
 ### 项目官方网站
 <http://github.com/good-life/pushtalk>
@@ -12,27 +12,26 @@
 * 频道里群聊
 * 与其他用户点对点聊天
 * 聊天支持文字、表情、URL等
-* 创建频道、加入频道
 * 注册用户（不需要密码）
-* 我的频道
-* 我的最近聊天
-* 聊天记录缓存
+* 创建频道、加入频道
+* 我的最近聊天、我的频道
+* 聊天记录缓存（在服务器端）
 * 客户端选择聊天服务器、添加聊天服务器
 
 ##### 特点
 
 * 简单到极致的 http 聊天服务器：一个 jar 包跑起来
 * 轻量级客户端：聊天界面使用 Webview 的方式
-* 下行消息推送基于 [JPush](http://jpush.cn/)，上行消息采用 http 实现
+* 下行消息推送基于 [JPush](http://jpush.cn/)（一个免费的第三方 Android Push 服务），上行消息采用 http 请求的方式实现
 
 
 ### 聊天服务器
 
 推聊的服务器端使用 Java 语言编写，基于最简单实用的开源框架。
 
-* http 服务器使用 [Jetty](http://www.eclipse.org/jetty/)
-* 数据库使用 [H2](http://http://www.h2database.com/)
-* 页面模板使用 [Freemarker](http://freemarker.sourceforge.net/)
+* http 服务器使用 [Jetty](http://www.eclipse.org/jetty/)：轻量级的 Java Servlet 容器。
+* 数据库使用 [H2](http://http://www.h2database.com/)： 轻量级的 Java 内存/文件数据库。
+* 页面模板使用 [Freemarker](http://freemarker.sourceforge.net/)：轻量级的 Java 页面模板引擎。
 * 打包时集成为一个整体 jar 包（包含所有的依赖包）
 
 要运行推聊服务器端，请在取得的源代码里找到这个文件 ``/dist/pushtalk-server-with-dependencies.jar``。`注：实际的文件名后边一般会加上一个版本号。`
@@ -62,4 +61,20 @@
 
 <https://github.com/good-life/PushTalk/wiki/PushTalk-Third-Party-Servers>
 
+
+### 开发者支持
+
+欢迎广大开发者加入本开源项目，大家一起来不断地丰满、完善推聊。
+
+本人是因为兴趣业余时间来开发推聊，考虑到 IM 占用的时间太多，所以请谅解，不提供任何 IM 的沟通方式。希望大家以如下的方式交流：
+
+* Email:  <pushtalk.org@gmail.com>
+* 项目Wiki: <https://github.com/good-life/PushTalk/wiki>
+* 项目Bug: <https://github.com/good-life/PushTalk/issues>
+
+代码提交方式：请先提交Bug修复，把 diff 以文件方式发邮件给我。合作多次后，我可以把你加入到本项目贡献者里来，你就可以随时自由地提交代码了。
+
+你也可以自由地 fork 本项目，自己去发布新的版本。
+
+推聊使用的开源协议：[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
