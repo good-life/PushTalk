@@ -75,6 +75,7 @@
 * Email:  <pushtalk.org@gmail.com>
 * 项目Wiki: <https://github.com/good-life/PushTalk/wiki>
 * 项目Bug: <https://github.com/good-life/PushTalk/issues>
+* PushTalk频道：`pushtalk`, `报告bug`, `新功能讨论` 等
 
 代码提交方式：请先提交Bug修复，把 diff 以文件方式发邮件给我。合作多次后，我可以把你加入到本项目贡献者里来，你就可以随时自由地提交代码了。
 
