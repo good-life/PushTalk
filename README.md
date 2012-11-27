@@ -34,12 +34,14 @@
 * 页面模板使用 [Freemarker](http://freemarker.sourceforge.net/)：轻量级的 Java 页面模板引擎。
 * 打包时集成为一个整体 jar 包（包含所有的依赖包）
 
-要运行推聊服务器端，请在取得的源代码里找到这个文件 ``/dist/pushtalk-server-with-dependencies.jar``。`注：实际的文件名后边一般会加上一个版本号。`
+要运行推聊服务器端，请在 github 文件下载页 <https://github.com/good-life/PushTalk/downloads/> 下载推聊服务器 jar 文件。
 
 使用如下命令运行服务器：
 
 	java -jar pushtalk-server-with-dependencies.jar
 	
+`注：实际的文件名后边一般会加上一个版本号。` 
+
 上述命令运行后：
 
 * 一个 http server 启动了，监听端口为 10010
@@ -53,7 +55,9 @@
 
 ### Android 客户端
 
-客户端运行，只需在源代码里找到 `/dist/PushTalk.apk` 安装到 Android 手机即可。`注：实际的文件名后边应该会加个版本号。`你也可以自己编译 `/client-android` 项目之后安装到手机。
+客户端运行，请在 github 文件下载页 <https://github.com/good-life/PushTalk/downloads/> 下载 Android apk 安装到 Android 手机即可。
+
+你也可以自己编译 `/client-android` 项目之后安装到手机。
 
 客户端默认内置官方聊天服务器地址。也可以直接在客户端添加新的服务器，选择新的聊天服务器。
 
