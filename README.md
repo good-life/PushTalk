@@ -38,7 +38,7 @@
 
 使用如下命令运行服务器：
 
-	java -jar pushtalk-server-with-dependencies.jar
+	java -Dfile.encoding=UTF-8 -jar pushtalk-server-with-dependencies.jar
 	
 `注：实际的文件名后边一般会加上一个版本号。` 
 
