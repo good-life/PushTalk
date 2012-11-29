@@ -56,6 +56,7 @@ public class EnterChannelServlet extends FreemarkerBaseServlet {
             
             data.put("channel", existedChannel);
             data.put("channelEntered", true);
+            data.put("serverTime", System.currentTimeMillis());
             processTemplate(response, "chatting.html", data);
             
         } else {
