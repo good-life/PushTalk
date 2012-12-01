@@ -50,7 +50,7 @@
 
 推聊服务器默认使用 `10010` 端口。可以在上述命令后指定使用另外的端口。比如以下命令指定使用 `10011` 来启动推聊聊天服务器：
 
-	java -jar pushtalk-server-with-dependencies.jar 10011
+	java -Dfile.encoding=UTF-8 -jar pushtalk-server-with-dependencies.jar 10011
 
 
 ### Android 客户端
