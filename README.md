@@ -1,9 +1,10 @@
 # 推聊概述 PushTalk Overview
 推聊是一个基于极光推送的Android手机聊天系统。支持群聊与点对点聊天。当前包括Android客户端与Java服务器端。3分钟就可以整套系统跑起来。
 
+![](https://github.com/downloads/good-life/PushTalk/pushtalk_architecture_2.png)
+
 ### 项目官方网站
 <http://github.com/good-life/pushtalk>
-
 
 ### 功能与特点
   
@@ -54,6 +55,8 @@
 
 
 ### Android 客户端
+
+![](https://github.com/downloads/good-life/PushTalk/pushtalk_client.png)
 
 客户端运行，请在 github 文件下载页 <https://github.com/good-life/PushTalk/downloads/> 下载 Android apk 安装到 Android 手机即可。
 
