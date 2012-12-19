@@ -65,7 +65,7 @@ public class AndroidUtil {
         
         String macAddress = AndroidUtil.getWifiMacAddress(context);
         if (!StringUtils.isEmpty(macAddress)) {
-            String udid = StringUtils.emptyStringIfNull(macAddress
+            String udid = StringUtils.toMD5(macAddress
                     + Build.MODEL + Build.MANUFACTURER
                     + Build.ID + Build.DEVICE);
             return udid;
