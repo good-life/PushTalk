@@ -9,7 +9,7 @@ public class Config {
     public static final String JPUSH_PASSWORD = "654321";
     public static final String JPUSH_APPKEY = "7d431e42dfa6a6d693ac2d04";
     
-    public static final String VERSION = "0.2.1";
+    public static final String VERSION = "0.2.3";
     
     
     public static final int CACHE_DURATION_DAYS = 7;
