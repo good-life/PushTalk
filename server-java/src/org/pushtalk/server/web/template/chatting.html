@@ -160,7 +160,7 @@ height:50px;
 <hr />
 
 <div id="chatPanel">
-	<div id="chatView"></div>
+	<div id="chatView">加载聊天记录中...</div>
 </div>
 <div id="chatActions">
 	<a class="shortcut">^_^</a>
@@ -180,10 +180,6 @@ height:50px;
 </script>
 
 <script>
-<#if channelEntered ??>
-pushtalk.channelUpdated();
-</#if>
-
 $(function() {
 	var exports = window;
 	//请求所需参数
@@ -327,7 +323,8 @@ $(function() {
 					title: msg.title,
 					content: msg.message,
 					channel: msg.extras.channel,
-					status: chatMsgStatus.success
+					status: chatMsgStatus.success,
+					time: differTime + (+new Date)
 				}
 				saveChat(chat);
 				
@@ -612,6 +609,10 @@ $(function() {
 		})
 	});
 });
+
+<#if channelEntered ??>
+pushtalk.channelUpdated();
+</#if>
 </script>
 </body>
 </html>
