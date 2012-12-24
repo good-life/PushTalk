@@ -1,9 +1,10 @@
 # 推聊概述 PushTalk Overview
 推聊是一个基于极光推送的Android手机聊天系统。支持群聊与点对点聊天。当前包括Android客户端与Java服务器端。3分钟就可以整套系统跑起来。
 
+![](https://github.com/downloads/good-life/PushTalk/pushtalk_architecture_2.png)
+
 ### 项目官方网站
 <http://github.com/good-life/pushtalk>
-
 
 ### 功能与特点
   
@@ -50,10 +51,12 @@
 
 推聊服务器默认使用 `10010` 端口。可以在上述命令后指定使用另外的端口。比如以下命令指定使用 `10011` 来启动推聊聊天服务器：
 
-	java -jar pushtalk-server-with-dependencies.jar 10011
+	java -Dfile.encoding=UTF-8 -jar pushtalk-server-with-dependencies.jar 10011
 
 
 ### Android 客户端
+
+![](https://github.com/downloads/good-life/PushTalk/pushtalk_client.png)
 
 客户端运行，请在 github 文件下载页 <https://github.com/good-life/PushTalk/downloads/> 下载 Android apk 安装到 Android 手机即可。
 

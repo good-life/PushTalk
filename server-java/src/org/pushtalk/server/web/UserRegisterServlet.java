@@ -24,7 +24,9 @@ public class UserRegisterServlet extends FreemarkerBaseServlet {
 	    
 	    String udid = request.getParameter("udid");
 	    if (null == udid) {
-	        responseError(response, "udid is required!");
+	        responseError(response, "udid is required! " +
+	        		"\n\nPush Talk server only support Android/iOS WebView client, " +
+	        		"don't support accessing from web browser directly.");
 	        return;
 	    }
 	    
