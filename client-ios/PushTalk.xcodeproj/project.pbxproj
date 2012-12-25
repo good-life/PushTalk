@@ -1,0 +1,485 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5A8EBAE3168989D800797022 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBAE2168989D800797022 /* UIKit.framework */; };
+		5A8EBAE5168989D800797022 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBAE4168989D800797022 /* Foundation.framework */; };
+		5A8EBAE7168989D800797022 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBAE6168989D800797022 /* CoreGraphics.framework */; };
+		5A8EBB4016898AA600797022 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB0616898AA600797022 /* AppDelegate.m */; };
+		5A8EBB4116898AA600797022 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A8EBB0716898AA600797022 /* InfoPlist.strings */; };
+		5A8EBB4216898AA600797022 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A8EBB0916898AA600797022 /* Localizable.strings */; };
+		5A8EBB4316898AA600797022 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8EBB0C16898AA600797022 /* Default-568h@2x.png */; };
+		5A8EBB4416898AA600797022 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8EBB0D16898AA600797022 /* Default.png */; };
+		5A8EBB4516898AA600797022 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8EBB0E16898AA600797022 /* Default@2x.png */; };
+		5A8EBB4616898AA600797022 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8EBB0F16898AA600797022 /* icon.png */; };
+		5A8EBB4716898AA600797022 /* libPushSDK-Simulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB1916898AA600797022 /* libPushSDK-Simulator.a */; };
+		5A8EBB4816898AA600797022 /* libPushSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB1A16898AA600797022 /* libPushSDK.a */; };
+		5A8EBB4916898AA600797022 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB1C16898AA600797022 /* main.m */; };
+		5A8EBB4A16898AA600797022 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A8EBB1D16898AA600797022 /* PushConfig.plist */; };
+		5A8EBB4B16898AA600797022 /* PushTalk-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A8EBB1E16898AA600797022 /* PushTalk-Info.plist */; };
+		5A8EBB4C16898AA600797022 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB2316898AA600797022 /* NSObject+SBJson.m */; };
+		5A8EBB4D16898AA600797022 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB2616898AA600797022 /* SBJsonParser.m */; };
+		5A8EBB4E16898AA600797022 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB2816898AA600797022 /* SBJsonStreamParser.m */; };
+		5A8EBB4F16898AA600797022 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB2A16898AA600797022 /* SBJsonStreamParserAccumulator.m */; };
+		5A8EBB5016898AA600797022 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB2C16898AA600797022 /* SBJsonStreamParserAdapter.m */; };
+		5A8EBB5116898AA600797022 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB2E16898AA600797022 /* SBJsonStreamParserState.m */; };
+		5A8EBB5216898AA600797022 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB3016898AA600797022 /* SBJsonStreamWriter.m */; };
+		5A8EBB5316898AA600797022 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB3216898AA600797022 /* SBJsonStreamWriterAccumulator.m */; };
+		5A8EBB5416898AA600797022 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB3416898AA600797022 /* SBJsonStreamWriterState.m */; };
+		5A8EBB5516898AA600797022 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB3616898AA600797022 /* SBJsonTokeniser.m */; };
+		5A8EBB5616898AA600797022 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB3816898AA600797022 /* SBJsonUTF8Stream.m */; };
+		5A8EBB5716898AA600797022 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB3A16898AA600797022 /* SBJsonWriter.m */; };
+		5A8EBB5816898AA600797022 /* JPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EBB3D16898AA600797022 /* JPushViewController.m */; };
+		5A8EBB6216898B2400797022 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6116898B2400797022 /* SystemConfiguration.framework */; };
+		5A8EBB6516898B2D00797022 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6416898B2D00797022 /* CFNetwork.framework */; };
+		5A8EBB6716898B3A00797022 /* TelephonyUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6616898B3A00797022 /* TelephonyUI.framework */; };
+		5A8EBB6916898B4F00797022 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6816898B4F00797022 /* CoreTelephony.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5A8EBADE168989D800797022 /* PushTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A8EBAE2168989D800797022 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		5A8EBAE4168989D800797022 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		5A8EBAE6168989D800797022 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		5A8EBB0516898AA600797022 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5A8EBB0616898AA600797022 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5A8EBB0816898AA600797022 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5A8EBB0A16898AA600797022 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5A8EBB0C16898AA600797022 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		5A8EBB0D16898AA600797022 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		5A8EBB0E16898AA600797022 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		5A8EBB0F16898AA600797022 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		5A8EBB1116898AA600797022 /* APClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APClient.h; sourceTree = "<group>"; };
+		5A8EBB1216898AA600797022 /* APConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APConfig.h; sourceTree = "<group>"; };
+		5A8EBB1316898AA600797022 /* APDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APDispatch.h; sourceTree = "<group>"; };
+		5A8EBB1416898AA600797022 /* APMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APMessage.h; sourceTree = "<group>"; };
+		5A8EBB1516898AA600797022 /* APProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APProtocol.h; sourceTree = "<group>"; };
+		5A8EBB1616898AA600797022 /* APReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APReceipt.h; sourceTree = "<group>"; };
+		5A8EBB1716898AA600797022 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		5A8EBB1816898AA600797022 /* APUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APUtilities.h; sourceTree = "<group>"; };
+		5A8EBB1916898AA600797022 /* libPushSDK-Simulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-Simulator.a"; sourceTree = "<group>"; };
+		5A8EBB1A16898AA600797022 /* libPushSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPushSDK.a; sourceTree = "<group>"; };
+		5A8EBB1B16898AA600797022 /* NSString+Digest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Digest.h"; sourceTree = "<group>"; };
+		5A8EBB1C16898AA600797022 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5A8EBB1D16898AA600797022 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		5A8EBB1E16898AA600797022 /* PushTalk-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PushTalk-Info.plist"; sourceTree = "<group>"; };
+		5A8EBB1F16898AA600797022 /* PushTalk-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PushTalk-Prefix.pch"; sourceTree = "<group>"; };
+		5A8EBB2116898AA600797022 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		5A8EBB2216898AA600797022 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		5A8EBB2316898AA600797022 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
+		5A8EBB2416898AA600797022 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		5A8EBB2516898AA600797022 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		5A8EBB2616898AA600797022 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		5A8EBB2716898AA600797022 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		5A8EBB2816898AA600797022 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		5A8EBB2916898AA600797022 /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		5A8EBB2A16898AA600797022 /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAccumulator.m; sourceTree = "<group>"; };
+		5A8EBB2B16898AA600797022 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		5A8EBB2C16898AA600797022 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		5A8EBB2D16898AA600797022 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		5A8EBB2E16898AA600797022 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		5A8EBB2F16898AA600797022 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		5A8EBB3016898AA600797022 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		5A8EBB3116898AA600797022 /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		5A8EBB3216898AA600797022 /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterAccumulator.m; sourceTree = "<group>"; };
+		5A8EBB3316898AA600797022 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		5A8EBB3416898AA600797022 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		5A8EBB3516898AA600797022 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		5A8EBB3616898AA600797022 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		5A8EBB3716898AA600797022 /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonUTF8Stream.h; sourceTree = "<group>"; };
+		5A8EBB3816898AA600797022 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
+		5A8EBB3916898AA600797022 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		5A8EBB3A16898AA600797022 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		5A8EBB3C16898AA600797022 /* JPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPushViewController.h; sourceTree = "<group>"; };
+		5A8EBB3D16898AA600797022 /* JPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPushViewController.m; sourceTree = "<group>"; };
+		5A8EBB3E16898AA600797022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		5A8EBB3F16898AA600797022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5A8EBB6116898B2400797022 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5A8EBB6416898B2D00797022 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5A8EBB6616898B3A00797022 /* TelephonyUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TelephonyUI.framework; path = System/Library/PrivateFrameworks/TelephonyUI.framework; sourceTree = SDKROOT; };
+		5A8EBB6816898B4F00797022 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5A8EBADB168989D800797022 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A8EBB6916898B4F00797022 /* CoreTelephony.framework in Frameworks */,
+				5A8EBB6716898B3A00797022 /* TelephonyUI.framework in Frameworks */,
+				5A8EBB6516898B2D00797022 /* CFNetwork.framework in Frameworks */,
+				5A8EBB6216898B2400797022 /* SystemConfiguration.framework in Frameworks */,
+				5A8EBAE3168989D800797022 /* UIKit.framework in Frameworks */,
+				5A8EBAE5168989D800797022 /* Foundation.framework in Frameworks */,
+				5A8EBAE7168989D800797022 /* CoreGraphics.framework in Frameworks */,
+				5A8EBB4716898AA600797022 /* libPushSDK-Simulator.a in Frameworks */,
+				5A8EBB4816898AA600797022 /* libPushSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5A8EBAD3168989D800797022 = {
+			isa = PBXGroup;
+			children = (
+				5A8EBB6816898B4F00797022 /* CoreTelephony.framework */,
+				5A8EBB6616898B3A00797022 /* TelephonyUI.framework */,
+				5A8EBB6416898B2D00797022 /* CFNetwork.framework */,
+				5A8EBB6116898B2400797022 /* SystemConfiguration.framework */,
+				5A8EBB0416898AA600797022 /* PushTalk */,
+				5A8EBAE1168989D800797022 /* Frameworks */,
+				5A8EBADF168989D800797022 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5A8EBADF168989D800797022 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EBADE168989D800797022 /* PushTalk.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5A8EBAE1168989D800797022 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EBAE2168989D800797022 /* UIKit.framework */,
+				5A8EBAE4168989D800797022 /* Foundation.framework */,
+				5A8EBAE6168989D800797022 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A8EBB0416898AA600797022 /* PushTalk */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EBB0516898AA600797022 /* AppDelegate.h */,
+				5A8EBB0616898AA600797022 /* AppDelegate.m */,
+				5A8EBB0716898AA600797022 /* InfoPlist.strings */,
+				5A8EBB0916898AA600797022 /* Localizable.strings */,
+				5A8EBB0B16898AA600797022 /* Images */,
+				5A8EBB1016898AA600797022 /* lib */,
+				5A8EBB1C16898AA600797022 /* main.m */,
+				5A8EBB1D16898AA600797022 /* PushConfig.plist */,
+				5A8EBB1E16898AA600797022 /* PushTalk-Info.plist */,
+				5A8EBB1F16898AA600797022 /* PushTalk-Prefix.pch */,
+				5A8EBB2016898AA600797022 /* SBJSON */,
+				5A8EBB3B16898AA600797022 /* UI */,
+			);
+			path = PushTalk;
+			sourceTree = "<group>";
+		};
+		5A8EBB0B16898AA600797022 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EBB0C16898AA600797022 /* Default-568h@2x.png */,
+				5A8EBB0D16898AA600797022 /* Default.png */,
+				5A8EBB0E16898AA600797022 /* Default@2x.png */,
+				5A8EBB0F16898AA600797022 /* icon.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		5A8EBB1016898AA600797022 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EBB1116898AA600797022 /* APClient.h */,
+				5A8EBB1216898AA600797022 /* APConfig.h */,
+				5A8EBB1316898AA600797022 /* APDispatch.h */,
+				5A8EBB1416898AA600797022 /* APMessage.h */,
+				5A8EBB1516898AA600797022 /* APProtocol.h */,
+				5A8EBB1616898AA600797022 /* APReceipt.h */,
+				5A8EBB1716898AA600797022 /* APService.h */,
+				5A8EBB1816898AA600797022 /* APUtilities.h */,
+				5A8EBB1916898AA600797022 /* libPushSDK-Simulator.a */,
+				5A8EBB1A16898AA600797022 /* libPushSDK.a */,
+				5A8EBB1B16898AA600797022 /* NSString+Digest.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		5A8EBB2016898AA600797022 /* SBJSON */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EBB2116898AA600797022 /* JSON.h */,
+				5A8EBB2216898AA600797022 /* NSObject+SBJson.h */,
+				5A8EBB2316898AA600797022 /* NSObject+SBJson.m */,
+				5A8EBB2416898AA600797022 /* SBJson.h */,
+				5A8EBB2516898AA600797022 /* SBJsonParser.h */,
+				5A8EBB2616898AA600797022 /* SBJsonParser.m */,
+				5A8EBB2716898AA600797022 /* SBJsonStreamParser.h */,
+				5A8EBB2816898AA600797022 /* SBJsonStreamParser.m */,
+				5A8EBB2916898AA600797022 /* SBJsonStreamParserAccumulator.h */,
+				5A8EBB2A16898AA600797022 /* SBJsonStreamParserAccumulator.m */,
+				5A8EBB2B16898AA600797022 /* SBJsonStreamParserAdapter.h */,
+				5A8EBB2C16898AA600797022 /* SBJsonStreamParserAdapter.m */,
+				5A8EBB2D16898AA600797022 /* SBJsonStreamParserState.h */,
+				5A8EBB2E16898AA600797022 /* SBJsonStreamParserState.m */,
+				5A8EBB2F16898AA600797022 /* SBJsonStreamWriter.h */,
+				5A8EBB3016898AA600797022 /* SBJsonStreamWriter.m */,
+				5A8EBB3116898AA600797022 /* SBJsonStreamWriterAccumulator.h */,
+				5A8EBB3216898AA600797022 /* SBJsonStreamWriterAccumulator.m */,
+				5A8EBB3316898AA600797022 /* SBJsonStreamWriterState.h */,
+				5A8EBB3416898AA600797022 /* SBJsonStreamWriterState.m */,
+				5A8EBB3516898AA600797022 /* SBJsonTokeniser.h */,
+				5A8EBB3616898AA600797022 /* SBJsonTokeniser.m */,
+				5A8EBB3716898AA600797022 /* SBJsonUTF8Stream.h */,
+				5A8EBB3816898AA600797022 /* SBJsonUTF8Stream.m */,
+				5A8EBB3916898AA600797022 /* SBJsonWriter.h */,
+				5A8EBB3A16898AA600797022 /* SBJsonWriter.m */,
+			);
+			path = SBJSON;
+			sourceTree = "<group>";
+		};
+		5A8EBB3B16898AA600797022 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EBB3C16898AA600797022 /* JPushViewController.h */,
+				5A8EBB3D16898AA600797022 /* JPushViewController.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5A8EBADD168989D800797022 /* PushTalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A8EBAFC168989D800797022 /* Build configuration list for PBXNativeTarget "PushTalk" */;
+			buildPhases = (
+				5A8EBADA168989D800797022 /* Sources */,
+				5A8EBADB168989D800797022 /* Frameworks */,
+				5A8EBADC168989D800797022 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushTalk;
+			productName = PushTalk;
+			productReference = 5A8EBADE168989D800797022 /* PushTalk.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5A8EBAD5168989D800797022 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = Jpush;
+			};
+			buildConfigurationList = 5A8EBAD8168989D800797022 /* Build configuration list for PBXProject "PushTalk" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"zh-Hans",
+			);
+			mainGroup = 5A8EBAD3168989D800797022;
+			productRefGroup = 5A8EBADF168989D800797022 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5A8EBADD168989D800797022 /* PushTalk */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5A8EBADC168989D800797022 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A8EBB4116898AA600797022 /* InfoPlist.strings in Resources */,
+				5A8EBB4216898AA600797022 /* Localizable.strings in Resources */,
+				5A8EBB4316898AA600797022 /* Default-568h@2x.png in Resources */,
+				5A8EBB4416898AA600797022 /* Default.png in Resources */,
+				5A8EBB4516898AA600797022 /* Default@2x.png in Resources */,
+				5A8EBB4616898AA600797022 /* icon.png in Resources */,
+				5A8EBB4A16898AA600797022 /* PushConfig.plist in Resources */,
+				5A8EBB4B16898AA600797022 /* PushTalk-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5A8EBADA168989D800797022 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A8EBB4016898AA600797022 /* AppDelegate.m in Sources */,
+				5A8EBB4916898AA600797022 /* main.m in Sources */,
+				5A8EBB4C16898AA600797022 /* NSObject+SBJson.m in Sources */,
+				5A8EBB4D16898AA600797022 /* SBJsonParser.m in Sources */,
+				5A8EBB4E16898AA600797022 /* SBJsonStreamParser.m in Sources */,
+				5A8EBB4F16898AA600797022 /* SBJsonStreamParserAccumulator.m in Sources */,
+				5A8EBB5016898AA600797022 /* SBJsonStreamParserAdapter.m in Sources */,
+				5A8EBB5116898AA600797022 /* SBJsonStreamParserState.m in Sources */,
+				5A8EBB5216898AA600797022 /* SBJsonStreamWriter.m in Sources */,
+				5A8EBB5316898AA600797022 /* SBJsonStreamWriterAccumulator.m in Sources */,
+				5A8EBB5416898AA600797022 /* SBJsonStreamWriterState.m in Sources */,
+				5A8EBB5516898AA600797022 /* SBJsonTokeniser.m in Sources */,
+				5A8EBB5616898AA600797022 /* SBJsonUTF8Stream.m in Sources */,
+				5A8EBB5716898AA600797022 /* SBJsonWriter.m in Sources */,
+				5A8EBB5816898AA600797022 /* JPushViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5A8EBB0716898AA600797022 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A8EBB0816898AA600797022 /* en */,
+				5A8EBB3E16898AA600797022 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		5A8EBB0916898AA600797022 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A8EBB0A16898AA600797022 /* en */,
+				5A8EBB3F16898AA600797022 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5A8EBAFA168989D800797022 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Javen Fang (2F628EWHNA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Javen Fang (2F628EWHNA)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PROVISIONING_PROFILE = "E3E53ED2-4B8A-4CF8-8900-35FEBAB73159";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3E53ED2-4B8A-4CF8-8900-35FEBAB73159";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5A8EBAFB168989D800797022 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Javen Fang (2F628EWHNA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Javen Fang (2F628EWHNA)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PROVISIONING_PROFILE = "E3E53ED2-4B8A-4CF8-8900-35FEBAB73159";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3E53ED2-4B8A-4CF8-8900-35FEBAB73159";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5A8EBAFD168989D800797022 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PushTalk/PushTalk-Prefix.pch";
+				INFOPLIST_FILE = "PushTalk/PushTalk-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PushTalk/lib\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		5A8EBAFE168989D800797022 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PushTalk/PushTalk-Prefix.pch";
+				INFOPLIST_FILE = "PushTalk/PushTalk-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PushTalk/lib\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5A8EBAD8168989D800797022 /* Build configuration list for PBXProject "PushTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A8EBAFA168989D800797022 /* Debug */,
+				5A8EBAFB168989D800797022 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A8EBAFC168989D800797022 /* Build configuration list for PBXNativeTarget "PushTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A8EBAFD168989D800797022 /* Debug */,
+				5A8EBAFE168989D800797022 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5A8EBAD5168989D800797022 /* Project object */;
+}

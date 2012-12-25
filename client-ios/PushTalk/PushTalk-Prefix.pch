@@ -1,0 +1,57 @@
+//
+// Prefix header for all source files of the 'JPushClient' target in the 'JPushClient' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import "APConfig.h"
+    #import "APUtilities.h"
+#endif
+
+
+#pragma mark -
+
+#define kNavigationBarHeight 44
+#define kTabBarHeight 49
+#define kScreenWidth kScreenBounds.size.width
+#define kScreenHeight kScreenBounds.size.height
+#define kDefaultKeyboardHeight 216
+
+extern CGRect kScreenBounds;
+extern CGRect kNavigationBounds;
+extern CGRect kStatusBarFrame;
+extern CGFloat kVCWrapperOffsetY;
+extern CGRect kVCWrapperFrame;
+extern CGRect kVCWrapperBounds;
+extern CGRect kPageFrame;
+extern CGRect kPageBounds;
+
+extern UIColor *kClearColor;
+extern UIColor *kBlackColor;
+extern UIColor *kWhiteColor;
+extern UIColor *kThemeColor;
+extern UIColor *kNavigationColor;
+
+#pragma mark -
+
+enum {
+    kEditingStateNone,
+    kEditingStateKeyboard,
+    kEditingStateFace
+};
+
+#pragma mark -
+
+#define UIViewAutoresizingFlexibleHorizontalMargin (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin)
+#define UIViewAutoresizingFlexibleVerticalMargin (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin)
+#define UIViewAutoresizingFlexibleAllMargin (UIViewAutoresizingFlexibleHorizontalMargin | UIViewAutoresizingFlexibleVerticalMargin)
+#define UIViewAutoresizingFlexibleSize (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+
+#pragma mark -
