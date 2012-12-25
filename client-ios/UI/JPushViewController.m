@@ -181,7 +181,7 @@
     [receiveDic setValue:title forKey:@"title"];
     [receiveDic setValue:content forKey:@"message"];
     [receiveDic setValue:extrasDic forKey:@"extras"];
-
+    
     NSString *msg = [receiveDic JSONRepresentation];
     [_webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"receivedMessage('%@');",msg]];
     [receiveDic release];
