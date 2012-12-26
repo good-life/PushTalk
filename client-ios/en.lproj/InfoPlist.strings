@@ -1,5 +1,5 @@
 /* Localized versions of Info.plist keys */
 
 
-"CFBundleDisplayName" = "Push Subs";
-"CFBundleName" = "JPushClient";
+"CFBundleDisplayName" = "PushTalk";
+"CFBundleName" = "PushTalk";

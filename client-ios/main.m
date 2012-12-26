@@ -1,8 +1,8 @@
 //
 //  main.m
-//  JPushClient
+//  PushTalk
 //
-//  Created by LiDong on 12-11-19.
+//  Created by YuanQiang on 12-11-19.
 //
 //
 

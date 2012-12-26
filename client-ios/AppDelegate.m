@@ -1,9 +1,9 @@
 //
 //  AppDelegate.m
-//  JPushClient
+//  PushTalk
 //
-//  Created by LiDong on 12-10-30.
-//  Copyright (c) 2012年 LiDong. All rights reserved.
+//  Created by YuanQiang on 12-12-25.
+//  Copyright (c) 2012年 YuanQiang. All rights reserved.
 //
 
 #import "AppDelegate.h"

@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'JPushClient' target in the 'JPushClient' project
+// Prefix header for all source files of the 'PushTalk' target in the 'PushTalk' project
 //
 
 #import <Availability.h>
