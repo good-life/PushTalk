@@ -172,7 +172,7 @@
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     APLog(@"%s", __PRETTY_FUNCTION__);
     
-    NSDictionary *message = [[notification userInfo] valueForKey:@"message"];
+    NSDictionary *message = [notification userInfo];
     NSMutableDictionary *receiveDic = [[NSMutableDictionary alloc] initWithCapacity:4];
     NSString *title = [message valueForKey:@"title"];
     NSString *content = [message valueForKey:@"content"];
@@ -183,13 +183,15 @@
     [receiveDic setValue:extrasDic forKey:@"extras"];
     
     NSString *msg = [receiveDic JSONRepresentation];
+    
     [_webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"receivedMessage('%@');",msg]];
     [receiveDic release];
 }
 
 
 - (void)resetAliasAndTags {
-    NSLog(@"resetAliasAndTags");
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
     NSString *URLString = [NSString stringWithFormat:@"%@%@", HTTP_URL_PREFIX, @"api/user"];
     URLString = [URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -215,9 +217,11 @@
         NSDictionary *dic = [receiveString JSONValue];
         NSString *username = [dic objectForKey:@"username"];
         NSArray *channels = [dic objectForKey:@"channels"];
-        
+                
         [APService setTags:[NSSet setWithArray:channels] alias:username];
     }
+    
+    [pool drain];
 }
 
 @end

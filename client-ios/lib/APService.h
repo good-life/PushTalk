@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 
-// 以下几个通知类型，只是为方便开发者测试，可以直接忽略不用
 extern NSString * const kAPNetworkDidSetupNotification;          // 建立连接
 extern NSString * const kAPNetworkDidCloseNotification;          // 关闭连接
 extern NSString * const kAPNetworkDidRegisterNotification;       // 注册成功
@@ -26,7 +25,7 @@ extern NSString * const kAPNetworkDidReceiveMessageNotification; // 收到消息
 + (void)handleRemoteNotification:(NSDictionary *)remoteInfo;  // 处理收到的APNS消息，向服务器上报收到APNS消息
 
 // 下面的接口是可选的
-+ (void)setTags:(NSSet *)tags alias:(NSString *)alias; // 设置标签和别名（若参数为nil，则忽略；若是空对象，则清空）
++ (void)setTags:(NSSet *)tags alias:(NSString *)alias; // 设置标签和别名（若参数为nil，则忽略；若是空对象，则清空；详情请参考文档：http://docs.jpush.cn/pages/viewpage.action?pageId=557241）
 + (NSString *)openUDID; // UDID
 
 @end
