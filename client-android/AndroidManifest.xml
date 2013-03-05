@@ -94,9 +94,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
                 <data android:scheme="package" />
             </intent-filter>
+			<intent-filter android:priority="1000">
+			    <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!--Required 显示通知栏 --> 
+			    <category android:name="org.pushtalk.android" /> 
+			</intent-filter>
         </receiver>
 
         
