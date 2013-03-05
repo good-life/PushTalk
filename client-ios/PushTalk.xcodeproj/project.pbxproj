@@ -41,6 +41,7 @@
 		5A8EBB6516898B2D00797022 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6416898B2D00797022 /* CFNetwork.framework */; };
 		5A8EBB6716898B3A00797022 /* TelephonyUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6616898B3A00797022 /* TelephonyUI.framework */; };
 		5A8EBB6916898B4F00797022 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6816898B4F00797022 /* CoreTelephony.framework */; };
+		5AAE28D216E5DDF3002A3127 /* InfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE28D116E5DDF3002A3127 /* InfoDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,8 @@
 		5A8EBB6416898B2D00797022 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5A8EBB6616898B3A00797022 /* TelephonyUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TelephonyUI.framework; path = System/Library/PrivateFrameworks/TelephonyUI.framework; sourceTree = SDKROOT; };
 		5A8EBB6816898B4F00797022 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		5AAE28D016E5DDF3002A3127 /* InfoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDetailViewController.h; sourceTree = "<group>"; };
+		5AAE28D116E5DDF3002A3127 /* InfoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +206,8 @@
 			children = (
 				5A631A381689A1EB00770B5A /* JPushViewController.h */,
 				5A631A391689A1EB00770B5A /* JPushViewController.m */,
+				5AAE28D016E5DDF3002A3127 /* InfoDetailViewController.h */,
+				5AAE28D116E5DDF3002A3127 /* InfoDetailViewController.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -345,6 +350,7 @@
 				5A631A571689A1EB00770B5A /* SBJsonUTF8Stream.m in Sources */,
 				5A631A581689A1EB00770B5A /* SBJsonWriter.m in Sources */,
 				5A631A591689A1EB00770B5A /* JPushViewController.m in Sources */,
+				5AAE28D216E5DDF3002A3127 /* InfoDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

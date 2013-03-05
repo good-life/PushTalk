@@ -12,6 +12,7 @@
 #import "NSString+Digest.h"
 #import "APMessage.h"
 #import "SBJson.h"
+#import "InfoDetailViewController.h"
 
 @interface APService (Privates)
 + (APService *)sharedService;
@@ -49,8 +50,10 @@
         APLogTrace();
         
         _leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)];
+        _rightButton = [[UIBarButtonItem alloc] initWithTitle:@"信息" style:UIBarButtonItemStyleBordered target:self action:@selector(infoDetail)];
         [_leftButton setEnabled:NO];
         self.navigationItem.leftBarButtonItem = _leftButton;
+        self.navigationItem.rightBarButtonItem = _rightButton;
         
         UIView *view = [self view];
         [self setTitle:@"推聊"];
@@ -71,6 +74,12 @@
 
 - (void)goBack {
     [_webView goBack];
+}
+
+- (void)infoDetail {
+    InfoDetailViewController *viewController = [[InfoDetailViewController alloc] initWithInfo:_info];
+    [[self navigationController] pushViewController:viewController animated:YES];
+    [viewController release];
 }
 
 - (void)viewDidLoad
@@ -153,19 +162,23 @@
 
 - (void)networkDidSetup:(NSNotification *)notification {
     APLog(@"%s", __PRETTY_FUNCTION__);
+    _info = @"已连接";
 }
 
 - (void)networkDidClose:(NSNotification *)notification {
     APLog(@"%s", __PRETTY_FUNCTION__);
+    _info = @"未连接。。。";
 }
 
 - (void)networkDidRegister:(NSNotification *)notification {
     APLog(@"%s", __PRETTY_FUNCTION__);
+    _info = @"已注册";
     [self loadWebView];
 }
 
 - (void)networkDidLogin:(NSNotification *)notification {
     APLog(@"%s", __PRETTY_FUNCTION__);
+    _info = @"已登录";
     [self loadWebView];
 }
 

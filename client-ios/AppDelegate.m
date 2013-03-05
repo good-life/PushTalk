@@ -29,6 +29,8 @@ UIColor *kNavigationColor;
 
 @implementation AppDelegate
 
+@synthesize deviceToken = _deviceToken;
+
 - (void)dealloc {
     [_window release];
     
@@ -102,6 +104,8 @@ UIColor *kNavigationColor;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    _deviceToken = [[NSString stringWithFormat:@"%@",deviceToken] retain];
+    
     [APService registerDeviceToken:deviceToken];
 }
 

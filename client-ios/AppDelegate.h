@@ -10,6 +10,9 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
     UIWindow *_window;
+    NSString *_deviceToken;
 }
+
+@property (nonatomic,retain) NSString *deviceToken;
 
 @end
