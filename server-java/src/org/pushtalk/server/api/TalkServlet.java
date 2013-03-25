@@ -23,7 +23,8 @@ public class TalkServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
     private static Logger LOG = Logger.getLogger(TalkServlet.class);
 
-	private static int sendId = 0;
+    // 第次重新启动，会以不同的 sendNo 作为起点，从而避免重复记录
+	private static int sendId = getRandomSendNo();
 	private static final JPushClient jpushClient = new JPushClient(
 	        Config.JPUSH_USERNAME, Config.JPUSH_PASSWORD, Config.JPUSH_APPKEY);
 
@@ -109,4 +110,17 @@ public class TalkServlet extends FreemarkerBaseServlet {
         processJSON(response, data);
 	}
 	
+	
+    public static final int MAX = Integer.MAX_VALUE / 2;
+    public static final int MIN = MAX / 2;
+    
+    /**
+     * 保持 sendNo 的唯一性是有必要的
+     * It is very important to keep sendNo unique.
+     * @return sendNo
+     */
+    public static int getRandomSendNo() {
+        return (int) (MIN + Math.random() * (MAX - MIN));
+    }
+    
 }
