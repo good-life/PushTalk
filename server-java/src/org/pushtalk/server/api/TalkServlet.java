@@ -26,7 +26,7 @@ public class TalkServlet extends FreemarkerBaseServlet {
     // 第次重新启动，会以不同的 sendNo 作为起点，从而避免重复记录
 	private static int sendId = getRandomSendNo();
 	private static final JPushClient jpushClient = new JPushClient(
-	        Config.JPUSH_USERNAME, Config.JPUSH_PASSWORD, Config.JPUSH_APPKEY);
+				Config.JPUSH_MASTER_SECRET,Config.JPUSH_APPKEY);
 
 	@Override
 	public void process(HttpServletRequest request,
@@ -54,10 +54,6 @@ public class TalkServlet extends FreemarkerBaseServlet {
         String chatting = null;
         MessageResult msgResult = null;
         String myName = talkService.getUserByUdid(udid).getName();
-        
-    	//注:bug发现在11月20日，api发送消息标题或者内容包含分号会返回1003，所以要特殊处理，不知道官方何时处理好这个bug。
-    	myName = myName.replaceAll(";", "%3B");
-    	content = content.replaceAll(";", "%3B");
     	
         if (null != channelName) {
             Channel channel = talkService.getChannelByName(channelName);

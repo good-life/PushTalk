@@ -338,13 +338,12 @@ $(function() {
 		}
 	}
 	exports.receivedMessage = receivedMessage;
-	/*
-	 * 简单处理标签符号
-	 * 注:bug发现在11月20日，api发送消息内容包含分号会返回1003，所以要特殊处理，不知道官方何时处理这个bug。
-	 */
+	
+	//API 2.0 可以支持任意特殊符号。代码中不需要对特殊符号做转义。
 	function encodeMessageSpecials(message) {
 		return message.replace(/;/g, "%3B").replace(/</g, '&lt%3B').replace(/>/g, '&gt%3B');
 	}
+	
 	//转换特殊字符
 	function decodeMessageSpecials(message) {
 		return decodeURIComponent(message);
@@ -357,7 +356,7 @@ $(function() {
 		}
 		var chatNo = 'u-' + ((+new Date)+'').substring(8);
 		var chatData = {
-			message: encodeMessageSpecials(message),
+			message:message,
 			chatNo: chatNo
 		};
 		$.extend(chatData, config);

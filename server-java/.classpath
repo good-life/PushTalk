@@ -16,7 +16,7 @@
 	<classpathentry kind="lib" path="libs/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/slf4j-log4j12-1.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/bonecp-0.7.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="libs/jpush-api.jar"/>
+	<classpathentry kind="lib" path="libs/jpush-api-v2.0.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="libs/guava-11.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
