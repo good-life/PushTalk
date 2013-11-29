@@ -555,7 +555,7 @@ public class H2Database {
     
     private static final String SCRIPTS_CREATE_TABLE_CHANNEL =  
     		"CREATE TABLE channel ("  + 
-    			"user_count TINYINT," +
+    			"user_count INT," +
     			"name VARCHAR(100)," +
     			"createTime DATETIME " +
     			"); " +
