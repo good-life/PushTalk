@@ -25,7 +25,7 @@ public class Config {
     public static Map<String, String> serverList = new LinkedHashMap<String, String>();
     static {
         serverList.put("推聊官方 (北京)", "http://111.13.48.109:10010");
-        serverList.put("Local Dev", "http://192.168.1.111:10010");
+        serverList.put("Local Dev", "http://192.168.3.195:10010");
     };
 
 }
