@@ -36,7 +36,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>fully.qualified.MainClass</mainClass>
+							<mainClass>org.pushtalk.server.JettyServer</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
