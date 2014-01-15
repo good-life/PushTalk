@@ -19,7 +19,6 @@ import org.pushtalk.server.utils.StringUtils;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
-
 public class H2Database {
     static Logger LOG = Logger.getLogger(H2Database.class);
     

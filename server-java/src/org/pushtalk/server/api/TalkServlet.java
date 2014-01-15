@@ -16,9 +16,13 @@ import org.pushtalk.server.model.Message;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
 
-import cn.jpush.api.IOSExtra;
 import cn.jpush.api.JPushClient;
-import cn.jpush.api.MessageResult;
+import cn.jpush.api.common.DeviceEnum;
+import cn.jpush.api.push.CustomMessageParams;
+import cn.jpush.api.push.IosExtras;
+import cn.jpush.api.push.MessageResult;
+import cn.jpush.api.push.NotificationParams;
+import cn.jpush.api.push.ReceiverTypeEnum;
 
 public class TalkServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
@@ -62,55 +66,55 @@ public class TalkServlet extends FreemarkerBaseServlet {
                 data.put("error", "the channel does not exist - " + channelName);
             } else {
             	sendId ++;
-	            Map<String, Object> extra = new HashMap<String, Object>();
-	            extra.put("channel", channelName);
-	            extra.put("sendNo", sendId);
+	            Map<String, Object> extras = new HashMap<String, Object>();
+	            extras.put("channel", channelName);
+	            extras.put("sendNo", sendId);
 	            if (udid.startsWith("iPhone")) {
-	                IOSExtra ios = new IOSExtra(1, "default");
-	                extra.put("ios", ios);
-                    msgResult = jpushClient.sendNotificationWithTag(sendId, 
-                            ServiceUtils.postfixAliasAndTag(channelName),
-                            myName, content, 0, extra);
+	                IosExtras ios = new IosExtras(1, "default");
+	                extras.put("ios", ios);
+	                NotificationParams params = new NotificationParams();
+	                params.addPlatform(DeviceEnum.IOS);
+	                params.setReceiverType(ReceiverTypeEnum.TAG);
+	                params.setReceiverValue(ServiceUtils.postfixAliasAndTag(channelName));
+	                jpushClient.sendNotification(content, params, extras);
 	            } else {
-	                msgResult = jpushClient.sendCustomMessageWithTag(sendId, 
-	                        ServiceUtils.postfixAliasAndTag(channelName),
-	                        myName, content, null, extra);
+	                CustomMessageParams params = new CustomMessageParams();
+                    params.setReceiverType(ReceiverTypeEnum.TAG);
+                    params.setReceiverValue(ServiceUtils.postfixAliasAndTag(channelName));
+                    jpushClient.sendCustomMessage(myName, content, params, extras);
 	            }
 	            
 	            chatting = ServiceUtils.getChattingChannel(channelName);
             }
         } else {
         	sendId ++;
-            Map<String, Object> extra = new HashMap<String, Object>();
-            extra.put("sendNo", sendId);
+            Map<String, Object> extras = new HashMap<String, Object>();
+            extras.put("sendNo", sendId);
             if (udid.startsWith("iPhone")) {
-                IOSExtra ios = new IOSExtra(1, "default");
-                extra.put("ios", ios);
-                msgResult = jpushClient.sendNotificationWithAlias(sendId, 
-                        ServiceUtils.postfixAliasAndTag(friend), 
-                        myName, content, 0, extra);
+                IosExtras ios = new IosExtras(1, "default");
+                extras.put("ios", ios);
+                NotificationParams params = new NotificationParams();
+                params.addPlatform(DeviceEnum.IOS);
+                params.setReceiverType(ReceiverTypeEnum.ALIAS);
+                params.setReceiverValue(ServiceUtils.postfixAliasAndTag(friend));
+                jpushClient.sendNotification(content, params, extras);
             } else {
-                msgResult = jpushClient.sendCustomMessageWithAlias(sendId, 
-                        ServiceUtils.postfixAliasAndTag(friend), 
-                        myName, content, null, extra);
+                CustomMessageParams params = new CustomMessageParams();
+                params.setReceiverType(ReceiverTypeEnum.TAG);
+                params.setReceiverValue(ServiceUtils.postfixAliasAndTag(friend));
+                jpushClient.sendCustomMessage(myName, content, params, extras);
             }
             chatting = ServiceUtils.getChattingChannel(myName, friend);
         }
         
-        if (null == msgResult) {
-            String info = "Unexpected: null result.";
-            LOG.error(info);
-            data.put("error", info);
-            
-        } else if (msgResult.getErrcode() != 0) {
-            String info = "Send msg error - errorCode:" + msgResult.getErrcode()
-                    + ", errorMsg:" + msgResult.getErrmsg()
-                    + ", sendno:" + msgResult.getSendno();
+        if (!msgResult.isResultOK()) {
+            String info = "Send msg error - errorCode:" + msgResult.getErrorCode()
+                    + ", errorMsg:" + msgResult.getErrorMessage();
             LOG.error(info);
             data.put("error", info);
             
         } else {
-            Message message = new Message(msgResult.getSendno(), myName, content, channelName);
+            Message message = new Message(msgResult.getSendNo(), myName, content, channelName);
             talkService.putMessage(udid, chatting, message);
             
             if (null != friend) {
