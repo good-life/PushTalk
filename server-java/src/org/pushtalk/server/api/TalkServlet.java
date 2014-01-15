@@ -16,6 +16,7 @@ import org.pushtalk.server.model.Message;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
 
+import cn.jpush.api.IOSExtra;
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.MessageResult;
 
@@ -64,16 +65,35 @@ public class TalkServlet extends FreemarkerBaseServlet {
 	            Map<String, Object> extra = new HashMap<String, Object>();
 	            extra.put("channel", channelName);
 	            extra.put("sendNo", sendId);
-	            msgResult = jpushClient.sendCustomMessageWithTag(sendId, ServiceUtils.postfixAliasAndTag(channelName),
-	                    myName, content, null, extra);
+	            if (udid.startsWith("iPhone")) {
+	                IOSExtra ios = new IOSExtra(1, "default");
+	                extra.put("ios", ios);
+                    msgResult = jpushClient.sendNotificationWithTag(sendId, 
+                            ServiceUtils.postfixAliasAndTag(channelName),
+                            myName, content, 0, extra);
+	            } else {
+	                msgResult = jpushClient.sendCustomMessageWithTag(sendId, 
+	                        ServiceUtils.postfixAliasAndTag(channelName),
+	                        myName, content, null, extra);
+	            }
+	            
 	            chatting = ServiceUtils.getChattingChannel(channelName);
             }
         } else {
         	sendId ++;
             Map<String, Object> extra = new HashMap<String, Object>();
             extra.put("sendNo", sendId);
-            msgResult = jpushClient.sendCustomMessageWithAlias(sendId, ServiceUtils.postfixAliasAndTag(friend), 
-                    myName, content, null, extra);
+            if (udid.startsWith("iPhone")) {
+                IOSExtra ios = new IOSExtra(1, "default");
+                extra.put("ios", ios);
+                msgResult = jpushClient.sendNotificationWithAlias(sendId, 
+                        ServiceUtils.postfixAliasAndTag(friend), 
+                        myName, content, 0, extra);
+            } else {
+                msgResult = jpushClient.sendCustomMessageWithAlias(sendId, 
+                        ServiceUtils.postfixAliasAndTag(friend), 
+                        myName, content, null, extra);
+            }
             chatting = ServiceUtils.getChattingChannel(myName, friend);
         }
         
