@@ -17,11 +17,8 @@ import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
 
 import cn.jpush.api.JPushClient;
-import cn.jpush.api.common.DeviceEnum;
 import cn.jpush.api.push.CustomMessageParams;
-import cn.jpush.api.push.IosExtras;
 import cn.jpush.api.push.MessageResult;
-import cn.jpush.api.push.NotificationParams;
 import cn.jpush.api.push.ReceiverTypeEnum;
 
 public class TalkServlet extends FreemarkerBaseServlet {
@@ -69,20 +66,11 @@ public class TalkServlet extends FreemarkerBaseServlet {
 	            Map<String, Object> extras = new HashMap<String, Object>();
 	            extras.put("channel", channelName);
 	            extras.put("sendNo", sendId);
-	            if (udid.startsWith("iPhone")) {
-	                IosExtras ios = new IosExtras(1, "default");
-	                extras.put("ios", ios);
-	                NotificationParams params = new NotificationParams();
-	                params.addPlatform(DeviceEnum.IOS);
-	                params.setReceiverType(ReceiverTypeEnum.TAG);
-	                params.setReceiverValue(ServiceUtils.postfixAliasAndTag(channelName));
-	                jpushClient.sendNotification(content, params, extras);
-	            } else {
-	                CustomMessageParams params = new CustomMessageParams();
-                    params.setReceiverType(ReceiverTypeEnum.TAG);
-                    params.setReceiverValue(ServiceUtils.postfixAliasAndTag(channelName));
-                    jpushClient.sendCustomMessage(myName, content, params, extras);
-	            }
+	            
+                CustomMessageParams params = new CustomMessageParams();
+                params.setReceiverType(ReceiverTypeEnum.TAG);
+                params.setReceiverValue(ServiceUtils.postfixAliasAndTag(channelName));
+                msgResult = jpushClient.sendCustomMessage(myName, content, params, extras);
 	            
 	            chatting = ServiceUtils.getChattingChannel(channelName);
             }
@@ -90,20 +78,12 @@ public class TalkServlet extends FreemarkerBaseServlet {
         	sendId ++;
             Map<String, Object> extras = new HashMap<String, Object>();
             extras.put("sendNo", sendId);
-            if (udid.startsWith("iPhone")) {
-                IosExtras ios = new IosExtras(1, "default");
-                extras.put("ios", ios);
-                NotificationParams params = new NotificationParams();
-                params.addPlatform(DeviceEnum.IOS);
-                params.setReceiverType(ReceiverTypeEnum.ALIAS);
-                params.setReceiverValue(ServiceUtils.postfixAliasAndTag(friend));
-                jpushClient.sendNotification(content, params, extras);
-            } else {
-                CustomMessageParams params = new CustomMessageParams();
-                params.setReceiverType(ReceiverTypeEnum.TAG);
-                params.setReceiverValue(ServiceUtils.postfixAliasAndTag(friend));
-                jpushClient.sendCustomMessage(myName, content, params, extras);
-            }
+            
+            CustomMessageParams params = new CustomMessageParams();
+            params.setReceiverType(ReceiverTypeEnum.ALIAS);
+            params.setReceiverValue(ServiceUtils.postfixAliasAndTag(friend));
+            msgResult = jpushClient.sendCustomMessage(myName, content, params, extras);
+            
             chatting = ServiceUtils.getChattingChannel(myName, friend);
         }
         
