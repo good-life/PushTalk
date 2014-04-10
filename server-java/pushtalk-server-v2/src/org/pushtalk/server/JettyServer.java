@@ -9,6 +9,7 @@ import org.pushtalk.server.api.friend.FriendDeleteServlet;
 import org.pushtalk.server.api.friend.FriendListServlet;
 import org.pushtalk.server.api.friend.FriendSearchServlet;
 import org.pushtalk.server.api.user.TestServlet;
+import org.pushtalk.server.api.user.UserInfoServlet;
 import org.pushtalk.server.api.user.UserLoginServlet;
 import org.pushtalk.server.api.user.UserRegisterServlet;
 import org.pushtalk.server.api.user.UserUpdateServlet;
@@ -42,6 +43,7 @@ public class JettyServer
         context.addServlet(new ServletHolder(new UserLoginServlet()), "/user/login");
         context.addServlet(new ServletHolder(new UserUpdateServlet()), "/user/update");
         context.addServlet(new ServletHolder(new UserRegisterServlet()), "/user/register");
+        context.addServlet(new ServletHolder(new UserInfoServlet()), "/user/info");
 
         // friend
         context.addServlet(new ServletHolder(new FriendAddServlet()), "/friend/add");
@@ -49,8 +51,7 @@ public class JettyServer
         context.addServlet(new ServletHolder(new FriendSearchServlet()), "/friend/search");
         context.addServlet(new ServletHolder(new FriendListServlet()), "/friend/list");
 
-        
-        //test api
+        // test api
         context.addServlet(new ServletHolder(new TestServlet()), "/test/test");
 
         server.start();

@@ -41,44 +41,6 @@ public class User
         region = null;
     }
 
-    // insert user to database
-    public int insertUser()
-    {
-        String sql = "INSERT INTO USER values (?,?,?,?,?,?,?,?,?)";
-        PreparedStatement st = null;
-        try
-        {
-            st = H2Database.getInstance().getPreparedStatement(sql);
-            st.setString(1, null); // id self increase
-            st.setString(2, mail);
-            st.setString(3, username);
-            st.setString(4, userpwd);
-            st.setString(5, nickname);
-            st.setString(6, birthday);
-            st.setString(7, signature);
-            st.setString(8, gender);
-            st.setString(9, region);
-
-            return st.executeUpdate();
-        } catch (SQLException e)
-        {
-            LOG.error("insert user error", e);
-            return 0;
-        } finally
-        {
-            try
-            {
-                Connection conn = st.getConnection();
-                st.close();
-                conn.close();
-            } catch (SQLException e)
-            {
-                LOG.error("insert user error", e);
-                return 0;
-            }
-        }
-    }
-
     @Override
     public String toString()
     {
@@ -177,6 +139,83 @@ public class User
     }
 
     // instance method start--------------------------------------------------
+
+    // insert user to database
+    public int insertUser()
+    {
+        String sql = "INSERT INTO USER values (?,?,?,?,?,?,?,?,?)";
+        PreparedStatement st = null;
+        try
+        {
+            st = H2Database.getInstance().getPreparedStatement(sql);
+            st.setString(1, null); // id self increase
+            st.setString(2, mail);
+            st.setString(3, username);
+            st.setString(4, userpwd);
+            st.setString(5, nickname);
+            st.setString(6, birthday);
+            st.setString(7, signature);
+            st.setString(8, gender);
+            st.setString(9, region);
+
+            return st.executeUpdate();
+        } catch (SQLException e)
+        {
+            LOG.error("insert user error", e);
+            return 0;
+        } finally
+        {
+            try
+            {
+                Connection conn = st.getConnection();
+                st.close();
+                conn.close();
+            } catch (SQLException e)
+            {
+                LOG.error("insert user error", e);
+                return 0;
+            }
+        }
+    }
+
+    // update userinfo
+    public int updateUserinfo()
+    {
+        String sql = "UPDATE USER SET ID=?, MAIL=?, USERPWD=?, NICKNAME=?, BIRTHDAY=?, SIGNATURE=?, GENDER=?, REGION=? WHERE USERNAME=?";
+        PreparedStatement st = null;
+        try
+        {
+            st = H2Database.getInstance().getPreparedStatement(sql);
+            st.setInt(1, id);
+            st.setString(2, mail);
+            st.setString(3, userpwd);
+            st.setString(4, nickname);
+            st.setString(5, birthday);
+            st.setString(6, signature);
+            st.setString(7, gender);
+            st.setString(8, region);
+            st.setString(9, username);
+
+            return st.executeUpdate();
+        } catch (SQLException e)
+        {
+            LOG.error("update user error", e);
+            return 0;
+        } finally
+        {
+            try
+            {
+                Connection conn = st.getConnection();
+                st.close();
+                conn.close();
+            } catch (SQLException e)
+            {
+                LOG.error("update user error", e);
+                return 0;
+            }
+        }
+    }
+
     public boolean isExist()
     {
 
@@ -223,6 +262,48 @@ public class User
         return "CREATE TABLE USER (\n" + "  id int identity(1,1) PRIMARY KEY,\n" + "    mail VARCHAR (50),\n" + "   username VARCHAR (50),\n"
                 + " userpwd VARCHAR (50),\n" + "    nickname VARCHAR (50),\n" + "   birthday VARCHAR (50),\n" + "   signature VARCHAR (50),\n"
                 + " gender VARCHAR (50),\n" + " region VARCHAR (50)\n" + ")";
+    }
+
+    public static User getUserBy(String username)
+    {
+        List<User> users = null;
+
+        String sql = "select * from user where username='" + username + "'";
+        Statement st = null;
+        try
+        {
+            st = H2Database.getInstance().getStatement();
+            users = getUsersFromRS(st.executeQuery(sql));
+
+        } catch (SQLException e)
+        {
+            LOG.error("insert user error", e);
+
+        } finally
+        {
+            try
+            {
+                Connection conn = st.getConnection();
+                st.close();
+                conn.close();
+            } catch (SQLException e)
+            {
+                LOG.error("insert user error", e);
+            }
+        }
+        if (users.size() == 0)
+        {
+            LOG.warn("No such user with:" + username);
+            return null;
+        } else if (users.size() == 1)
+        {
+
+            return users.get(0);
+        } else
+        {
+            LOG.warn("Fatal error: too much users with:" + username);
+            return null;
+        }
     }
 
     public static List<User> getAllUsers()

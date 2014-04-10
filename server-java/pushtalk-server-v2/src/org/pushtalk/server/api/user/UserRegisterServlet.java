@@ -38,7 +38,7 @@ public class UserRegisterServlet extends NormalBaseServlet
             LOG.debug("User does not exist, insert user.");
             if (user.insertUser() == 1)
             {
-                resultJson = new RightJson(3000, "Rigestration succeed!");
+                resultJson = new RightJson(3000, "Do post succeed!");
             } else
             {
                 resultJson = new ErrorJson(1001, "DB insert error!");

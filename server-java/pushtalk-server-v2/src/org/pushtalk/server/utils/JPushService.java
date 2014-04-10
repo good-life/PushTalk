@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.pushtalk.server.Config;
 
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.common.DeviceEnum;
@@ -17,9 +18,9 @@ public class JPushService
     private static Logger LOG = Logger.getLogger(JPushService.class);
 
     // Your jpush app_key.
-    private static String APP_KEY = "b82c29c3905986e698054726";
+    private static String APP_KEY = Config.JPUSH_APPKEY;
     // Your jpush master_key.
-    private static String MASTER_KEY = "6b316faa5969d2fe40c8feec";
+    private static String MASTER_KEY = Config.JPUSH_MASTER_SECRET;
     // Your platform. (DeviceEnum.IOS for ios platform. DeviceEnum.Android for
     // android platform. Null for all platforms.)
     private static DeviceEnum device = null;
@@ -27,7 +28,7 @@ public class JPushService
     // developer enviroment.
     private static boolean apnsProductionOrNot = false;
     // Offline msg's time to live. 0~864000(10 days)
-    private static long timeToLive = 0;
+    private static long timeToLive = 864000;
 
     public static void sendMsgTo(String msg, String alias)
     {
