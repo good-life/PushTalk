@@ -35,7 +35,9 @@
 * 页面模板使用 [Freemarker](http://freemarker.sourceforge.net/)：轻量级的 Java 页面模板引擎。
 * 打包时集成为一个整体 jar 包（包含所有的依赖包）
 
-要运行推聊服务器端，请在 github 文件下载页 <https://github.com/good-life/PushTalk/downloads/> 下载推聊服务器 jar 文件。
+要运行推聊服务器端，请在 github项目界面相关版本下载 dist/ 目录下的 pushtalk-server jar 文件。
+
+要打包 server-java，请在项目该目录下执行 mvn package 命令。
 
 使用如下命令运行服务器：
 
