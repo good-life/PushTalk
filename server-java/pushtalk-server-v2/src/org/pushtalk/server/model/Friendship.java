@@ -1,6 +1,7 @@
 package org.pushtalk.server.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,8 +14,8 @@ import org.pushtalk.server.data.h2.H2Database;
 public class Friendship
 {
     String id;
-    String user_id;
-    String friend_id;
+    String user_name;
+    String friend_name;
     String alias;
 
     static Logger LOG = Logger.getLogger(Friendship.class);
@@ -25,19 +26,16 @@ public class Friendship
         super();
     }
 
-    @Override
-    public String toString()
-    {
-        return "Friendship [id=" + id + ", user_id=" + user_id + ", friend_id=" + friend_id + ", alias=" + alias + "]";
-    }
-
     public static String getSCRIPTS_CREATE_TABLE()
     {
-        return "CREATE TABLE friendship (\n" + "	id int identity(1,1) PRIMARY KEY,\n" + "	user_id VARCHAR (50),\n" + "	friend_id VARCHAR (50),\n"
-                + "	alias VARCHAR (50)\n" + ");" + "CREATE INDEX idx_friendship_id on friendship(id);"
-                + "CREATE INDEX idx_friendship_user_id on friendship(user_id);" + "CREATE INDEX idx_friendship_friedn_id on friendship(friend_id);"
-                + "CREATE INDEX idx_friendship_alias on friendship(alias);";
+        return "CREATE TABLE friendship (\n" + "	id int identity(1,1) PRIMARY KEY,\n" + "	user_name VARCHAR (50),\n" + "	friend_name VARCHAR (50),\n"
+                + "	alias VARCHAR (50)\n" + ");";
     }
+
+    // instance method start--------------------------------------------------
+    // instance method end--------------------------------------------------
+
+    // factory method start--------------------------------------------------
 
     public String getId()
     {
@@ -49,24 +47,24 @@ public class Friendship
         this.id = id;
     }
 
-    public String getUser_id()
+    public String getUser_name()
     {
-        return user_id;
+        return user_name;
     }
 
-    public void setUser_id(String user_id)
+    public void setUser_name(String user_name)
     {
-        this.user_id = user_id;
+        this.user_name = user_name;
     }
 
-    public String getFriend_id()
+    public String getFriend_name()
     {
-        return friend_id;
+        return friend_name;
     }
 
-    public void setFriend_id(String friend_id)
+    public void setFriend_name(String friend_name)
     {
-        this.friend_id = friend_id;
+        this.friend_name = friend_name;
     }
 
     public String getAlias()
@@ -79,16 +77,11 @@ public class Friendship
         this.alias = alias;
     }
 
-    // instance method start--------------------------------------------------
-    // instance method end--------------------------------------------------
-
-    // factory method start--------------------------------------------------
-
-    public static List<Friendship> getAllFriendshipBy(int user_id)
+    public static List<Friendship> getAllFriendshipBy(String user_name)
     {
         List<Friendship> allfs = null;
 
-        String sql = "select * from friendship where user_id = " + user_id;
+        String sql = "select * from friendship where user_name = '" + user_name + "'";
         Statement st = null;
         try
         {
@@ -122,11 +115,140 @@ public class Friendship
         while (rs.next())
         {
             fs = new Friendship();
-            
+
             fss.add(fs);
         }
         return fss;
     }
+
+    public static int addFriendship(String user_name, String friend_name)
+    {
+
+        String sql = "INSERT INTO FRIENDSHIP values (?,?,?,?)";
+        PreparedStatement st = null;
+        try
+        {
+            st = H2Database.getInstance().getPreparedStatement(sql);
+            st.setString(1, null);
+            st.setString(2, user_name);
+            st.setString(3, friend_name);
+            st.setString(4, "");
+            return st.executeUpdate();
+        } catch (SQLException e)
+        {
+            LOG.error("insert friendship error", e);
+            return 0;
+        } finally
+        {
+            try
+            {
+                Connection conn = st.getConnection();
+                st.close();
+                conn.close();
+            } catch (SQLException e)
+            {
+                LOG.error("insert friendship error", e);
+                return 0;
+            }
+        }
+    }
+
+    public static int deleteFriendship(String user_name, String friend_name)
+    {
+
+        String sql = "DELETE FROM FRIENDSHIP WHERE USER_NAME=? AND FRIEND_NAME=?";
+        PreparedStatement st = null;
+        try
+        {
+            st = H2Database.getInstance().getPreparedStatement(sql);
+            st.setString(1, user_name);
+            st.setString(2, friend_name);
+            return st.executeUpdate();
+        } catch (SQLException e)
+        {
+            LOG.error("delete friendship error", e);
+            return 0;
+        } finally
+        {
+            try
+            {
+                Connection conn = st.getConnection();
+                st.close();
+                conn.close();
+            } catch (SQLException e)
+            {
+                LOG.error("delete friendship error", e);
+                return 0;
+            }
+        }
+    }
+    
+    public static String getAlias(String user_name, String friend_name)
+    {
+        //to do
+
+        String sql = "SELECT ALIAS FROM FRIENDSHIP WHERE USER_NAME=? AND FRIEND_NAME=?";
+        PreparedStatement st = null;
+        try
+        {
+            st = H2Database.getInstance().getPreparedStatement(sql);
+            st.setString(1, user_name);
+            st.setString(2, friend_name);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getString("ALIAS");
+            }
+            return null;
+        } catch (SQLException e)
+        {
+            LOG.error("delete friendship error", e);
+            return null;
+        } finally
+        {
+            try
+            {
+                Connection conn = st.getConnection();
+                st.close();
+                conn.close();
+            } catch (SQLException e)
+            {
+                LOG.error("delete friendship error", e);
+                return null;
+            }
+        }
+    }
+    
+    public static int setAlias(String user_name, String friend_name, String alias)
+    {
+
+        String sql = "UPDATE FRIENDSHIP SET ALIAS=? WHERE USER_NAME=? AND FRIEND_NAME=?";
+        PreparedStatement st = null;
+        try
+        {
+            st = H2Database.getInstance().getPreparedStatement(sql);
+            st.setString(1, alias);
+            st.setString(2, user_name);
+            st.setString(3, friend_name);
+            return st.executeUpdate();
+        } catch (SQLException e)
+        {
+            LOG.error("update alias error", e);
+            return 0;
+        } finally
+        {
+            try
+            {
+                Connection conn = st.getConnection();
+                st.close();
+                conn.close();
+            } catch (SQLException e)
+            {
+                LOG.error("update alias error", e);
+                return 0;
+            }
+        }
+    }
+    
     // factory method end--------------------------------------------------
 
 }

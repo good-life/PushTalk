@@ -5,9 +5,14 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.pushtalk.server.api.friend.FriendAddServlet;
+import org.pushtalk.server.api.friend.FriendConfirmServlet;
 import org.pushtalk.server.api.friend.FriendDeleteServlet;
+import org.pushtalk.server.api.friend.FriendGetaliasServlet;
 import org.pushtalk.server.api.friend.FriendListServlet;
 import org.pushtalk.server.api.friend.FriendSearchServlet;
+import org.pushtalk.server.api.friend.FriendSetaliasServlet;
+import org.pushtalk.server.api.message.MessageSendImageServlet;
+import org.pushtalk.server.api.message.MessageSendTextServlet;
 import org.pushtalk.server.api.user.TestServlet;
 import org.pushtalk.server.api.user.UserInfoServlet;
 import org.pushtalk.server.api.user.UserLoginServlet;
@@ -47,9 +52,16 @@ public class JettyServer
 
         // friend
         context.addServlet(new ServletHolder(new FriendAddServlet()), "/friend/add");
+        context.addServlet(new ServletHolder(new FriendConfirmServlet()), "/friend/confirm");
         context.addServlet(new ServletHolder(new FriendDeleteServlet()), "/friend/delete");
         context.addServlet(new ServletHolder(new FriendSearchServlet()), "/friend/search");
         context.addServlet(new ServletHolder(new FriendListServlet()), "/friend/list");
+        context.addServlet(new ServletHolder(new FriendSetaliasServlet()), "/friend/setalias");
+        context.addServlet(new ServletHolder(new FriendGetaliasServlet()), "/friend/getalias");
+
+        // message
+        context.addServlet(new ServletHolder(new MessageSendTextServlet()), "/message/sendtext");
+        context.addServlet(new ServletHolder(new MessageSendImageServlet()), "/message/sendimage");
 
         // test api
         context.addServlet(new ServletHolder(new TestServlet()), "/test/test");

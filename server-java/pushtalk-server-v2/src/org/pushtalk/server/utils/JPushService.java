@@ -8,6 +8,7 @@ import org.pushtalk.server.Config;
 
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.common.DeviceEnum;
+import cn.jpush.api.push.CustomMessageParams;
 import cn.jpush.api.push.IosExtras;
 import cn.jpush.api.push.MessageResult;
 import cn.jpush.api.push.NotificationParams;
@@ -30,21 +31,24 @@ public class JPushService
     // Offline msg's time to live. 0~864000(10 days)
     private static long timeToLive = 864000;
 
-    public static void sendMsgTo(String msg, String alias)
+    public static MessageResult sendMsgTo(String msg, String alias)
     {
 
         JPushClient jpushClient = new JPushClient(MASTER_KEY, APP_KEY, timeToLive, device, apnsProductionOrNot);
-        NotificationParams nps = new NotificationParams();
-        nps.setReceiverType(ReceiverTypeEnum.ALIAS);
-        nps.setReceiverValue(alias);
+        CustomMessageParams params = new CustomMessageParams();
+        params.setReceiverType(ReceiverTypeEnum.ALIAS);
+        params.setReceiverValue(alias);
+        
         IosExtras extras = new IosExtras(1, "Default");
         extras.setBadge(1);
         extras.setSound("Default");
         Map<String, Object> e = new HashMap<String, Object>();
-        e.put("ios", extras);
+//        e.put("ios", extras);
+        e.put("pushtalk_message", msg);
 
-        MessageResult msgResult = jpushClient.sendNotification(msg, nps, e);
+        MessageResult msgResult = jpushClient.sendCustomMessage("", "", params, e);
         LOG.debug("responseContent - " + msgResult.responseResult.responseContent);
+
         if (msgResult.isResultOK())
         {
             LOG.info("msgResult - " + msgResult);
@@ -61,6 +65,48 @@ public class JPushService
                 LOG.error("Other excepitons - " + msgResult.responseResult.exceptionString);
             }
         }
+        return msgResult;
+    }
+    
+    public static MessageResult sendNotifTo(String msg, String alias)
+    {
+
+        JPushClient jpushClient = new JPushClient(MASTER_KEY, APP_KEY, timeToLive, device, apnsProductionOrNot);
+        NotificationParams params = new NotificationParams();
+        params.setReceiverType(ReceiverTypeEnum.ALIAS);
+        params.setReceiverValue(alias);
+        
+//        Map<String, Object> iose = new HashMap<String, Object>();
+//        iose.put("content-available", 1);
+//        iose.put("badge", 1);
+//        iose.put("sound", "sound.caf");
+        
+        IosExtras iose = new IosExtras(1,"sound.caf");
+        
+        Map<String, Object> e = new HashMap<String, Object>();
+        e.put("ios", iose);
+        e.put("pushtalk_message", msg);
+
+        MessageResult msgResult = jpushClient.sendNotification("", params, e);
+        LOG.debug("responseContent - " + msgResult.responseResult.responseContent);
+
+        if (msgResult.isResultOK())
+        {
+            LOG.info("msgResult - " + msgResult);
+            LOG.info("messageId - " + msgResult.getMessageId());
+        } else
+        {
+            if (msgResult.getErrorCode() > 0)
+            {
+                // 业务异常
+                LOG.warn("Service error - ErrorCode: " + msgResult.getErrorCode() + ", ErrorMessage: " + msgResult.getErrorMessage());
+            } else
+            {
+                // 未到达 JPush
+                LOG.error("Other excepitons - " + msgResult.responseResult.exceptionString);
+            }
+        }
+        return msgResult;
     }
 
 }

@@ -8,29 +8,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.pushtalk.server.model.Friendship;
-import org.pushtalk.server.utils.RightJson;
 import org.pushtalk.server.web.common.NormalBaseServlet;
 
-public class FriendDeleteServlet extends NormalBaseServlet
+public class FriendSetaliasServlet extends NormalBaseServlet
 {
 
     private static final long serialVersionUID = 348660245631638687L;
-    private static Logger LOG = Logger.getLogger(FriendDeleteServlet.class);
+    private static Logger LOG = Logger.getLogger(FriendSetaliasServlet.class);
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        LOG.debug("api - /friend/delete");
+        LOG.debug("api - /friend/setalias");
 
-        Object result = null;
-        String user_name = request.getParameter("user_name");
         String friend_name = request.getParameter("friend_name");
+        String user_name = request.getParameter("user_name");
+        String alias = request.getParameter("alias");
 
-        Friendship.deleteFriendship(user_name, friend_name);
-        Friendship.deleteFriendship(friend_name, user_name);
+        Friendship.setAlias(user_name, friend_name, alias);
 
-        result = new RightJson(3000, "Do post succeed!");
-
-        response.getOutputStream().write(gson.toJson(result).getBytes());
+        response.getOutputStream().write(gson.toJson("").getBytes());
     }
 }
