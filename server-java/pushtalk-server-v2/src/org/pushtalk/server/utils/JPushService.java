@@ -1,18 +1,17 @@
 package org.pushtalk.server.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.pushtalk.server.Config;
 
 import cn.jpush.api.JPushClient;
-import cn.jpush.api.common.DeviceEnum;
-import cn.jpush.api.push.CustomMessageParams;
-import cn.jpush.api.push.IosExtras;
-import cn.jpush.api.push.MessageResult;
-import cn.jpush.api.push.NotificationParams;
-import cn.jpush.api.push.ReceiverTypeEnum;
+import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.Options;
+import cn.jpush.api.push.model.Platform;
+import cn.jpush.api.push.model.PushPayload;
+import cn.jpush.api.push.model.audience.Audience;
+import cn.jpush.api.push.model.notification.AndroidNotification;
+import cn.jpush.api.push.model.notification.IosNotification;
+import cn.jpush.api.push.model.notification.Notification;
 
 public class JPushService
 {
@@ -22,91 +21,72 @@ public class JPushService
     private static String APP_KEY = Config.JPUSH_APPKEY;
     // Your jpush master_key.
     private static String MASTER_KEY = Config.JPUSH_MASTER_SECRET;
-    // Your platform. (DeviceEnum.IOS for ios platform. DeviceEnum.Android for
-    // android platform. Null for all platforms.)
-    private static DeviceEnum device = null;
     // This is for ios platform only. true for production enviroment. false for
     // developer enviroment.
     private static boolean apnsProductionOrNot = false;
     // Offline msg's time to live. 0~864000(10 days)
     private static long timeToLive = 864000;
 
-    public static MessageResult sendMsgTo(String msg, String alias)
+    public static PushResult sendMsgTo(String msg, String alias)
     {
 
-        JPushClient jpushClient = new JPushClient(MASTER_KEY, APP_KEY, timeToLive, device, apnsProductionOrNot);
-        CustomMessageParams params = new CustomMessageParams();
-        params.setReceiverType(ReceiverTypeEnum.ALIAS);
-        params.setReceiverValue(alias);
-        
-        IosExtras extras = new IosExtras(1, "Default");
-        extras.setBadge(1);
-        extras.setSound("Default");
-        Map<String, Object> e = new HashMap<String, Object>();
-//        e.put("ios", extras);
-        e.put("pushtalk_message", msg);
+        JPushClient jpushClient = new JPushClient(MASTER_KEY, APP_KEY);
 
-        MessageResult msgResult = jpushClient.sendCustomMessage("", "", params, e);
-        LOG.debug("responseContent - " + msgResult.responseResult.responseContent);
+        PushPayload payload = PushPayload
+                .newBuilder()
+                .setPlatform(Platform.all())
+                .setOptions(Options.newBuilder().setApnsProduction(apnsProductionOrNot).setTimeToLive(timeToLive).build())
+                .setAudience(Audience.all())
+                .setNotification(
+                        Notification
+                                .newBuilder()
+                                .addPlatformNotification(AndroidNotification.newBuilder().setAlert(msg).build())
+                                .addPlatformNotification(
+                                        IosNotification.newBuilder().setAlert(msg).setBadge(1).setSound("default").addExtra("hello", "123").setContentAvailable(false).build()).build())
+                .build();
+        LOG.info("Paylaod JSON - " + payload.toString());
 
-        if (msgResult.isResultOK())
+        PushResult result = jpushClient.sendPush(payload);
+        if (result.isResultOK())
         {
-            LOG.info("msgResult - " + msgResult);
-            LOG.info("messageId - " + msgResult.getMessageId());
+            LOG.debug(result.toString());
         } else
         {
-            if (msgResult.getErrorCode() > 0)
+            if (result.getErrorCode() > 0)
             {
-                // 业务异常
-                LOG.warn("Service error - ErrorCode: " + msgResult.getErrorCode() + ", ErrorMessage: " + msgResult.getErrorMessage());
+                LOG.warn(result.getOriginalContent());
             } else
             {
-                // 未到达 JPush
-                LOG.error("Other excepitons - " + msgResult.responseResult.exceptionString);
+                LOG.debug("Maybe connect error. Retry laster. ");
             }
         }
-        return msgResult;
+        return result;
     }
-    
-    public static MessageResult sendNotifTo(String msg, String alias)
+
+    public static PushResult sendNotifTo(String msg, String alias)
     {
 
-        JPushClient jpushClient = new JPushClient(MASTER_KEY, APP_KEY, timeToLive, device, apnsProductionOrNot);
-        NotificationParams params = new NotificationParams();
-        params.setReceiverType(ReceiverTypeEnum.ALIAS);
-        params.setReceiverValue(alias);
-        
-//        Map<String, Object> iose = new HashMap<String, Object>();
-//        iose.put("content-available", 1);
-//        iose.put("badge", 1);
-//        iose.put("sound", "sound.caf");
-        
-        IosExtras iose = new IosExtras(1,"sound.caf");
-        
-        Map<String, Object> e = new HashMap<String, Object>();
-        e.put("ios", iose);
-        e.put("pushtalk_message", msg);
+        JPushClient jpushClient = new JPushClient(MASTER_KEY, APP_KEY);
 
-        MessageResult msgResult = jpushClient.sendNotification("", params, e);
-        LOG.debug("responseContent - " + msgResult.responseResult.responseContent);
+        PushPayload payload = PushPayload.newBuilder().setPlatform(Platform.all()).setAudience(Audience.alias(alias)).setNotification(Notification.alert(msg))
+                .build();
+        LOG.info("Paylaod JSON - " + payload.toString());
 
-        if (msgResult.isResultOK())
+        PushResult result = jpushClient.sendPush(payload);
+        if (result.isResultOK())
         {
-            LOG.info("msgResult - " + msgResult);
-            LOG.info("messageId - " + msgResult.getMessageId());
+            LOG.debug(result.toString());
         } else
         {
-            if (msgResult.getErrorCode() > 0)
+            if (result.getErrorCode() > 0)
             {
-                // 业务异常
-                LOG.warn("Service error - ErrorCode: " + msgResult.getErrorCode() + ", ErrorMessage: " + msgResult.getErrorMessage());
+                LOG.warn(result.getOriginalContent());
             } else
             {
-                // 未到达 JPush
-                LOG.error("Other excepitons - " + msgResult.responseResult.exceptionString);
+                LOG.debug("Maybe connect error. Retry laster. ");
             }
         }
-        return msgResult;
+        return result;
     }
 
 }

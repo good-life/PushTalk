@@ -23,12 +23,8 @@ public class TestServlet extends NormalBaseServlet
 
         // List<User> users = User.getAllUsers();
         // RightJson rj = new RightJson(1001, users);
-        
-        for (int i = 1; i <= 700; i++)
-        {
-            JPushService.sendMsgTo("18611343321", "你好");
 
-        }
+        JPushService.sendMsgTo("你好","18611343321");
 
         response.getOutputStream().write(gson.toJson("").getBytes());
     }
