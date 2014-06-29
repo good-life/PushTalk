@@ -2,6 +2,7 @@ gen/
 bin/
 classes/
 .settings/
+target/
 
 *.class
 .DS_Store
