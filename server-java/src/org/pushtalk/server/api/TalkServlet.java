@@ -17,16 +17,17 @@ import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
 
 import cn.jpush.api.JPushClient;
-import cn.jpush.api.push.CustomMessageParams;
-import cn.jpush.api.push.MessageResult;
-import cn.jpush.api.push.ReceiverTypeEnum;
+import cn.jpush.api.common.APIConnectionException;
+import cn.jpush.api.common.APIRequestException;
+import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.Platform;
+import cn.jpush.api.push.model.PushPayload;
+import cn.jpush.api.push.model.audience.Audience;
 
 public class TalkServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
     private static Logger LOG = Logger.getLogger(TalkServlet.class);
 
-    // 第次重新启动，会以不同的 sendNo 作为起点，从而避免重复记录
-	private static int sendId = getRandomSendNo();
 	private static final JPushClient jpushClient = new JPushClient(
 				Config.JPUSH_MASTER_SECRET,Config.JPUSH_APPKEY);
 
@@ -54,47 +55,42 @@ public class TalkServlet extends FreemarkerBaseServlet {
         LOG.debug("udid (" + udid +") talk:" + content);
         
         String chatting = null;
-        MessageResult msgResult = null;
+        PushResult result = null;
         String myName = talkService.getUserByUdid(udid).getName();
-    	
+
+        PushPayload.Builder payload = PushPayload.newBuilder()
+                .setPlatform(Platform.android_ios());
+        
         if (null != channelName) {
             Channel channel = talkService.getChannelByName(channelName);
             if (null == channel) {
                 data.put("error", "the channel does not exist - " + channelName);
             } else {
-            	sendId ++;
-	            Map<String, Object> extras = new HashMap<String, Object>();
+	            Map<String, String> extras = new HashMap<String, String>();
 	            extras.put("channel", channelName);
-	            extras.put("sendNo", sendId);
-	            
-                CustomMessageParams params = new CustomMessageParams();
-                params.setReceiverType(ReceiverTypeEnum.TAG);
-                params.setReceiverValue(ServiceUtils.postfixAliasAndTag(channelName));
-                msgResult = jpushClient.sendCustomMessage(myName, content, params, extras);
+	            payload = payload
+	                    .setAudience(Audience.tag(ServiceUtils.postfixAliasAndTag(channelName)))
+	                    .setMessage(cn.jpush.api.push.model.Message.newBuilder()
+	                            .setMsgContent(content)
+	                            .addExtras(extras)
+	                            .build());
 	            
 	            chatting = ServiceUtils.getChattingChannel(channelName);
             }
         } else {
-        	sendId ++;
-            Map<String, Object> extras = new HashMap<String, Object>();
-            extras.put("sendNo", sendId);
-            
-            CustomMessageParams params = new CustomMessageParams();
-            params.setReceiverType(ReceiverTypeEnum.ALIAS);
-            params.setReceiverValue(ServiceUtils.postfixAliasAndTag(friend));
-            msgResult = jpushClient.sendCustomMessage(myName, content, params, extras);
+        	payload = payload
+        	        .setAudience(Audience.alias(ServiceUtils.postfixAliasAndTag(friend)))
+                    .setMessage(cn.jpush.api.push.model.Message.newBuilder()
+                            .setMsgContent(content)
+                            .build());
             
             chatting = ServiceUtils.getChattingChannel(myName, friend);
         }
         
-        if (!msgResult.isResultOK()) {
-            String info = "Send msg error - errorCode:" + msgResult.getErrorCode()
-                    + ", errorMsg:" + msgResult.getErrorMessage();
-            LOG.error(info);
-            data.put("error", info);
+        try {
+            result = jpushClient.sendPush(payload.build());
             
-        } else {
-            Message message = new Message(msgResult.getSendNo(), myName, content, channelName);
+            Message message = new Message(result.sendno, myName, content, channelName);
             talkService.putMessage(udid, chatting, message);
             
             if (null != friend) {
@@ -106,7 +102,17 @@ public class TalkServlet extends FreemarkerBaseServlet {
             data.put("sent", true);
             data.put("message", message);
             data.put("chatNo", chatNo);
+            
+        } catch (APIConnectionException e) {
+            // TODO: need retry
+            
+        } catch (APIRequestException e) {
+            String info = "Send msg error - errorCode:" + e.getErrorCode()
+                    + ", errorMsg:" + e.getErrorMessage();
+            LOG.error(info);
+            data.put("error", info);
         }
+        
         processJSON(response, data);
 	}
 	

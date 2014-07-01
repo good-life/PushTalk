@@ -8,7 +8,6 @@ import org.pushtalk.android.Global;
 import org.pushtalk.android.utils.AndroidUtil;
 import org.pushtalk.android.utils.StringUtils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
@@ -28,7 +27,7 @@ public class WebHelper {
 	}
 	
 	
-	@SuppressLint("SetJavaScriptEnabled")
+	//@SuppressLint("SetJavaScriptEnabled")
     public static void setDefaultWebviewSettings(WebView webView) {
         WebSettings settings = webView.getSettings();
 		settings.setJavaScriptEnabled(true);
