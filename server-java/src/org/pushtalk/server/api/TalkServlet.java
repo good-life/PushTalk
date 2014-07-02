@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.jpush.api.push.model.notification.Notification;
 import org.apache.commons.lang.StringUtils;
 import org.pushtalk.server.Config;
 import org.pushtalk.server.model.Channel;
@@ -71,19 +72,20 @@ public class TalkServlet extends FreemarkerBaseServlet {
 	            Map<String, String> extras = new HashMap<String, String>();
 	            extras.put("channel", channelName);
 	            payload = payload
+                        .setNotification(Notification.ios(content, extras))
 	                    .setAudience(Audience.tag(ServiceUtils.postfixAliasAndTag(channelName)))
 	                    .setMessage(cn.jpush.api.push.model.Message.newBuilder()
 	                            .setMsgContent(content)
 	                            .addExtras(extras)
                                 .setTitle(myName)
 	                            .build());
-	            
+
 	            chatting = ServiceUtils.getChattingChannel(channelName);
             }
         } else {
             //个人聊天
-            //Map<String, String> extras = new HashMap<String, String>();
         	payload = payload
+                    .setNotification(Notification.ios(content, new HashMap<String, String>()))
         	        .setAudience(Audience.alias(ServiceUtils.postfixAliasAndTag(friend)))
                     .setMessage(cn.jpush.api.push.model.Message.newBuilder()
                             .setMsgContent(content)
