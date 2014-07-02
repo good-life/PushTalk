@@ -10,16 +10,17 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.pushtalk.server.Config;
 import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.User;
 import org.pushtalk.server.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
 public class H2Database {
-    static Logger LOG = Logger.getLogger(H2Database.class);
+    static Logger LOG = LoggerFactory.getLogger(H2Database.class);
     
     private static final String DB_PATH_FILE = "~/pushtalk";
     private static final String DB_USERNAME = "sa";

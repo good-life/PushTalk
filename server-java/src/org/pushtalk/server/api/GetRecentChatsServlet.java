@@ -7,16 +7,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.pushtalk.server.model.RecentChat;
 import org.pushtalk.server.model.User;
 import org.pushtalk.server.web.common.NormalBaseServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GetRecentChatsServlet extends NormalBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
-    private static Logger LOG = Logger.getLogger(GetRecentChatsServlet.class);
+    private static Logger LOG = LoggerFactory.getLogger(GetRecentChatsServlet.class);
     
-
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) 

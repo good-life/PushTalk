@@ -8,15 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.pushtalk.server.data.TalkService;
 import org.pushtalk.server.data.h2.TalkServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
 public class NormalBaseServlet extends HttpServlet {
     private static final long serialVersionUID = 1138134467003532522L;
-    private static Logger LOG = Logger.getLogger(NormalBaseServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NormalBaseServlet.class);
 
     protected static TalkService talkService;
     protected static Gson gson = new Gson();

@@ -7,14 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.pushtalk.server.model.User;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.NormalBaseServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UnreadMessageServlet extends NormalBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
-    private static Logger LOG = Logger.getLogger(UnreadMessageServlet.class);
+    private static Logger LOG = LoggerFactory.getLogger(UnreadMessageServlet.class);
     
 
     @Override

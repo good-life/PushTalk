@@ -3,11 +3,12 @@ package org.pushtalk.server.model;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
 import org.pushtalk.server.utils.ServiceUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RecentChat implements Comparable<RecentChat> {
-    static Logger LOG = Logger.getLogger(RecentChat.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RecentChat.class);
 
     String chatting;
     boolean isChannel;

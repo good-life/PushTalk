@@ -4,11 +4,12 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.pushtalk.server.Config;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ServiceUtils {
-    private static Logger LOG = Logger.getLogger(ServiceUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServiceUtils.class);
 
     private static final String SERVICE_ID_PREFIX = "_";
     public static final String CHANNEL_PREFIX = "#";

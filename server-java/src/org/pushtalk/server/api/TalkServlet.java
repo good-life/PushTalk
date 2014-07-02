@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.pushtalk.server.Config;
 import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.Message;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.common.APIConnectionException;
@@ -24,10 +25,9 @@ import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
 
-
 public class TalkServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
-    private static Logger LOG = Logger.getLogger(TalkServlet.class);
+    private static Logger LOG = LoggerFactory.getLogger(TalkServlet.class);
 
 	private static final JPushClient jpushClient = new JPushClient(
 				Config.JPUSH_MASTER_SECRET,Config.JPUSH_APPKEY);

@@ -3,19 +3,22 @@ package org.pushtalk.server.web;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
+
 import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.User;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.utils.StringUtils;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ChattingServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
-    private static Logger LOG = Logger.getLogger(ChattingServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ChattingServlet.class);
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override

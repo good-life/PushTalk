@@ -1,6 +1,5 @@
 package org.pushtalk.server;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -20,9 +19,11 @@ import org.pushtalk.server.web.NewChannelServlet;
 import org.pushtalk.server.web.RootServlet;
 import org.pushtalk.server.web.UserChangeNameServlet;
 import org.pushtalk.server.web.UserRegisterServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JettyServer {
-    static Logger LOG = Logger.getLogger(JettyServer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JettyServer.class);
     
 	public static void main(String[] args) throws Exception {
 		int port = 10010;

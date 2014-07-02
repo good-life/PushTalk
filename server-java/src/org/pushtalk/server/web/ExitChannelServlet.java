@@ -6,12 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.pushtalk.server.web.common.FreemarkerBaseServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExitChannelServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
-    private static Logger LOG = Logger.getLogger(ExitChannelServlet.class);
+    private static Logger LOG = LoggerFactory.getLogger(ExitChannelServlet.class);
 
 
 	@Override

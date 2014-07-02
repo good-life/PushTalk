@@ -8,20 +8,21 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
 import org.pushtalk.server.Config;
 import org.pushtalk.server.data.TalkService;
 import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.Message;
 import org.pushtalk.server.model.RecentChat;
 import org.pushtalk.server.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Sets;
 
 public class TalkServiceImpl implements TalkService {
-    private static Logger LOG = Logger.getLogger(TalkServiceImpl.class);
+    static Logger LOG = LoggerFactory.getLogger(TalkServiceImpl.class);
 
     // key: chatting channel;    Cache: message
     private final Map<String, Cache<Message, String>> mMessagesMap;

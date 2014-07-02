@@ -10,19 +10,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.User;
 import org.pushtalk.server.utils.ServiceUtils;
 import org.pushtalk.server.web.common.NormalBaseServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
 public class UserInfoServlet extends NormalBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
-    private static Logger LOG = Logger.getLogger(UserInfoServlet.class);
+    private static Logger LOG = LoggerFactory.getLogger(UserInfoServlet.class);
     
-
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) 
