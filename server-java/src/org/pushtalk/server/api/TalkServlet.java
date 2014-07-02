@@ -24,6 +24,7 @@ import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
 
+
 public class TalkServlet extends FreemarkerBaseServlet {
 	private static final long serialVersionUID = 348660245631638687L;
     private static Logger LOG = Logger.getLogger(TalkServlet.class);
@@ -66,6 +67,7 @@ public class TalkServlet extends FreemarkerBaseServlet {
             if (null == channel) {
                 data.put("error", "the channel does not exist - " + channelName);
             } else {
+                //群组聊天
 	            Map<String, String> extras = new HashMap<String, String>();
 	            extras.put("channel", channelName);
 	            payload = payload
@@ -73,15 +75,20 @@ public class TalkServlet extends FreemarkerBaseServlet {
 	                    .setMessage(cn.jpush.api.push.model.Message.newBuilder()
 	                            .setMsgContent(content)
 	                            .addExtras(extras)
+                                .setTitle(myName)
 	                            .build());
 	            
 	            chatting = ServiceUtils.getChattingChannel(channelName);
             }
         } else {
+            //个人聊天
+            //Map<String, String> extras = new HashMap<String, String>();
         	payload = payload
         	        .setAudience(Audience.alias(ServiceUtils.postfixAliasAndTag(friend)))
                     .setMessage(cn.jpush.api.push.model.Message.newBuilder()
                             .setMsgContent(content)
+                            .setTitle(myName)
+                            .addExtras(new HashMap<String, String>())
                             .build());
             
             chatting = ServiceUtils.getChattingChannel(myName, friend);

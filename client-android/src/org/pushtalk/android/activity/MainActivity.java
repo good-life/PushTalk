@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +18,7 @@ import org.pushtalk.android.web.TalkWebChromeClient;
 import org.pushtalk.android.web.TalkWebViewCallback;
 import org.pushtalk.android.web.TalkWebViewClient;
 import org.pushtalk.android.web.WebHelper;
-
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +26,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -36,7 +36,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
+@SuppressLint("JavascriptInterface")
 public class MainActivity extends WebBaseActivity {
 	private static final String TAG = "MainActivity";
 
@@ -302,7 +304,15 @@ public class MainActivity extends WebBaseActivity {
 		Config.myChannels = myChannels;
 
 		// reset to jpush
-		JPushInterface.setAliasAndTags(MainActivity.this, myChattingName, myChannels);
+		JPushInterface.setAliasAndTags(MainActivity.this, myChattingName, myChannels, new TagAliasCallback() {
+			
+			@Override
+			public void gotResult(int code, String alias, Set<String> tags) {
+				Log.d(TAG, "[TagAliasCallback], code: " + code);
+				Log.d(TAG, "[TagAliasCallback], code: " + alias);
+				Log.d(TAG, "[TagAliasCallback], code: " + tags);
+			}
+		});
 	}
 
 	private void newThreadToReset() {

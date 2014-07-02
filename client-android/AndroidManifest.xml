@@ -4,8 +4,8 @@
     android:versionName="0.2.6" >
 
     <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="10"
+        android:targetSdkVersion="19" />
 
     <permission
         android:name="org.pushtalk.android.permission.JPUSH_MESSAGE"
@@ -29,6 +29,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     
     <application
         android:icon="@drawable/ic_launcher"

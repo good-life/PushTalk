@@ -19,6 +19,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 
 public class TalkReceiver extends BroadcastReceiver {
@@ -60,7 +61,10 @@ public class TalkReceiver extends BroadcastReceiver {
     private void processCustomMessage(Context context, Bundle bundle) {
         String title = bundle.getString(JPushInterface.EXTRA_TITLE);
         String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-
+        Log.d(TAG, "[processCustomMessage]msg_content: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+        Log.d(TAG, "[processCustomMessage]content_type: " + bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE));
+        Log.d(TAG, "[processCustomMessage]extras: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
+        Log.d(TAG, "[processCustomMessage]title: " + bundle.getString(JPushInterface.EXTRA_TITLE));
         if (StringUtils.isEmpty(title)) {
             Logger.w(TAG, "Unexpected: empty title (friend). Give up");
             return;
