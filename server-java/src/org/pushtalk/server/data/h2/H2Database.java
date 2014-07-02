@@ -16,8 +16,7 @@ import org.pushtalk.server.model.Channel;
 import org.pushtalk.server.model.User;
 import org.pushtalk.server.utils.StringUtils;
 
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
+import com.alibaba.druid.pool.DruidDataSource;
 
 public class H2Database {
     static Logger LOG = Logger.getLogger(H2Database.class);
@@ -419,8 +418,12 @@ public class H2Database {
 			throw new SQLException("h2 database driver not found");
 		}
 		
+		
         Statement st = null;
     	try {
+            _dataSource = createDriudDataSource();
+            
+            
     		st = getStatement();
     		Connection conn = st.getConnection();
     		DatabaseMetaData meta = conn.getMetaData();
@@ -487,29 +490,8 @@ public class H2Database {
     
 
     
-    private static BoneCP connectionPool;
-    private BoneCP getConnectionPool() throws SQLException {
-    	if (null == connectionPool) {
-    	    LOG.info("Creating connection pool");
-			BoneCPConfig config = new BoneCPConfig();
-			config.setJdbcUrl("jdbc:h2:file:" + DB_PATH_FILE);
-			config.setUsername(DB_USERNAME); 
-			config.setPassword(DB_PASSWORD);
-			
-			config.setMinConnectionsPerPartition(5);
-			config.setMaxConnectionsPerPartition(20);
-			config.setPartitionCount(1);
-			
-			connectionPool = new BoneCP(config);
-			
-			LOG.info("Succeed to create connection pool.");
-    	}
-    	
-    	return connectionPool;
-    }
-    
     private Statement getStatement() throws SQLException {
-		Connection connection = getConnectionPool().getConnection();
+		Connection connection = _dataSource.getConnection();
 		if (connection == null){
 			throw new SQLException("Unexpected: cannot get connection from pool");
 		}
@@ -517,11 +499,33 @@ public class H2Database {
     }
     
     private PreparedStatement getPreparedStatement(String sql) throws SQLException {
-		Connection connection = getConnectionPool().getConnection();
+		Connection connection = _dataSource.getConnection();
 		if (connection == null){
 			throw new SQLException("Unexpected: cannot get connection from pool");
 		}
         return connection.prepareStatement(sql);
+    }
+    
+    private static DruidDataSource _dataSource;
+    public static DruidDataSource createDriudDataSource() {
+        DruidDataSource dataSource = new DruidDataSource();
+
+        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setUrl("jdbc:h2:file:" + DB_PATH_FILE);
+        dataSource.setUsername(DB_USERNAME);
+        dataSource.setPassword(DB_PASSWORD);
+        
+        dataSource.setMaxActive(20);
+        
+        dataSource.setPoolPreparedStatements(true);
+        dataSource.setMaxOpenPreparedStatements(50);
+                
+        dataSource.setTestWhileIdle(false);
+        
+        LOG.info("Datasource params - " + dataSource.getUsername() + ", "
+                + dataSource.getPassword() + ", " + dataSource.getUrl());
+        
+        return dataSource;
     }
     
     private Channel fromResultSetChannel(ResultSet rs) throws SQLException {
