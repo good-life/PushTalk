@@ -72,7 +72,7 @@ public class TalkServlet extends FreemarkerBaseServlet {
 	            Map<String, String> extras = new HashMap<String, String>();
 	            extras.put("channel", channelName);
 	            payload = payload
-                        .setNotification(Notification.ios(content, extras))
+                        .setNotification(Notification.ios(myName + " 给您发送了一条信息", extras))
 	                    .setAudience(Audience.tag(ServiceUtils.postfixAliasAndTag(channelName)))
 	                    .setMessage(cn.jpush.api.push.model.Message.newBuilder()
 	                            .setMsgContent(content)
@@ -85,7 +85,7 @@ public class TalkServlet extends FreemarkerBaseServlet {
         } else {
             //个人聊天
         	payload = payload
-                    .setNotification(Notification.ios(content, new HashMap<String, String>()))
+                    .setNotification(Notification.ios(myName + " 给您发送了一条信息", new HashMap<String, String>()))
         	        .setAudience(Audience.alias(ServiceUtils.postfixAliasAndTag(friend)))
                     .setMessage(cn.jpush.api.push.model.Message.newBuilder()
                             .setMsgContent(content)
