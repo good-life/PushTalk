@@ -14,8 +14,7 @@
 		5A631A451689A1EB00770B5A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A631A091689A1EA00770B5A /* Default.png */; };
 		5A631A461689A1EB00770B5A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A631A0A1689A1EA00770B5A /* Default@2x.png */; };
 		5A631A471689A1EB00770B5A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A631A0B1689A1EA00770B5A /* icon.png */; };
-		5A631A481689A1EB00770B5A /* libPushSDK-Simulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A631A151689A1EA00770B5A /* libPushSDK-Simulator.a */; };
-		5A631A491689A1EB00770B5A /* libPushSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A631A161689A1EA00770B5A /* libPushSDK.a */; };
+		5A631A491689A1EB00770B5A /* libPushSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A631A161689A1EA00770B5A /* libPushSDK.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		5A631A4A1689A1EB00770B5A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A631A181689A1EA00770B5A /* main.m */; };
 		5A631A4B1689A1EB00770B5A /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A631A191689A1EA00770B5A /* PushConfig.plist */; };
 		5A631A4C1689A1EB00770B5A /* PushTalk-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A631A1A1689A1EA00770B5A /* PushTalk-Info.plist */; };
@@ -42,6 +41,9 @@
 		5A8EBB6716898B3A00797022 /* TelephonyUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6616898B3A00797022 /* TelephonyUI.framework */; };
 		5A8EBB6916898B4F00797022 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8EBB6816898B4F00797022 /* CoreTelephony.framework */; };
 		5AAE28D216E5DDF3002A3127 /* InfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAE28D116E5DDF3002A3127 /* InfoDetailViewController.m */; };
+		A3D2F4F0196BDA22002E9B87 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D2F4EF196BDA22002E9B87 /* CoreFoundation.framework */; };
+		A3D2F4F2196BDA67002E9B87 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D2F4F1196BDA67002E9B87 /* Security.framework */; };
+		A3D2F4F4196BDA6F002E9B87 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D2F4F3196BDA6F002E9B87 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +110,9 @@
 		5A8EBB6816898B4F00797022 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		5AAE28D016E5DDF3002A3127 /* InfoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoDetailViewController.h; sourceTree = "<group>"; };
 		5AAE28D116E5DDF3002A3127 /* InfoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoDetailViewController.m; sourceTree = "<group>"; };
+		A3D2F4EF196BDA22002E9B87 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		A3D2F4F1196BDA67002E9B87 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A3D2F4F3196BDA6F002E9B87 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,14 +120,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A8EBB6916898B4F00797022 /* CoreTelephony.framework in Frameworks */,
-				5A8EBB6716898B3A00797022 /* TelephonyUI.framework in Frameworks */,
-				5A8EBB6516898B2D00797022 /* CFNetwork.framework in Frameworks */,
-				5A8EBB6216898B2400797022 /* SystemConfiguration.framework in Frameworks */,
+				A3D2F4F4196BDA6F002E9B87 /* libz.dylib in Frameworks */,
+				A3D2F4F2196BDA67002E9B87 /* Security.framework in Frameworks */,
 				5A8EBAE3168989D800797022 /* UIKit.framework in Frameworks */,
 				5A8EBAE5168989D800797022 /* Foundation.framework in Frameworks */,
 				5A8EBAE7168989D800797022 /* CoreGraphics.framework in Frameworks */,
-				5A631A481689A1EB00770B5A /* libPushSDK-Simulator.a in Frameworks */,
+				5A8EBB6216898B2400797022 /* SystemConfiguration.framework in Frameworks */,
+				5A8EBB6916898B4F00797022 /* CoreTelephony.framework in Frameworks */,
+				A3D2F4F0196BDA22002E9B87 /* CoreFoundation.framework in Frameworks */,
+				5A8EBB6516898B2D00797022 /* CFNetwork.framework in Frameworks */,
+				5A8EBB6716898B3A00797022 /* TelephonyUI.framework in Frameworks */,
 				5A631A491689A1EB00770B5A /* libPushSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,6 +259,9 @@
 		5A8EBAE1168989D800797022 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3D2F4F3196BDA6F002E9B87 /* libz.dylib */,
+				A3D2F4F1196BDA67002E9B87 /* Security.framework */,
+				A3D2F4EF196BDA22002E9B87 /* CoreFoundation.framework */,
 				5A8EBB6816898B4F00797022 /* CoreTelephony.framework */,
 				5A8EBB6616898B3A00797022 /* TelephonyUI.framework */,
 				5A8EBB6416898B2D00797022 /* CFNetwork.framework */,
@@ -457,6 +467,7 @@
 		5A8EBAFD168989D800797022 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
@@ -470,6 +481,7 @@
 					"\"$(SRCROOT)/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1A0E900B-E24F-4B12-ACFC-8BA3224C5D65";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -477,6 +489,7 @@
 		5A8EBAFE168989D800797022 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
@@ -490,6 +503,7 @@
 					"\"$(SRCROOT)/lib\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "1A0E900B-E24F-4B12-ACFC-8BA3224C5D65";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

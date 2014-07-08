@@ -15,7 +15,7 @@
     self = [super init];
     
     if (self) {
-        _info = [info retain];
+        _info = info;
     }
     
     return self;
@@ -56,14 +56,6 @@
     [self.view addSubview:_udidLabel];
 }
 
-- (void)dealloc {
-    [_tokenLabel release];
-    [_infoLabel release];
-    [_udidLabel release];
-    [_info release];
-    
-    [super dealloc];
-}
 
 
 

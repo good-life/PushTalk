@@ -48,7 +48,7 @@
 - (BOOL)isRegistered;
 - (void)setLatestDeviceToken:(NSString *)deviceToken;
 - (void)setUploadedDeviceToken:(NSString *)deviceToken;
-- (void)setTags:(NSSet *)tags alias:(NSString *)alias;
+//- (void)setTags:(NSSet *)tags alias:(NSString *)alias;
 - (void)addTags:(NSSet *)tags;
 - (void)uploadDataIfNeeded;
 - (BOOL)synchronize; // thread safe

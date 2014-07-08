@@ -13,6 +13,6 @@
     NSString *_deviceToken;
 }
 
-@property (nonatomic,retain) NSString *deviceToken;
+@property (nonatomic,strong) NSString *deviceToken;
 
 @end

@@ -1,0 +1,8 @@
+.DS_Store
+.reviewboardrc
+/build/
+/build-*/
+*.xcuserdatad*
+PushSDK.xcodeproj/project.xcworkspace/
+
+!/PushSDK.xcodeproj/xcuserdata/apple.xcuserdatad/

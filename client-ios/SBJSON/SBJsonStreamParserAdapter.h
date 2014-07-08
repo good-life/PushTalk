@@ -117,7 +117,7 @@ typedef enum {
 */
 @interface SBJsonStreamParserAdapter : NSObject <SBJsonStreamParserDelegate> {
 @private
-	id<SBJsonStreamParserAdapterDelegate> delegate;
+	id<SBJsonStreamParserAdapterDelegate> __unsafe_unretained delegate;
 	NSUInteger levelsToSkip, depth;
     NSMutableArray *array;
     NSMutableDictionary *dict;
@@ -143,6 +143,6 @@ typedef enum {
  @brief Your delegate object
  Set this to the object you want to receive the SBJsonStreamParserAdapterDelegate messages.
  */
-@property (assign) id<SBJsonStreamParserAdapterDelegate> delegate;
+@property (unsafe_unretained) id<SBJsonStreamParserAdapterDelegate> delegate;
 
 @end

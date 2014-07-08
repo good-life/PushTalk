@@ -31,17 +31,17 @@ UIColor *kNavigationColor;
 
 @synthesize deviceToken = _deviceToken;
 
-- (void)dealloc {
-    [_window release];
-    
-    RELEASE_SAFELY(kClearColor);
-    RELEASE_SAFELY(kBlackColor);
-    RELEASE_SAFELY(kWhiteColor);
-    RELEASE_SAFELY(kThemeColor);
-    RELEASE_SAFELY(kNavigationColor);
-    
-    [super dealloc];
-}
+//- (void)dealloc {
+//    [_window release];
+//    
+//    RELEASE_SAFELY(kClearColor);
+//    RELEASE_SAFELY(kBlackColor);
+//    RELEASE_SAFELY(kWhiteColor);
+//    RELEASE_SAFELY(kThemeColor);
+//    RELEASE_SAFELY(kNavigationColor);
+//    
+//    [super dealloc];
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     APLogTrace();
@@ -54,9 +54,9 @@ UIColor *kNavigationColor;
     kPageFrame = CGRectMake(0, kVCWrapperOffsetY + kNavigationBarHeight, kScreenWidth, kVCWrapperFrame.size.height - kNavigationBarHeight);
     kPageBounds = CGRectMake(0, 0, kPageFrame.size.width, kPageFrame.size.height);
     
-    kClearColor = [[UIColor clearColor] retain];
-    kBlackColor = [[UIColor blackColor] retain];
-    kWhiteColor = [[UIColor whiteColor] retain];
+    kClearColor = [UIColor clearColor];
+    kBlackColor = [UIColor blackColor];
+    kWhiteColor = [UIColor whiteColor];
     kThemeColor = [[UIColor alloc] initWithRed:244.f/255.f green:240.f/255.f blue:231.f/255.f alpha:1];
     kNavigationColor = [[UIColor alloc] initWithRed:0.75 green:0.45 blue:0.35 alpha:1];
     
@@ -65,12 +65,11 @@ UIColor *kNavigationColor;
     
     JPushViewController *viewController = [[JPushViewController alloc] init];
     
-    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     
     [_window setRootViewController:navigationController];
     [_window makeKeyAndVisible];
     
-    [viewController release];
     
     [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
                                                    UIRemoteNotificationTypeSound |
@@ -104,7 +103,7 @@ UIColor *kNavigationColor;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    _deviceToken = [[NSString stringWithFormat:@"%@",deviceToken] retain];
+    _deviceToken = [NSString stringWithFormat:@"%@",deviceToken];
     
     [APService registerDeviceToken:deviceToken];
 }

@@ -75,10 +75,7 @@ static id kStaticStringCache;
 }
 
 - (void)dealloc {
-	self.error = nil;
     self.state = nil;
-    [stateStack release];
-	[super dealloc];
 }
 
 #pragma mark Methods
@@ -322,7 +319,7 @@ static const char *strForChar(int c) {
 }
 
 - (BOOL)writeNumber:(NSNumber*)number {
-	if ((CFBooleanRef)number == kCFBooleanTrue || (CFBooleanRef)number == kCFBooleanFalse)
+	if ((__bridge CFBooleanRef)number == kCFBooleanTrue || (__bridge CFBooleanRef)number == kCFBooleanFalse)
 		return [self writeBool:[number boolValue]];
 
 	if ([state isInvalidState:self]) return NO;
@@ -330,15 +327,15 @@ static const char *strForChar(int c) {
 	[state appendSeparator:self];
 	if (humanReadable) [state appendWhitespace:self];
 
-	if ((CFNumberRef)number == kCFNumberPositiveInfinity) {
+	if ((__bridge CFNumberRef)number == kCFNumberPositiveInfinity) {
 		self.error = @"+Infinity is not a valid number in JSON";
 		return NO;
 
-	} else if ((CFNumberRef)number == kCFNumberNegativeInfinity) {
+	} else if ((__bridge CFNumberRef)number == kCFNumberNegativeInfinity) {
 		self.error = @"-Infinity is not a valid number in JSON";
 		return NO;
 
-	} else if ((CFNumberRef)number == kCFNumberNaN) {
+	} else if ((__bridge CFNumberRef)number == kCFNumberNaN) {
 		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 

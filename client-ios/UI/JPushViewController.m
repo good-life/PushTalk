@@ -46,7 +46,7 @@
 
 - (void)loadWebView {
     APLogTrace();
-    if (nil == _webView && [[APService sharedService] isRegistered]) {
+    if (nil == _webView ) {
         APLogTrace();
         
         _leftButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)];
@@ -79,7 +79,6 @@
 - (void)infoDetail {
     InfoDetailViewController *viewController = [[InfoDetailViewController alloc] initWithInfo:_info];
     [[self navigationController] pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 - (void)viewDidLoad
@@ -95,12 +94,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [_webView release];
-    [_leftButton release];
-    
-    [super dealloc];
-}
 
 #pragma mark -
 
@@ -109,7 +102,7 @@
     
     NSRange range = [absoluteString rangeOfString:@"udid="];
     
-    NSMutableString *tempUrl = [[[NSMutableString alloc] initWithString:absoluteString] autorelease];
+    NSMutableString *tempUrl = [[NSMutableString alloc] initWithString:absoluteString];
     NSString *udid = [APService openUDID];
     
     if (range.location == NSNotFound) {
@@ -132,7 +125,7 @@
     NSString *channelExitPrefix = [HTTP_URL_PREFIX stringByAppendingString:@"channel/exit"];
     
     if ([absoluteString hasPrefix:channelEnterPrefix] || [absoluteString hasPrefix:channelExitPrefix] || [absoluteString hasPrefix:chattingPrefix]) {
-        NSThread *thread = [[[NSThread alloc] initWithTarget:self selector:@selector(resetAliasAndTags) object:nil] autorelease];
+        NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(resetAliasAndTags) object:nil];
         [thread start];
     }
     
@@ -198,43 +191,47 @@
     NSString *msg = [receiveDic JSONRepresentation];
     
     [_webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"receivedMessage('%@');",msg]];
-    [receiveDic release];
 }
 
 
 - (void)resetAliasAndTags {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
     
-    NSString *URLString = [NSString stringWithFormat:@"%@%@", HTTP_URL_PREFIX, @"api/user"];
-    URLString = [URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *URLString = [NSString stringWithFormat:@"%@%@", HTTP_URL_PREFIX, @"api/user"];
+        URLString = [URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URLString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20];
+        
+        NSMutableString *result = [[NSMutableString alloc] init];
+        [result appendFormat:@"udid=%@",[APService openUDID]];
+        
+        NSData *data = [result dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [request setHTTPBody:data];
+        [request setHTTPMethod:@"POST"];
+        
+        NSHTTPURLResponse *response = nil;
+        NSData *responseData = nil;
+        NSError *error = nil;
+        
+        
+        responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
+        if (200 == [response statusCode]) {
+            NSString *receiveString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            NSDictionary *dic = [receiveString JSONValue];
+            NSString *username = [dic objectForKey:@"username"];
+            NSArray *channels = [dic objectForKey:@"channels"];
+            ////
+            [APService setTags:[NSSet setWithArray:channels]
+                         alias:username
+              callbackSelector:@selector(tagsAliasCallback)
+                        object:self];
+        }
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:URLString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20];
-    
-    NSMutableString *result = [[[NSMutableString alloc] init] autorelease];
-    [result appendFormat:@"udid=%@",[APService openUDID]];
-    
-    NSData *data = [result dataUsingEncoding:NSUTF8StringEncoding];
-    
-    [request setHTTPBody:data];
-    [request setHTTPMethod:@"POST"];
-    
-    NSHTTPURLResponse *response = nil;
-    NSData *responseData = nil;
-    NSError *error = nil;
-    
-    
-    responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (200 == [response statusCode]) {
-        NSString *receiveString = [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease];
-        NSDictionary *dic = [receiveString JSONValue];
-        NSString *username = [dic objectForKey:@"username"];
-        NSArray *channels = [dic objectForKey:@"channels"];
-                
-        [APService setTags:[NSSet setWithArray:channels] alias:username];
     }
-    
-    [pool drain];
+}
+- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
 }
 
 @end
